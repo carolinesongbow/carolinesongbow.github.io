@@ -315,3 +315,10 @@ Slave_SQL_Running: Yes**
 	| sys                |
 	+--------------------+
 	5 rows in set (0.00 sec)
+
+
+```java
+public static void main(String[] args) {
+	System.out.println("hello world");
+}
+```
