@@ -41,9 +41,9 @@ Query OK, 0 rows affected, 1 warning (0.01 sec)
 mysql> flush privileges;
 Query OK, 0 rows affected (0.00 sec)
 ```
-backup：账号名
-password：密码
-192.168.1.50：从库IP地址
+backup：账号名  
+password：密码  
+192.168.1.50：从库IP地址  
 
 
 #### 记录主库状态
@@ -67,11 +67,11 @@ Query OK, 0 rows affected, 2 warnings (0.02 sec)
 mysql> start slave;
 Query OK, 0 rows affected (0.01 sec)
 ```
-主库状态中的 File 对应 master_log_file；
-主库状态中的 Position 对应 master_log_pos。
+主库状态中的 File 对应 master_log_file；  
+主库状态中的 Position 对应 master_log_pos。  
 
 #### 问题
-在从库执行```show slave status\G;```得出结果如下：
+在从库执行```show slave status\G;```得出结果如下：  
 ```
 mysql> show slave status\G;
 *************************** 1. row ***************************
@@ -134,9 +134,9 @@ Master_SSL_Verify_Server_Cert: No
            Master_TLS_Version: 
 1 row in set (0.00 sec)
 ```
-后检查发现原因是之前在主库中设置从库IP地址时设错了。
+后检查发现原因是之前在主库中设置从库IP地址时设错了。  
 
-于是去主库修改备份账户的IP地址：
+于是去主库修改备份账户的IP地址：  
 ```
 mysql> update user set host='192.168.1.112' where user='backup';
 Query OK, 1 row affected (0.00 sec)
@@ -144,7 +144,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
 mysql> flush privileges;
 Query OK, 0 rows affected (0.01 sec)
 ```
-再次查询从库状态：
+再次查询从库状态：  
 ```
 *************************** 1. row ***************************
                Slave_IO_State: Waiting for master to send event
@@ -205,9 +205,9 @@ Master_SSL_Verify_Server_Cert: No
                  Channel_Name: 
            Master_TLS_Version: 
 ```
-初步判断问题是由于之前在主库执行的 update 语句，导致主从库数据不一致，使得数据无法同步。
-因此在从库中执行了同样的 update 语句，依然报错。
-分析可能是由于 update 语句的执行，主库的日志偏移点发生了变化，使得从库无法同步数据。因此笔者做了如下操作：
+初步判断问题是由于之前在主库执行的 update 语句，导致主从库数据不一致，使得数据无法同步。  
+因此在从库中执行了同样的 update 语句，依然报错。  
+分析可能是由于 update 语句的执行，主库的日志偏移点发生了变化，使得从库无法同步数据。因此笔者做了如下操作：  
 ```
 # 主库：
 mysql> show master status;
@@ -232,7 +232,7 @@ Query OK, 0 rows affected (0.01 sec)
 # 重启从库的 MySQL 服务
 $ service mysqld restart
 ```
-然后查询从库状态：
+然后查询从库状态：  
 ```
 *************************** 1. row ***************************
                Slave_IO_State: Waiting for master to send event
@@ -293,26 +293,25 @@ Master_SSL_Verify_Server_Cert: No
                  Channel_Name: 
            Master_TLS_Version:
 ```
-**Slave_IO_Running: Yes
-Slave_SQL_Running: Yes**
-成功！
+**Slave_IO_Running: Yes  
+Slave_SQL_Running: Yes**  
+成功！  
+ 
+测试一下效果：  
 
-测试一下效果：
-```
-# 在主库新增一个 database
-mysql> create database mytest1221;
-Query OK, 1 row affected (0.02 sec)
-
-# 在从库查询 database
-mysql> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-| mytest1221         |
-| performance_schema |
-| sys                |
-+--------------------+
-5 rows in set (0.00 sec)
-```
+	# 在主库新增一个 database
+	mysql> create database mytest1221;
+	Query OK, 1 row affected (0.02 sec)
+	
+	# 在从库查询 database
+	mysql> show databases;
+	+--------------------+
+	| Database           |
+	+--------------------+
+	| information_schema |
+	| mysql              |
+	| mytest1221         |
+	| performance_schema |
+	| sys                |
+	+--------------------+
+	5 rows in set (0.00 sec)
