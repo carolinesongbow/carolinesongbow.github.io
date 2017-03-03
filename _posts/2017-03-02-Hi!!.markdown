@@ -1,0 +1,13 @@
+---
+layout: post
+title:  "Hi!!"
+date:   2017-03-02 23:39:54 +0800
+tags: [personal]
+---
+
+first blog
+
+终于把blog搭起来了，累！  
+等等就把在简书的东西都挪过来！  
+饿~~
+
