@@ -45,17 +45,15 @@ System.out.println(collect1);
 * flatMap  
 可以把多个流合并成一个流
 返回值是stream  
-
 ```java
 
-	List<Integer> collect = Stream.of(list1, list2).flatMap(ele -> ele.stream())  
+List<Integer> collect = Stream.of(list1, list2).flatMap(ele -> ele.stream())  
                             .collect(Collectors.toList());  
-	System.out.println(collect);  
+System.out.println(collect);  
 ```
 
 * min() & max()  
 比较  
-
 ```java  
 List<Track> tracks = Arrays.asList(new Track("imagine", 92),new Track
 					("super star", 28), new Track("halo", 64));
@@ -81,7 +79,6 @@ Integer => int : toIntFunction
 mapToInt 返回的不是一个一般的 stream，这个 stream 的 map() 等方法都用的不是原来的接口。  
 该特殊 stream 有个 summaryStatistics() 方法得到的对象中有诸多计算属性，方便计算。  
 ```java
-
 IntSummaryStatistics iss = album.getTracks().stream()
                 .mapToInt(trac -> trac.getLength())
                 .map(length -> length + 1)
@@ -170,12 +167,11 @@ Map<Boolean, List<Artist>> map = stream.collect(
    
 ### 拼接字符串    
 把流中的元素按照规律拼接成字符串。    
-```joining(元素中分隔字符，开始字符，结束字符)```
+```joining(元素中分隔字符，开始字符，结束字符)```  
 ```java  
 String collect = f4.getMembers().stream()
     			.map(Artist:: getName)
-                .collect(Collectors.joining(",","[","]"));
-  
+                .collect(Collectors.joining(",","[","]"));    
 ```
 
 ### 组合收集器  
