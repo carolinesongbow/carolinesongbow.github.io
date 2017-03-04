@@ -1,0 +1,195 @@
+---
+layout: post
+title:  "Java 1.8 学习笔记"
+date:   2017-03-04 14:39:54 +0800
+tags: [Java]
+---
+
+## java中重要的函数接口
+
+
+| 接口        | 参数           | 返回类型  | 示例  |  
+| ------------- |:-------------:| :-----:| -----:|  
+| Predicate< T > | T | boolean | 这张唱片已经发行了吗 |  
+| Consumer< T > | T | void | 输出一个值 |  
+| Function< T,R > | T | R | 获得Artist对象的名字  
+| Supplier< T > | None | T | 工厂方法  
+| UnaryOperator< T > | T | T | 逻辑非  
+| BinaryOperator< T > | (T,T) | T | 求两个数的乘积  
+
+
+## stream 中的 filter 方法和 count 方法
+filter 方法并未做什么实际性的工作，只刻画出了stream，但没有产生新的集合，这类方法叫**惰性求值**；  
+count 方法最终会从 stream 产生值，这类方法叫**及早求值方法**。
+
+## Stream.of()和*.stream()的区别
+Stream.of(T t...)中t是流的多个元素，.stream()是把集合的每个元素变成流  
+```java  
+Stream<List<Track>> stream = Stream.of(tracks);  
+Stream<Track> stream2 = tracks.stream();
+```
+
+
+
+* map  
+元素处理，一一映射   
+```java
+List<Integer> collect1 = allInt.stream().filter(ele -> ele > 5)
+		.map(ele -> ele * 10).collect(Collectors.toList());  
+System.out.println(collect1);  
+```
+
+
+* filter  
+过滤元素
+* flatMap  
+可以把多个流合并成一个流
+返回值是stream  
+
+```java
+
+	List<Integer> collect = Stream.of(list1, list2).flatMap(ele -> ele.stream())  
+                            .collect(Collectors.toList());  
+	System.out.println(collect);  
+```
+
+* min() & max()  
+比较  
+
+```java  
+List<Track> tracks = Arrays.asList(new Track("imagine", 92),new Track
+					("super star", 28), new Track("halo", 64));
+Track track1 = tracks.stream().min(Comparator.comparing(track -> 
+					track.getName().length())).get();  
+
+```
+
+* reduce  
+循环计算  
+```reduce(初始值, BinaryOperator<T>(传递的循环计算结果, 遍历的流中的值))```  
+
+```java  
+Integer reduce = Stream.of(1, 2, 3).reduce(10, (acc, element) -> acc - element);  
+```
+
+
+
+## 拆装箱  
+int => Integer : intFunction  
+Integer => int : toIntFunction  
+高阶函数使用基本类型：mapToInt()——方法 + to + 基本类型  
+mapToInt 返回的不是一个一般的 stream，这个 stream 的 map() 等方法都用的不是原来的接口。  
+该特殊 stream 有个 summaryStatistics() 方法得到的对象中有诸多计算属性，方便计算。  
+```java
+
+IntSummaryStatistics iss = album.getTracks().stream()
+                .mapToInt(trac -> trac.getLength())
+                .map(length -> length + 1)
+                .summaryStatistics();  
+System.out.println(iss);
+
+// 输出
+IntSummaryStatistics{count=1, sum=11, min=11, average=11.000000, max=11}  
+```
+
+## 重载  
+会优先使用最具体的类型的函数  
+错误： ```Ambiguous method call .Both```  
+重载函数模糊调用，参数列表都匹配。  
+* 只有一个可能的目标类型：由相应函数接口里的参数类型推导得出；  
+* 多个可能的目标类型：由最具体的参数类型推导得出；  
+* 多个可能的目标且具体类型不明：需人为指定类型，否则编译报错。
+
+## 默认方法  
+接口（无论函数还是非函数）告诉它的所有子类：如果你没有实现这个方法，就使用我的吧。
+子类重写方法覆盖默认方法。  
+如果一个类实现了两个含有相同签名函数的接口，编译报错。解决方法：实现类实现该函数。  
+* 类胜于接口  
+* 子类胜于父类  
+接口：允许多重继承，没有成员变量；  
+抽象类：不能多重继承，可继承成员变量。
+
+## Optional
+```java
+String s = null;
+Optional<String> optional = Optional.ofNullable(s);
+s = "aa";
+```  
+在上面这段代码中，最后一行赋值并没有任何作用：Optional对象直接被赋予了String的值，而非String对象
+
+Optional对空值更简单的处理：
+```java  
+Optional<String> op = Optional.ofNullable(str);
+String result = op.orElseGet(() -> "");
+
+//相当于：  
+String result = str==null ? "" : str;
+```
+
+#### orElse 和 orElseGet 的区别
+```java  
+optional.orElse("unknow");
+optional.orElseGet(() -> "unknow");
+```
+
+## 流的顺序  
+原集合有序，则出去的流依然有序；原集合无序，则出去的流也无序。  
+一些操作在有序的流上开销更大，可调用unordered方法消除顺序；大多数操作（filter map reduce）在有序流上效率更高。  
+
+## Collect  
+stream类库在collect的时候自动挑选合适的集合类型。  
+如果需要指定类型，则可以：  
+```java
+stream.collect(Collectors.toCollection(TreeSet::new));
+```
+### 转换成值
+```java
+// 找出成员最多的乐队
+Function<Artist, Long> getCount = artist -> artist.getMembers.count();
+Optional<Artist> maxArtist = artists.stream().
+    						collect(Collectors.maxBy(
+                            Comparator.comparing(getCount)));
+    
+// 一组乐队的成员平均数
+Double averageMember = artists.stream().collect(
+    				Collectors.averagingInt(
+                    artist -> artist.getMembers().size()));
+
+```
+
+### partitioningBy收集器  
+```java  
+// 区分乐队和单个歌手
+Map<Boolean,List<Artist>> map = 
+    			stream.collect(Collectors.partitioningBy
+                (artist -> artist.isSolo()));
+// 另一种写法：使用方法
+Map<Boolean, List<Artist>> map = stream.collect(
+    			Collectors.partitioningBy(Artist:: isSolo));
+```
+   
+### 拼接字符串    
+把流中的元素按照规律拼接成字符串。    
+```joining(元素中分隔字符，开始字符，结束字符)```
+```java  
+String collect = f4.getMembers().stream()
+    			.map(Artist:: getName)
+                .collect(Collectors.joining(",","[","]"));
+  
+```
+
+### 组合收集器  
+把流中的元素按照规则分组，并与想收集的值关联。  
+```groupingBy(分组的方式Function, 收集的数据Collector)```  
+
+```java
+// 计算每个艺术家的专辑数
+Map<Artist, Long> map = albums.stream().collect(
+				Collectors.groupingBy(Album:: getMainArtist, Collectors.counting()));
+	
+// 每个艺术家的专辑名
+Map<Artist, List<String>> map = albums.stream().collect(
+				Collectors.groupingBy(Album:: getMainArtist, 
+				Collectors.mapping(Album:: getName, Collectors.toList())));
+```
+
