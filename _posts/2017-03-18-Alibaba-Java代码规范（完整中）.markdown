@@ -136,7 +136,6 @@ private static final ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>() 
     }
 };  
 ```  
-
 说明： 如果是 JDK8 的应用，可以使用 Instant 代替 Date， LocalDateTime 代替 Calendar，DateTimeFormatter代替Simpledateformatter，官方给出的解释：simple beautiful strong immutable thread-safe。  
 ```java  
 String time = DateUtils.formatDate(new Date(), "yyyy-MM-dd");
