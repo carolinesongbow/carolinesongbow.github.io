@@ -23,7 +23,7 @@ filter 方法并未做什么实际性的工作，只刻画出了stream，但没�
 count 方法最终会从 stream 产生值，这类方法叫**及早求值方法**。
 
 ## Stream.of()和*.stream()的区别
-Stream.of(T t...)中t是流的多个元素，.stream()是把集合的每个元素变成流  
+Stream.of(T t...)中t是流的多个元素，.stream()是把集合的每个元素变成流   
 ```java  
 Stream<List<Track>> stream = Stream.of(tracks);  
 Stream<Track> stream2 = tracks.stream();
@@ -33,10 +33,10 @@ Stream<Track> stream2 = tracks.stream();
 
 * map  
 元素处理，一一映射   
-```java
+```java  
 List<Integer> collect1 = allInt.stream().filter(ele -> ele > 5)
 		.map(ele -> ele * 10).collect(Collectors.toList());  
-System.out.println(collect1);  
+System.out.println(collect1);    
 ```
 
 
@@ -44,13 +44,12 @@ System.out.println(collect1);
 过滤元素
 * flatMap  
 可以把多个流合并成一个流
-返回值是stream  
+返回值是stream   
 ```java
-
 List<Integer> collect = Stream.of(list1, list2).flatMap(ele -> ele.stream())  
                             .collect(Collectors.toList());  
-System.out.println(collect);  
-```
+System.out.println(collect);   
+```  
 
 * min() & max()  
 比较  
@@ -64,11 +63,10 @@ Track track1 = tracks.stream().min(Comparator.comparing(track ->
 
 * reduce  
 循环计算  
-```reduce(初始值, BinaryOperator<T>(传递的循环计算结果, 遍历的流中的值))```  
-
-```java  
+```reduce(初始值, BinaryOperator<T>(传递的循环计算结果, 遍历的流中的值))```   
+```java   
 Integer reduce = Stream.of(1, 2, 3).reduce(10, (acc, element) -> acc - element);  
-```
+```  
 
 
 
@@ -167,12 +165,12 @@ Map<Boolean, List<Artist>> map = stream.collect(
    
 ### 拼接字符串    
 把流中的元素按照规律拼接成字符串。    
-```joining(元素中分隔字符，开始字符，结束字符)```  
-```java  
+```joining(元素中分隔字符，开始字符，结束字符)```   
+```java   
 String collect = f4.getMembers().stream()
     			.map(Artist:: getName)
-                .collect(Collectors.joining(",","[","]"));    
-```
+                .collect(Collectors.joining(",","[","]"));     
+```  
 
 ### 组合收集器  
 把流中的元素按照规则分组，并与想收集的值关联。  
