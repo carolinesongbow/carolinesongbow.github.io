@@ -51,18 +51,17 @@ List<Integer> collect = Stream.of(list1, list2).flatMap(ele -> ele.stream())
 System.out.println(collect);   
 ```  
 
-* min() & max()  
-比较  
-```java  
+* min() & max()   
+比较   
+```java   
 List<Track> tracks = Arrays.asList(new Track("imagine", 92),new Track
 					("super star", 28), new Track("halo", 64));
 Track track1 = tracks.stream().min(Comparator.comparing(track -> 
-					track.getName().length())).get();  
-
-```
+					track.getName().length())).get();   
+```  
 
 * reduce  
-循环计算  
+循环计算   
 ```reduce(初始值, BinaryOperator<T>(传递的循环计算结果, 遍历的流中的值))```   
 ```java   
 Integer reduce = Stream.of(1, 2, 3).reduce(10, (acc, element) -> acc - element);  
