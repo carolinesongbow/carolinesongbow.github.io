@@ -168,11 +168,12 @@ Map<Boolean, List<Artist>> map = stream.collect(
 ### 拼接字符串    
 把流中的元素按照规律拼接成字符串。    
 ```joining(元素中分隔字符，开始字符，结束字符)```  
+
 ```java  
 String collect = f4.getMembers().stream()
     			.map(Artist:: getName)
                 .collect(Collectors.joining(",","[","]"));    
-```
+```  
 
 ### 组合收集器  
 把流中的元素按照规则分组，并与想收集的值关联。  
@@ -187,5 +188,5 @@ Map<Artist, Long> map = albums.stream().collect(
 Map<Artist, List<String>> map = albums.stream().collect(
 				Collectors.groupingBy(Album:: getMainArtist, 
 				Collectors.mapping(Album:: getName, Collectors.toList())));
-```
+```  
 
