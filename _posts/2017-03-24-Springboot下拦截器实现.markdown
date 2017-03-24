@@ -29,7 +29,7 @@ public class RequestInterceptor {
 
     private static final byte[] userStore = RedisUtil.serialize("__token_app_userStore");
 
-    @Pointcut("execution(* com.haiercash..*.*(..)) && @annotation(com.haiercash.appserver.util.annotation.RequestCheck)")
+    @Pointcut("execution(* com.mytest..*.*(..)) && @annotation(com.mytest.app.util.annotation.RequestCheck)")
     private void requestNeedCheck() {
 
     }
