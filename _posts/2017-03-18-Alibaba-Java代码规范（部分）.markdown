@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Alibaba: Java 代码规范（完整中）"  
+title:  "Alibaba: Java 代码规范（部分）"  
 date:   2017-03-18 11:10:54 +0800  
 tags: [Java, alibaba]
 ---  
@@ -203,3 +203,15 @@ logger.debug("Processing trade with id: " + id + " symbol: " + symbol);
 ```java  
 logger.debug("Processing trade with id: {} symbol : {} ", id, symbol);  
 ```  
+## 工程规约
+### 应用分层
+【参考】分层领域模型规约：  
+1. DO（ Data Object） ：与数据库表结构一一对应，通过 DAO 层向上传输数据源对象。  
+2. DTO（ Data Transfer Object） ：数据传输对象， Service 和 Manager 向外传输的对象。  
+3. BO（ Business Object） ：业务对象。 可以由 Service 层输出的封装业务逻辑的对象。  
+4. QUERY：数据查询对象，各层接收上层的查询请求。 注：超过 2 个参数的查询封装，禁止使用 Map 类来传输。  
+5. VO（ View Object） ：显示层对象，通常是 Web 向模板渲染引擎层传输的对象。  
+
+## 安全规约
+* 【强制】在使用平台资源，譬如短信、邮件、电话、下单、支付，必须实现正确的防重放限制，如数量限制、疲劳度控制、验证码校验，避免被滥刷、资损。  
+说明： 如注册时发送验证码到手机，如果没有限制次数和频率，那么可以利用此功能骚扰到其它用户，并造成短信平台资源浪费。  
