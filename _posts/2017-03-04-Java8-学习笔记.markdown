@@ -165,10 +165,10 @@ Map<Boolean, List<Artist>> map = stream.collect(
 ### 拼接字符串    
 把流中的元素按照规律拼接成字符串。    
 ```joining(元素中分隔字符，开始字符，结束字符)```  
-```java  
+```java
 String collect = f4.getMembers().stream()
     			.map(Artist:: getName)
-                .collect(Collectors.joining(",","[","]"));      
+                .collect(Collectors.joining(",","[","]"));
 ```  
 
 ### 组合收集器  
