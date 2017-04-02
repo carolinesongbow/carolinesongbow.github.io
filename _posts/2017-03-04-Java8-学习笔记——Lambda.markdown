@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Java 1.8 学习笔记"
-date:   2017-03-31 17:56:54 +0800
+title:  "Java 1.8 学习笔记——Lambda"
+date:   2017-04-2 17:35:54 +0800
 tags: [Java]
 ---
 
@@ -263,3 +263,55 @@ double[] average = IntStream.range(start, sums.length).mapToDouble(i -> {
       return (sums[i] - prefix) / movingLength;
 }).toArray();  
 ```  
+
+## 代码重构  
+### ThreadLocal 的优化  
+重构前：  
+```java  
+ThreadLocal<String> threadLocal = new ThreadLocal(){
+	@override  
+	protected String initialValue() {
+		return getChannelNo();
+	}
+};
+```  
+重构后：  
+```java  
+ThreadLocal<String> threadLocal = ThreadLocal.withInitial(() -> getChannelNo());  
+```  
+
+### 重复代码的优化  
+重构前：  
+```java  
+public long countRunningTime() {
+	return albums.stream().mapToLong(album -> album.getTracks()
+		.mapToLong(track -> track.getLength()).sum()).sum();
+}
+
+public long countMusicians() {
+	return albums.stream().mapToLong(album -> album.getMusicians().count()).sum();
+}
+```  
+重构后：  
+```java  
+public long countFeature(ToLongFunction<Album> function) {
+	return albums.stream().mapToLong(function).sum();
+}
+
+public long countTracks() {
+	return countFeature(album -> album.getTracks().count());
+}
+
+public long countMusicians() {
+	return countFeature(album -> album.getMusicians().count());
+}  
+```  
+
+### peek 记录中间值  
+peek 方法可以用来记录流中的值以便对程序进行调试。  
+```java  
+Set<String> nations = album.getMusicians().map(artist -> artist.getNationality())
+	.peek(nation -> logger.debug(nation)).collect(Collectors.toSet());  
+```  
+如果有在 lambda 表达式中打断点的需要，可以定义一个空的方法放在peek中，给这个空方法打断点。  
+
