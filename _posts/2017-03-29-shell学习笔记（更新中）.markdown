@@ -63,6 +63,34 @@ esac
 单引号字符串中不能出现单引号；  
 双引号字符串中可以出现转义字符。  
 
+* 逗号  
+连接两个计算表达式，两个都执行，但只返回后一个。  
+```shell  
+let "t = ((a = 9, 15 / 3))"
+echo $t
+echo $a
+# 输出：5，9  
+```  
+也可以连接字符串。  
+```shell  
+# 输出 /bin/*calc 和 /usr/bin/*calc 文件
+for file in /{,usr/}bin/*calc
+#             ^    Find all executable files ending in "calc"
+#+                 in /bin and /usr/bin directories.
+do
+        if [ -x "$file" ]
+        then
+          echo $file
+        fi
+done
+
+# /bin/ipcalc
+# /usr/bin/kcalc
+# /usr/bin/oidcalc
+# /usr/bin/oocalc
+
+```  
+
 
 插播一个 [cat 的功能](http://www.cnblogs.com/perfy/archive/2012/07/23/2605550.html)：
 * cat filename : 显示文件内容
