@@ -315,3 +315,10 @@ Set<String> nations = album.getMusicians().map(artist -> artist.getNationality()
 ```  
 如果有在 lambda 表达式中打断点的需要，可以定义一个空的方法放在peek中，给这个空方法打断点。  
 
+
+## 几个 lambda 表达式的最佳实践  
+* [对流中的 pojo 元素的排序](https://wizardforcel.gitbooks.io/java8-tutorials/content/Java%208%20Lambda%20%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%A2%9E%E5%BC%BA%E7%89%88%20Comparator%20%E5%92%8C%E6%8E%92%E5%BA%8F.html)  
+```java  
+List<Person> persons = new ArrayList<>();
+persons.sort((p1, p2) -> p1.getAge().compareTo(p2.getName()));
+```  
