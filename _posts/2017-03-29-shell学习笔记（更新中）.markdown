@@ -71,7 +71,8 @@ echo $t
 echo $a
 # 输出：5，9  
 ```  
-也可以连接字符串。   
+也可以连接字符串。  
+   
 ```shell  
 # 输出 /bin/*calc 和 /usr/bin/*calc 文件
 for file in /{,usr/}bin/*calc
