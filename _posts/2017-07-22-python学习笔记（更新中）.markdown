@@ -1,0 +1,64 @@
+---
+layout: post
+title:  "python学习笔记（更新中）"  
+date:   2017-07-22 23:03:54 +0800  
+tags: [python]
+---  
+
+##基础知识  
+###字符串  
+* 单引号和双引号是一个意思，三个引号被用于长短的文字或者说明  
+* 字符串+数字 会报错
+* 字符串*数字 表示显示几遍的意思  
+```python  
+# 字符串 乘以 数字
+word = "words" * 3
+print(word) # wordswordswords
+
+words = 'a loooooong word'
+num = 12
+string = 'bang!'
+total = string * (len(words) - num)
+print(total) # bang!bang!bang!bang!  
+```  
+####字符串分片  
+字符串的分片实际上可以看作是把字符串的一部分截取出来，复制储存在另一个地方（相当于是个副本），不会对原字符串做改动。  
+分片时的字符串index，正数是从0开始从前往后数，负数是从-1开始从后往前数  
+截取的时候与java的substring一样——包左不包右  
+```python  
+# 字符串分片
+birthDay = 'happy birth day to you'
+print(birthDay[0]) # h
+print(birthDay[-3]) # y
+print(birthDay[11:14]) #  da
+print(birthDay[5:]) #  birth day to you
+print(birthDay[:5]) # happy
+print(birthDay[-5:5]) # 啥都不输出，也不报错  
+```  
+
+
+
+##基本函数  
+* type() 用来查看变量的类型
+* print() 打印  
+* open()  打开文件  
+* write() 输出文件
+* int() 变量类型转换为int
+* str() 变量类型转换为string
+* len(str) 输出字符串长度
+* str1.find(str2) 在str2中寻找str1的起始位置角标；找不到则为-1  
+```python  
+# 查找字符串a在字符串b中的位置
+search = '168'
+num_a = '13861680006'
+num_b = '16812220006'
+num_c = '13181542561'
+
+print(str(num_a.find(search)) + ' to ' + str(num_a.find(search) + len(search)))
+print(str(num_b.find(search)) + ' to ' + str(num_b.find(search) + len(search)))
+print(str(num_c.find(search)) + ' to ' + str(num_c.find(search) + len(search)))  
+```    
+
+
+##基本规则  
+* 为防止中文注释乱码或报错，可在文件开头加一行魔法注释：```#coding:utf-8```
