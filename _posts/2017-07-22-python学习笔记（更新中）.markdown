@@ -39,17 +39,95 @@ print(birthDay[:5]) # happy
 print(birthDay[-5:5]) # 啥都不输出，也不报错  
 ```  
 
+### 基本运算  
+* + ： 加。有一个元素为浮点，结果为浮点；
+* - ： 减。同上
+* * ： 乘。同上
+* / ： 除以。有一个元素为浮点，结果为浮点；除不尽的情况下，即使两个都是整，结果也是浮点；有浮点的精度问题；
+* ** ： 幂。有一个元素为浮点，结果为浮点；
+* % ： 模。有一个元素为浮点，结果为浮点；有浮点的精度问题；
+* //： 整除。有一个元素为浮点，结果为浮点。
+
+```py  
+math_calc(19.9, 0.1)
+# 加     20.0
+# 减     19.799999999999997
+# 乘     1.99
+# 除以    198.99999999999997
+# 幂     1.34860668348221
+# 模     0.09999999999999748
+# 整除    198.0
+```  
+
+### 逻辑判断  
+* 多条件比较  
+
+```py  
+middle = 5
+print(1 < middle < 10) # True  
+```  
+
+* 字符串比较  
+相当于 java 中的 String.equals 方法，在 python 中可以直接用 == 来判断  
+
+* 不同类型的比较  
+除了整数和浮点类型之间以外，不同类型对象不能使用“<, >, <=, >=”来判断。  
+所有类型对象之间均能使用“==, !=”来判断。  
+整数和浮点类型的判断，与数学常识相同。  
+
+
+
+
+## 自定义函数  
+
+```py  
+# 函数的定义
+def fahrenheit_converter (C):
+	return str(C * 9/5 +32) + 'F'
+
+# 函数的调用
+print(fahrenheit_converter(32))
+
+```    
+
+函数调用时，传参有两种方式：位置传参和参数名传参。两种方式可以混合使用。  
+
+```py  
+def triangle_math(lineOne, lineTwo):
+    return (lineOne ** 2 + lineTwo ** 2) ** (1 / 2)
+
+
+# 传参的两种方式
+print('the right triangle third sids\'s length is {}'.format(str(triangle_math(3, 4))))
+print('2the right triangle third sids\'s length is {}'.format(str(triangle_math(lineOne=3, lineTwo=4))))  
+```  
+
+定义函数的时候，可以设置某个参数有默认值  
+
+```py  
+# 函数定义默认值
+def defaultValue(name='Sarah'):
+    print('{name} is a beautiful girl'.format(name = name))
+    return
+
+defaultValue() # Sarah is a beautiful girl
+defaultValue('Caro') # Caro is a beautiful girl
+```  
+
+
+
+
 
 
 ## 基本函数  
-* type() 用来查看变量的类型
-* print() 打印  
-* open()  打开文件  
-* write() 输出文件
-* int() 变量类型转换为int
-* str() 变量类型转换为string
-* len(str) 输出字符串长度
-* str1.find(str2) 在str2中寻找str1的起始位置角标；找不到则为-1  
+* ```type()``` 用来查看变量的类型
+* ```print()``` 打印  
+* ```open()```  打开文件，第二个参数mode值为'w'表示写入模式：有则覆盖，无则新建    
+* ```write()``` 输出文件
+* ```int()``` 变量类型转换为int
+* ```str()``` 变量类型转换为string
+* ```len(str)``` 输出字符串长度
+* ```str1.find(str2)``` 在str2中寻找str1的起始位置角标；找不到则为-1    
 
 ```py 
 # 查找字符串a在字符串b中的位置
@@ -62,6 +140,17 @@ print(str(num_a.find(search)) + ' to ' + str(num_a.find(search) + len(search)))
 print(str(num_b.find(search)) + ' to ' + str(num_b.find(search) + len(search)))
 print(str(num_c.find(search)) + ' to ' + str(num_c.find(search) + len(search)))  
 ```    
+
+* format() 字符串填空
+* input() 用户输入信息
+
+
+```py  
+# 字符串format函数
+print('{} is {}\'s birthday.'.format('Today', 'Caro'))
+print('{when} is {name}\'s birthday.'.format(when = 'Today', name = 'Caro'))
+print('{1} is {0}\'s birthday'.format('Caro', 'Today'))  
+```  
 
 
 ## 基本规则  
