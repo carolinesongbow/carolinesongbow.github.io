@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "python学习笔记（更新中）"  
-date:   2017-07-22 23:03:54 +0800  
+date:   2017-08-28 00:09:54 +0800
 tags: [python]
 ---  
 
@@ -75,7 +75,51 @@ print(1 < middle < 10) # True
 所有类型对象之间均能使用“==, !=”来判断。  
 整数和浮点类型的判断，与数学常识相同。  
 
+* 对象本身判断
+在python中，任何对象都可以用```bool(对象)```的方式来进行判断，只有以下情况结果为false:
+0，None，空字符串，空集合，false布尔值。
 
+* 判断字符
+```not x``` : 即取反。
+```x and y``` : 且。
+```x or y``` : 或。
+
+
+#### if-elif-else
+```py
+def account_login_reset(store_password):
+    password = input('input password:')
+    is_correct = password == store_password[-1]
+    is_reset = password == store_password[0]
+    if is_correct:
+        print('login success')
+    elif is_reset:
+        new_password = input('input new password:')
+        store_password.append(new_password)
+        print('reset success!login again')
+        account_login_reset(store_password)
+    else:
+        print('incorrect password')
+        account_login_reset(store_password)
+
+account_login_reset(['0', '123456'])
+```
+
+
+### 集合
+#### list
+```py
+# 创建列表
+album = []
+# 创建非空列表
+album = ['Black Star', 'David Bowie', 25, True]
+# 增加元素
+album.append('new song')
+# 列表索引
+print(album[0], album[-1]) # 打印列表第一个元素和最后一个元素
+print('Black Star' in album) # true，相当于contains
+print('David Bowie' not in album) # false
+```
 
 
 ## 自定义函数  
