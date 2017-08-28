@@ -105,6 +105,23 @@ def account_login_reset(store_password):
 account_login_reset(['0', '123456'])
 ```
 
+### 循环
+```py
+for every_letter in 'hello world':
+    print(every_letter)
+```
+1. 字符串可以被for循环遍历
+2. ```for...in``` 相当于 java 中的 foreach
+
+```py
+# 打印九九乘法口诀表
+def print_nine_nine():
+    for i in range(1, 10):
+        for j in range(1, i + 1):
+            print('{} * {} = {}\t'.format(j, i, i*j), end='')
+        print()
+```
+
 
 ### 集合
 #### list
@@ -196,6 +213,8 @@ print('{when} is {name}\'s birthday.'.format(when = 'Today', name = 'Caro'))
 print('{1} is {0}\'s birthday'.format('Caro', 'Today'))  
 ```  
 
+* ```range(left_num, right_num)``` 集合，包括 left_num 到 right_num 的元素，包左不包右
 
-## 基本规则  
+
+## 基本规则
 * 为防止中文注释乱码或报错，可在文件开头加一行魔法注释：```#coding:utf-8```
