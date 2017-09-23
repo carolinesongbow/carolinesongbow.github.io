@@ -136,6 +136,9 @@ album.append('new song')
 print(album[0], album[-1]) # 打印列表第一个元素和最后一个元素
 print('Black Star' in album) # true，相当于contains
 print('David Bowie' not in album) # false
+# 列表求和
+a_list = [1, 2, 3]
+print(sum(a_list)) # 6 list里的元素求和
 ```
 
 
