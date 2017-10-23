@@ -60,5 +60,30 @@ tags: [mongodb, nosql]
 插入 ISODate 数据：`.insert({num:1, age:88, time:new Date()})`  
 创建：`.ensureIndex({time:1}, {expireAfterSeconds:10})`
 ## 全文索引
-对字符串与字符串数组创建全文可搜索的索引
+对字符串与字符串数组创建全文可搜索的索引  
+每个集合只能有一个全文索引  
+创建单个键的全文索引：`.ensureIndex({title:"text"})`  
+创建多个键的全文索引：`.ensureIndex({title:"text", article:"text"})`  
+对所有键创建全文索引：`.ensureIndex({"$**":"text"})`  
+使用全文索引查询：`.find({$text:{$search:"coffee"}})`  
+或查询：`.find({$text:{$search:"coffee cola tea"}})`  
+非查询，加`-`即为排除该字段：`.find({$text:{$search:"coffee cola -tea"}})`  
+与查询，加双引号表示一定得有它：`.find({$text:{$search:"\"coffee\" \"cola\" \"tea\""}})`  
+
+全文索引相似度：  
+`.find({$text:{$search:"coffee cola"}}, {my_score:{$meta:"textScore"}})`  
+全文索引相似度并排序：  
+`.find({$text:{$search:"coffee cola"}}, {my_score:{$meta:"textScore"}}).sort(my_score:{$meta:"textScore"}})`
+
+全文索引的限制：
+1. 每次查询，只能指定一个 $text 查询
+2. $text 查询不能出现在 $nor 查询中
+3. 查询中如果包含了 $text，那么 hint 不再起作用
+4. 不支持中文
+
+## 索引常识  
+索引命名：  
+MongoDB 有一套默认的索引命名方式，为了直观可以自行命名索引：  
+`.ensureIndex({num:1, age:1}, {name:"my_normal_index"})`    
+
 ## 地理位置索引
