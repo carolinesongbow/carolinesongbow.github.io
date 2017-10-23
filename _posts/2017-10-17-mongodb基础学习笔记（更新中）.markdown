@@ -81,7 +81,7 @@ tags: [mongodb, nosql]
 3. 查询中如果包含了 $text，那么 hint 不再起作用
 4. 不支持中文
 
-## 索引常识  
+## 索引属性  
 索引命名：  
 MongoDB 有一套默认的索引命名方式，为了直观可以自行命名索引：  
 `.ensureIndex({num:1, age:1}, {name:"my_normal_index"})`    
