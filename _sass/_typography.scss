@@ -95,6 +95,7 @@ blockquote {
 	border-left: 8px solid $border-color;
 	padding-left: 20px;
 	color: $quote-text-color;
+	font-size: 90%;
 	@media #{$medium} {
 		margin-left: -28px;
 	}
