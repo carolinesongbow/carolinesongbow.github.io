@@ -68,7 +68,7 @@ Redis 主进程本身运行，代码、常量池等需要占用的内存。
 -> **dictEntry** 每个键值对都有一个 dictEntry，里面包含指向 key 和 value 的指针；next 指向下一个 dictEntry，与本 key-value 无关。  
 -> **key** 存储于 SDS 结构中  
 ```
-SDS: 
+SDS:
 struct sdsheader {
      int len;
      int free;
@@ -90,7 +90,7 @@ typedef struct redisObject {
     int refcount;
     void *ptr;
 } robj;
-```
+```  
 一个 redisObject 对象大小为 16 Bype。
 
 * type: 对象类型
@@ -116,7 +116,7 @@ Redis 服务器在初始化时，会创建 10000 个字符串对象，为 0-9999
 
 ## SDS
 即简单动态字符串（Simple Dynamic String）的缩写。  
-### 结构 
+### 结构
 ```c
 struct sdshdr{
   int len;
@@ -194,6 +194,7 @@ Redis 3.0 内部编码类型：
 * embstr 与 raw 的区别  
 都使用 redisObject 和 SDS 保存数据，创建时，embstr 给 redisObject 和 SDS 只分配一次内存空间， raw 需要两次分别给 redisObject 和 SDS 分配空间。  
 因此 embstr 创建时少分配一次空间，且地址连续；但如果字符串长度增加需要重新分配内存时，整个 redisObject 和 SDS 都需要重新分配空间，因此 Redis 中的 embstr 实现为只读。  
+
 #### 编码转换  
 int 不再是整数，或大小超出 long 的范围，自动转 raw。  
 embstr 由于只读，只要修改 embstr 对象，一定转 raw。  
@@ -215,8 +216,9 @@ typedef struct list { //双向链表   包括三个操作函数
     void (*free)(void *ptr);//释放函数指针  
     int (*match)(void *ptr, void *key);//匹配函数指针  
     unsigned long len;  //节点计数  
-} list; 
-```
+} list;
+```    
+
 2. 压缩列表 ziplist  
 是由一系列特殊编码的连续内存块（而不是像双端链表一样每个节点都是指针）组成的顺序型数据结构。  
 与双端链表相比，压缩列表可以节省内存空间，但是进行增删改时复杂度较高。  
@@ -286,7 +288,7 @@ dict 主要是用于适应不同类型的键值对以及 rehash。
 同时满足以下两个条件使用 ziplist：1）哈希中元素数量小于 512 个；2）哈希中所有键和值字符串长度都不足 64 个字节。  
 ziplist 可以转 hashtable，而 hashtable 不能转 ziplist。  
 
-### 集合 set 
+### 集合 set
 #### 概况
 集合与列表类似，都是用来保存多个字符串。  
 与列表的区别：  
@@ -314,6 +316,3 @@ encoding 的说明：虽然 contents 是 int8_t 类型，但实际上其存储�
 #### 编码转换
 同时满足以下两个条件则使用整数集合：1）集合中的元素数量小于 512 个；2）集合中所有元素都是整数值。  
 整数集合可转为哈希表，哈希表不能转为整数集合。
-
-
-
