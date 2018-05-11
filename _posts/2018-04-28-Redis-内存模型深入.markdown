@@ -62,12 +62,13 @@ Redis 主进程本身运行，代码、常量池等需要占用的内存。
 
 ## Redis 数据存储细节
 ### 概述
+
 当 Redis set hello world 的时候，它干了啥
-![what Redis have done when set ‘hello world’](images/redis-dictEntry.png)
+![what Redis have done when set ‘hello world’](../images/redis-dictEntry.png)
 
 -> **dictEntry** 每个键值对都有一个 dictEntry，里面包含指向 key 和 value 的指针；next 指向下一个 dictEntry，与本 key-value 无关。  
 -> **key** 存储于 SDS 结构中  
-```
+```c
 SDS:
 struct sdsheader {
      int len;
@@ -235,12 +236,15 @@ ziplist 可以转 linkedlist，而 linkedlist 不能转 ziplist。
 哈希同时也是 Redis 作为 Key-Value 数据库所使用的数据结构，不可混淆。  
 #### 内部编码
 1. 压缩列表 ziplist
-同上。  
-优势为集中存储，节省空间。  
+  同上。  
+  优势为集中存储，节省空间。  
+
 2. 哈希表 hashtable
-![hashtable struct](images/redis-hashtable.jpg)
-Redis 数据库所使用的编码。  
-包含 1 个 dict 结构、2 个 dictht 结构 、1 个 dictEntry 指针数组 （即 bucket） 和多个 dictEntry 结构。  
+
+  ![hashtable struct](../images/redis-hashtable.jpg)
+
+  Redis 数据库所使用的编码。  
+  包含 1 个 dict 结构、2 个 dictht 结构 、1 个 dictEntry 指针数组 （即 bucket） 和多个 dictEntry 结构。  
 * dictEntry  
 用于保存键值对  
 ```c
