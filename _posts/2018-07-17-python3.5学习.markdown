@@ -93,6 +93,13 @@ lambda	is		not		or		pass	raise
 return	try		while	with	yield
 ```
 
+> False	None	True	and		as	assert
+break	class	continue	def	del
+elif	else	except	finally	for	from
+global	if	import	in	nonlocal
+lambda	is	not	or	pass	raise
+return	try	while	with	yield	
+
 
 
 ## 运算符和操作对象  
@@ -201,5 +208,69 @@ a = 10
 b = 10
 print(a is b)
 # True
+```
+
+#### 运算符优先级
+
+从高到低：  
+
+`**`
+
+`~`  `+`(位运算)  `-`（位运算）    
+
+`*`  `/`   `%`   `//`  
+
+`+`  `-`  
+
+`>>`  `<<`  
+
+`&`  
+
+`^`  `|`  
+
+`<=`  `<`  `>`  `>=`  
+
+`<>`  `==`  `!=`  
+
+`=`  `%=`  `/=`  `//=`  `-=`  `+=`  `*=`  `**=`  
+
+`is`  `is not`  
+
+`in`  `not in`  
+
+`not`  `or`  `and`  
+
+## 字符串操作
+
+字符串不能进行除法和减法；  
+
+乘法只可以乘以数字；
+
+```python
+print('world'*3)
+# 输出:worldworldworld
+```
+
+# 列表和元组  
+
+## 通用序列操作
+
+Python 中所有序列都可以进行一些特定操作，包括索引、分片、序列相加、乘法、成员资格、长度、最小值和最大值。  
+
+### 索引
+
+可以通过中括号的方式来获取相应索引对应的值。  
+
+字符串即是用字符组成的序列。  
+
+使用负值索引可以从右向左获取，最右的索引为-1。  
+
+```python
+test = 'abcdefg'
+print(test[0]) #a
+print(test[2]) #c
+print(test[-1]) #g
+print(test[-5]) #c
+print(test[7])  #IndexError
 ```
 
