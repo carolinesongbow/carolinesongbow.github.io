@@ -82,17 +82,6 @@ Python 使用下划线式命名。
 
 不能使用关键字命名。  
 
-
-
-```
-False	None	True	and		as		assert
-break	class	continue		def		del
-elif	else	except	finally	for		from
-global	if		import	in		nonlocal
-lambda	is		not		or		pass	raise
-return	try		while	with	yield
-```
-
 > False	None	True	and		as	assert
 break	class	continue	def	del
 elif	else	except	finally	for	from
@@ -141,6 +130,8 @@ Python 支持以下 7 种运算符：
 
 #### 赋值运算符
 
+
+
 | 运算符 | 实例       |
 | ------ | ---------- |
 | =      |            |
@@ -151,6 +142,8 @@ Python 支持以下 7 种运算符：
 | %=     | c = c % a  |
 | **=    | c = c ** a |
 | //=    | c = c // a |
+
+
 
 #### 位运算符
 
@@ -255,7 +248,9 @@ print('world'*3)
 
 ## 通用序列操作
 
-Python 中所有序列都可以进行一些特定操作，包括索引、分片、序列相加、乘法、成员资格、长度、最小值和最大值。  
+Python 中所有序列都可以进行一些特定操作，包括索引、分片、序列相加、乘法、成员资格、长度、最小值和最大值。    
+
+Python 中的序列包括字符串、元组和列表。
 
 ### 索引
 
@@ -274,3 +269,243 @@ print(test[-5]) #c
 print(test[7])  #IndexError
 ```
 
+### 分片
+
+使用分片对一定范围内的元素进行访问。  
+
+```python
+test = 'abcdefg'
+print(test[1:3]) #bc
+print(test[-3:-1]) #ef
+print(test[-3:3]) #不会报错，得到一个空字符串
+print(test[-1:-3]) #空串
+print(test[1:]) #bcdefg
+print(test[-2:]) #fg
+print(test[:3]) #abc
+number = [0,1,2,3,4,5,6,7,8,9]
+print(number[:]) #[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+* 包左不包右
+* 左留空则从第一个元素开始输出，右留空则输出至最后一个元素
+
+分片中有一个隐式参数即步长，默认为1
+
+```python
+print(number[1:8:1]) #[1, 2, 3, 4, 5, 6, 7]
+print(number[1:8:2]) #[1, 3, 5, 7]
+print(number[::3]) #[0, 3, 6, 9]
+print(number[3:1]) #[]
+print(number[3:1:-1]) #[3, 2]
+```
+
+* 步长 > 0 时，只能从左边的元素向右边的元素输出；
+* 步长 < 0 时，只能从右边的元素向左边的元素输出；
+* 步长 = 0 则会报错。
+
+### 序列相加
+
+同类型的序列可以用加号组合成一个序列。
+
+```python
+print([5,3,7] + [4,5,8]) #[5, 3, 7, 4, 5, 8]
+print("aaa" + "bbb") #aaabbb
+print([1,2] + '12') #报错
+```
+
+### 乘法
+
+复制 N 份原序列的元素，放入一个大的序列中。
+
+```python
+print('a' * 5) #aaaaa
+print([1, 2] * 5) #[1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
+print([None] * 5) #[None, None, None, None, None] 用于初始化序列
+print([1] * 0) #[]
+```
+
+### 成员资格
+
+相当于 contains。  
+
+```python
+greeting = 'hello, world3'
+print('w' in greeting) #True
+print(',' in greeting) #True
+print(" " in greeting) #True
+users = ['Jim', 'Lily', 'John']
+print('Jim' in users) #True
+print('J' in users) #False
+numbers = [1, 5, 7, 10]
+print(1 in numbers) #True
+print('1' in numbers) #False
+print(3 in users) #False
+print(3 in greeting) #报错
+```
+
+| in 操作 | 字符串 | 列表 |
+| ------- | ------ | ---- |
+| 数字    | 报错   | OK   |
+| 字符    | OK     | OK   |
+
+### 长度、最小值、最大值
+
+```python
+print(len(greeting)) #13
+print(max(greeting)) #w
+print(min(greeting)) #（空格）
+print(len(users)) #3
+print(max(users)) # Lily
+print(min(users)) # Jim
+numbers = [1, 5, 7, 10, 'aa']
+print(max(numbers)) #报错
+print(min(numbers)) #报错
+```
+
+字符串的大小比较方法：先比较两个对象的第0个元素，大小关系即为对象的大小关系，如果相等则继续比较后续元素，先终止迭代的认为是小的。 
+
+## 列表
+
+### 更新列表
+
+#### 元素赋值
+
+numbers[2] = 28  
+
+不可越界赋值。  
+
+#### 增加元素
+
+numbers.append(28)  
+
+添加到列表末尾。  
+
+#### 删除元素
+
+del numbers[2]  
+
+会导致列表长度缩短。该角标后还有元素的话，会向前缩进。  
+
+#### 分片赋值
+
+`list()`函数可将字符串转为字符列表。  
+
+用前面说到的分片的语法，可将对应的分片进行赋值。但无法使用步长。  
+
+```python
+letters = list('Shitbow is a SB')
+letters[-2:] = list('lovely boy')
+print(letters) #['S', 'h', 'i', 't', 'b', 'o', 'w', ' ', 'i', 's', ' ', 'a', ' ', 'l', 'o', 'v', 'e', 'l', 'y', ' ', 'b', 'o', 'y']
+aaa = list('abcd')
+aaa[-2:] = []
+print(aaa) #['a', 'b'] 相当于分片删除
+```
+
+### 嵌套列表
+
+列表中的元素本身也可以是个列表。  
+
+### 列表方法
+
+* append
+
+  list.append(元素)
+
+  追加
+
+* count
+
+  list.count(元素)
+
+  统计某元素出现次数
+
+* extend
+
+  a_list.extend(b_list)
+
+  扩展列表。
+
+  与 + 的区别：改变了 a_list 本身
+
+* index
+
+  list.index(元素)
+
+  获取列表中的第一个匹配该元素的索引。若该元素不存在，则会报错。  
+
+* insert
+
+  list.insert(索引, 元素)
+
+  在列表中对应的索引位置插入元素
+
+* pop
+
+  list.pop([索引])
+
+  移除列表中对应索引（默认为最后一个）的元素，并返回改元素
+
+* remove
+
+  list.remove(元素)
+
+  移除列表中某个值的第一个匹配项。没有返回值。若该元素不存在，则报错。
+
+* reverse
+
+  list.reverse()
+
+  反转，改变原列表
+
+* reversed
+
+  reversed(list)
+
+  反转，不改变原列表，返回一个新的迭代器对象。  
+
+  ```python
+  list1 = [1,2,3]
+  list2 = reversed(list1)
+  print(list1) #[1, 2, 3]
+  print(list(list2)) #[3, 2, 1]
+  ```
+
+* sort
+
+  list.sort([func])
+
+  排序。可选择默认排序或指定排序。会改变原列表。  
+
+  ```python
+  words = ['study','python','is','happy']
+  words_copy = words.copy()
+  words.sort()
+  print(words) # ['happy', 'is', 'python', 'study']
+  words_copy.sort(key=len, reverse=False)
+  print(words_copy) # ['is', 'study', 'happy', 'python']
+  ```
+
+* sorted
+
+  sorted(list, [func])
+
+  排序。可指定排序方式。不改变原列表，并返回一个新的列表。  
+
+  ```python
+  words = ['study','python','is','happy']
+  words_sort = sorted(words, key=len)
+  print(words) #['study', 'python', 'is', 'happy']
+  print(words_sort) #['is', 'study', 'happy', 'python']
+  ```
+
+* clear
+
+  list.clear()
+
+  清空列表，长度变为0。  
+
+* copy
+
+  list.copy()
+
+  复制一个新的列表。
