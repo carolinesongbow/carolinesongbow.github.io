@@ -509,3 +509,380 @@ print(aaa) #['a', 'b'] 相当于分片删除
   list.copy()
 
   复制一个新的列表。
+
+## 元组
+
+元组与列表类似，不同之处在于元组的元素不能被修改。用逗号分隔的元素自动被创建为元组。  
+
+```python
+name = 'aa', 'bb', 1
+print(type(name)) #<class 'tuple'>
+empty = (1)
+print(type(empty)) #<class 'int'>
+print(empty) #1
+empty = (1,)
+print(type(empty)) #<class 'tuple'>
+print(empty) #(1,)
+```
+
+### tuple 函数
+
+将序列转成元组。  
+
+tuple = tuple(list)  
+
+### 元组的基本操作
+
+#### 访问元组
+
+`tuple[index]` 可访问该角标的元组元素。  
+
+并可以使用分片的语法，与 list 相同。
+
+#### 修改元组
+
+元素值不允许被修改，但可以进行元组连接组合操作。  
+
+```python
+name = 'aa', 'bb', 1
+single = (1,)
+print(name + single) #('aa', 'bb', 1, 1)
+```
+
+#### 删除元组
+
+元组中的元素值不允许被删除，但可以删除整个元组。
+
+```python
+del single
+print(single) #NameError: name 'single' is not defined
+```
+
+### 元组内置函数
+
+* len(tuple)
+* max(tuple)
+* min(tuple)
+* tuple(list)
+
+## 列表与元组的区别
+
+列表可变，元组不可变。因此能使用元组的时候尽量使用元组。  
+
+如果一个元组中包含一个列表，则列表的变化是可以的，因为指向列表的地址未变。
+
+# 字符串
+
+## 字符串的基本操作
+
+由于字符串是不可变的，因此无法分片赋值。  
+
+## 字符串格式化
+
+### 字符串格式化符号
+
+| 符号 | 描述                                                         |
+| ---- | ------------------------------------------------------------ |
+| %c   | 格式化字符及其 ASCII 码                                      |
+| %s   | 格式化字符串                                                 |
+| %d   | 格式化整数                                                   |
+| %u   | 格式化无符号整形                                             |
+| %o   | 格式化无符号八进制数                                         |
+| %x   | 格式化无符号十六进制数                                       |
+| %X   | 格式化无符号十六进制数（大写）                               |
+| %f   | 格式化浮点数字，可指定精度值，默认 6 位                      |
+| %e   | 用科学计数法格式化浮点数                                     |
+| %E   | 作用同%e                                                     |
+| %g   | 在保证六位有效数字的前提下，使用小数方式，否则使用科学计数法。 |
+| %G   | 作用同%g                                                     |
+| %p   | 用十六进制数格式化变量的地址                                 |
+
+```python
+print('小智今年%s岁了'% 10) #小智今年10岁了
+print('小智今年%d岁了'% 10) #小智今年10岁了
+print('小智今年%f岁了'% 10) #小智今年10.000000岁了
+print('小智今年%u岁了'% 10) #小智今年10岁了
+print('小智今年%e岁了'% 10) #小智今年1.000000e+01岁了
+print('小智今年%E岁了'% 10) #小智今年1.000000E+01岁了
+print('小智今年%g岁了'% 10) #小智今年10岁了
+print('小智今年%G岁了'% 10) #小智今年10岁了
+```
+
+说明（优先级按顺序）：
+
+1. %
+
+   标记转换说明符的开始
+
+2. 转换标志（可选）
+
+   `-`表示对齐；
+
+   `+` 表示加上正负号；
+
+   ` `表示正数之前保留空格；
+
+   `0`表示转换值位数不够时用 0 填充。
+
+3. 最小字段宽度（可选）
+
+   转换后的字符串至少应该具有该宽度。如果是 *，宽度会从值元组中读出。
+
+4. 精度值（可选）
+
+   `.精度值`
+
+   如果转换的是实数，精度值表示出现在小数点后的位数
+
+   如果转换的是字符串，该数字就表示最大字段宽度
+
+   如果是 *,精度从元组中读出
+
+5. 转换类型，见上表。
+
+```python
+print('第一名是%-s，得分%+d；第二名是%s，得分% d；第三名是%s，得分%0f'%('甲', 91, '乙', 37, '丙', 21.1))
+#第一名是甲，得分+91；第二名是乙，得分 37；第三名是丙，得分21.100000
+print('第一名是%-5s，得分%+*d；第二名是%s，得分% 10.3f；第三名是%s，得分%0.*f'%('甲',5, 91, '乙', 37, '丙',2, 21.1))
+#第一名是甲    ，得分  +91；第二名是乙，得分    37.000；第三名是丙，得分21.10
+```
+
+
+
+
+
+当既要格式化字符串，又要输出百分号时，要在需输出的百分号前再加一个百分号。  
+
+```python
+print('法国的控球时间占了%.2f %%'% 54.7897) #法国的控球时间占了54.79 %
+```
+
+### 字符串格式化元组
+
+当原字符串中有多个参数需要被格式化时，右参数得是个元组，且元组中得有足够的参数填入字符串，否则会报错。  
+
+```python
+sentence = '第一名是%s，得分%d；第二名是%s，得分%d。'
+print(sentence%('甲', 91, '乙', 37)) #第一名是甲，得分91；第二名是乙，得分37。
+print(sentence%'甲', 91, '乙', 37) #TypeError: not enough arguments for format string
+print(sentence%('甲', 91, '乙')) #TypeError: not enough arguments for format string
+```
+
+## 字符串方法
+
+### find()
+
+用于检测字符串中是否包含某子字符串。  
+
+`index = original_str.find(child_str, beg=开始角标,end=结束角标)`
+
+没有找到则返回 -1。查找角标包左不包右
+
+```python
+str = '012345'
+print(str.find('4', 0, 4)) #-1
+```
+
+### join()
+
+将字符串序列中的元素以指定字符连接成一个新的字符串。  
+
+`str.join(sequence)`  
+
+```python
+str = '012345'
+print(str.join(',')) #,
+print(','.join(str)) #0,1,2,3,4,5
+dirs = '','home','data','hdfs'
+print('路径为：', '/'.join(dirs)) #路径为： /home/data/hdfs
+```
+
+join 操作的调用和被调用对象都应是字符串或字符序列。  
+
+### lower()
+
+把字符串中所有大写字母转成小写。不改变原对象。  
+
+`str.lower()`
+
+### upper()
+
+同上，转成大写。
+
+### swapcase()
+
+大小写互转。
+
+### replace()
+
+把字符串中的 old 替换成 new，如果指定 max，则替换次数不超过 max。不改变原对象。   
+
+`str.replace(old, new[, max])`
+
+### split()
+
+通过指定分隔符对字符串进行切片，如果指定 num，则最多只分隔成 num 个子字符串，返回一个 list。  
+
+`str.split(st=' ', num=string.count(str))`
+
+默认用空格分隔，能分隔几个就分隔几个。  
+
+### strip()
+
+移除字符串头尾指定字符，默认是空格。  
+
+`str.strip([chars])`  
+
+### translate()
+
+用指定的表转换字符串的字符。  
+
+`str.translate(table)`  
+
+```python
+intab = 'abcde'
+outtab = 'ABCDE'
+trantab = str.maketrans(intab,outtab)
+print(type(trantab)) #<class 'dict'>
+original = 'hello world'
+print(original.translate(trantab), ',', original) #hEllo worlD , hello world
+```
+
+
+
+# 字典
+
+字典是 Python 中唯一内建的映射类型，字典指定值没有特殊顺序，都存储在一个特殊的键里，键可以是**数字、字符串、元组**。  
+
+## 创建和使用字典
+
+创建：  
+
+```python
+d = {key1:value1,key2:value2}
+# 空字典
+d = {}
+```
+
+键必须是唯一的。  
+
+键必须是不可变的——数字、字符串、元组。  
+
+None 可以为键。  
+
+### dict
+
+可以用 dict 函数，通过其他映射 （如其他字典）或键值序列对建立字典。  
+
+```python
+student = [['name','甲'],['score', 68]]
+detail = dict(student)
+print(detail) #{'name': '甲', 'score': 68}
+print(detail['name']) #甲
+
+detail = dict(name = '乙', score = 55)
+print(detail) #{'name': '乙', 'score': 55}
+print(detail['score']) #55
+```
+
+### 字典的基本操作
+
+#### 修改字典
+
+`dict[key] = value`  相当于 Java 的 put 操作
+
+```python
+letters = {'a': 1, 'b': 2, 'c': 3}
+letters['d'] = 4 #添加
+letters['a'] = 0 #修改
+print(letters) # {'a': 0, 'b': 2, 'c': 3, 'd': 4}
+```
+
+#### 删除字典
+
+`del dict[key]`  删除字典的一个 key   
+
+`del dict`  删除整个字典  
+
+#### len()
+
+`len(dict)`  得到字典的键的总数。  
+
+### 字典的格式化字符串
+
+```python
+print('a的值是：%(a)s' % letters) #a的值是：0
+```
+
+### 字典和列表的区别
+
+dict 的特点是：
+
+1. 查找和插入快，不会随着 key  增加而变慢；
+2. 需要占用大量内存。
+
+list 的特点是：
+
+1. 查找和插入的时间随着元素的增加而增加；
+2. 占用空间小。
+
+## 字典方法
+
+### clear()
+
+`dict.clear()`  
+
+删除字典内的所有项。删除的是原字典的项而不是指向一个新的字典。  
+
+  ```python
+x = {}
+y = x
+x['key'] = 1
+print(y) #{'key': 1}
+x.clear()
+# y所指向的字典的值被清空
+print(y) #{}
+x['key'] = 2
+x = {}
+# x指向了一个新的字典对象
+print(y) #{'key': 2}
+  ```
+
+### copy()
+
+`dict.copy()`  
+
+返回一个具有相同键值对的新字典。  
+
+这是一个浅复制，即值对象原地修改，复制出来的字典也会受影响。  
+
+### fromkeys()
+
+`dict.fromkeys(seq[,value])`  
+
+创建一个新字典，以 seq 的值为字典的键，value 的值为字典所有键的初始值。默认字典的 value 都是 None。  
+
+```python
+student = ['a', 'b', 'c']
+print(dict.fromkeys(student)) #{'a': None, 'b': None, 'c': None}
+print(dict.fromkeys(student, 'default')) #{'a': 'default', 'b': 'default', 'c': 'default'}
+```
+
+### get()
+
+`dict.get(key[, default=None])`  
+
+返回指定键的值，如果值不在字典中，返回 default 值。default 值默认为 None。  
+
+### in
+
+`key in dict`  
+
+返回一个 boolean 值，表示该字典中有没有这个 key。  
+
+
+
+
+
+
+
