@@ -140,7 +140,7 @@ Python 支持以下 7 种运算符：
 | *=     | c = c * a  |
 | /=     | c = c / a  |
 | %=     | c = c % a  |
-| **=    | c = c ** a |
+| \**=    | c = c \** a |
 | //=    | c = c // a |
 
 
@@ -880,9 +880,387 @@ print(dict.fromkeys(student, 'default')) #{'a': 'default', 'b': 'default', 'c': 
 
 返回一个 boolean 值，表示该字典中有没有这个 key。  
 
+### items()
+
+`dict.items()`  
+
+以列表返回可遍历的（键, 值）元组数组。  
+
+相当于 Java 中的 map.entrySet()。  
+
+```python
+letters = {'a': 1, 'b': 2, 'c': 3}
+print(letters.items()) #dict_items([('a', 1), ('b', 2), ('c', 3)])
+```
+
+### keys()
+
+`dict.keys()`  
+
+以列表的形式返回一个字典里的所有键。  
+
+相当于 Java 中的 map.keySet()。  
+
+### setdefault()
+
+`dict.setdefault(key[, default = None])`  
+
+与 get() 相似，返回 key 的值，若不存在则以返回 default 的值，default 默认为 None；  
+
+与 get() 不同的是，若字典中不存在这个键，则将 default 的值赋给它。
+
+```python
+letters = {'a': 1, 'b': 2, 'c': 3}
+print(letters.get('d', 5)) #5
+print(letters) #{'a': 1, 'b': 2, 'c': 3}
+print(letters.setdefault('d', 5)) #5
+print(letters) #{'a': 1, 'b': 2, 'c': 3, 'd': 5}
+```
+
+### update()
+
+`dict1.update(dict2)`  
+
+把字典 dict2 中的键值对放至 dict1 中。  
+
+dict1 改变，dict2 不变。  
+
+```python
+letters = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+updateletters = {'d': 5, 'e': 6}
+letters.update(updateletters)
+print(updateletters) #{'d': 5, 'e': 6}
+print(letters) #{'a': 1, 'b': 2, 'c': 3, 'd': 5, 'e': 6}
+```
+
+### values()
+
+`dict.values()`  
+
+以列表的形式返回字典中所有值。  
+
+相当于 Java 中的 map.values()。  
+
+# 条件、循环和其他语句
+
+## import 的使用
+
+### import 语句
+
+一个 import 可导入多个模块，模块间用逗号分隔。  
+
+`from math import pi`  从模块中导入指定部分到当前命名空间中，不会将 math 整个模块导入。这样可以直接使用变量 pi，而不用按传统的方法写作 math.pi。  
+
+这个写法还可以导入多个变量及方法：`from math import pi,sin`，并支持通配符 `from math import *`  
+
+另外可以为模块取别名：`import math as m`，可以使用`m.pi`来使用模块的变量和方法。  
+
+或者对单个变量取别名：`from math import pi as p`，可以使用`p`来使用该变量。  
+
+### 使用逗号输出  
+
+使用逗号输出会自动格式化。  
+
+```python
+print('aa', 1, ['aa', 'bb'], 'cc') 
+#aa 1 ['aa', 'bb'] cc
+```
+
+## 别样的赋值
+
+### 序列解包
+
+等号左右两边均有多个以逗号分隔的值/变量 或是序列，则会序列解包分别进行赋值，且没有先后。  
+
+```python
+x, y, z = 1, 2, 3
+print(x, y, z) #1 2 3
+x, y = y, x
+print(x, y, z) #2 1 3
+nums = 1, 2, 3
+x, y, z = nums
+print(x, y, z) # 1 2 3
+info = {'name': '甲', 'mobile': '13232312333'}
+a, b = info.popitem()
+print(a, b) #mobile 13232312333
+```
+
+### 链式赋值
+
+```python
+x = y = z = 10
+# 相当于
+z = 10
+y = z
+x = y
+```
+
+## 语句块
+
+同一段语句块中每行语句都要保持相同的缩进。  
+
+在 python 中，`:`用来标识语句块的开始。  
+
+## 条件语句
+
+以下值在作为布尔表达值时，会被作为是 false：  
+
+> False	None	0	''	""	()	[]	{} 
+
+`bool(value)`返回 True 和 False。value 可为任何类型。
+
+### if 语句
+
+```python
+if 1 == True:
+    print('1==True')
+print('if end')
+# 1==True
+# if end
+
+if 1:
+    print('1==True')
+print('if end')
+# 1==True
+# if end
+```
+
+### else 子句
+
+```python
+if 0:
+    print('0==True')
+else:
+    print('0!=True')
+print('if end')
+# 0!=True
+# if end
+```
+
+### elif 子句
+
+```python
+score = 61
+if score >= 80:
+    print('优秀')
+elif score >= 60:
+    print('及格')
+else:
+    print('不及格')
+#及格
+```
+
+### 更多操作
+
+* is
+
+  在 Python 中，`==`相当于 Java 中的 `equals()`，判断的是值的相等性；
+
+  `is`相当于 Java 中的`==`，判断的是是否是同一个对象。
+
+* 比较字符串和序列
+
+  可以对序列进行比较，也能比较嵌套列表。
+
+  ```python
+  print((1,2) < (2,1)) #True
+  print((1,2) < (1,2,3)) #True
+  print([1,2,[3,4]] > [1,[2,3,4]]) #TypeError: '>' not supported between instances of 'int' and 'list'
+  print([1,2,[4]] < [1,2,[3,4]]) #False
+  ```
+
+* 布尔运算符
+
+  ```python
+  score = 61
+  if score >= 80:
+      print('优秀')
+  if score >= 60 and score < 80:
+      print('及格')
+  if score < 60:
+      print('不及格')
+  #及格
+  ```
+
+### 断言
+
+```python
+score = 61
+assert score > 80, '分数小于80，程序出错' #AssertionError: 分数小于80，程序出错
+```
+
+## 循环
+
+### while 循环
+
+```python
+i = 1
+result = ''
+while i < 10:
+    result += str(i)
+    i += 1
+print(result)
+#123456789
+```
+
+### for 循环
+
+`for iterating_var in sequence:`  
+
+相当于 Java 中的 foreach。  
+
+可以遍历字符串、列表，也可以遍历字典。默认遍历字典的 key。  
+
+```python
+for letter in 'shit':
+    print(letter)
+#s
+#h
+#i
+#t
+for num in [1, 2, 3]:
+    print(num)
+#1
+#2
+#3
+for key in {'name': 'Lily', 'age': 64}:
+    print(key)
+#name
+#age
+for key, value in {'name': 'Lily', 'age': 64}.items():
+    print(key, "-", value)
+#name - Lily
+#age - 64
+```
+
+items() 将键值对作为元组返回。  
+
+### 迭代工具
+
+#### 并行迭代
+
+```python
+letters = ('a', 'b', 'c')
+nums = (1, 2, 3)
+
+for i in range(len(letters)):
+    print(letters[i], nums[i])
+#等效于
+for letter, num in zip(letters, nums):
+    print(letter, num)
+```
+
+`zip()`可以组合两个序列，并且以短序列为准。当短序列遍历结束时，for 循环遍历就会结束。  
+
+```python
+print(type(zip(letters, nums))) #<class 'zip'>
+print(zip(letters, nums)) #<zip object at 0x0000016177F3EAC8>
+```
+
+### 跳出循环
+
+#### break
+
+```python
+num = 10
+while num > 0:
+    if num % 7 == 0:
+        break
+    print(num)
+    num -= 1
+#10
+#9
+#8
+```
+
+#### continue
+
+```python
+num = 10
+while num:
+    if num % 3:
+        num -= 1
+        continue
+    print(num)
+    num -= 1
+#9
+#6
+#3
+```
 
 
 
+### 循环中的 else 子句
+
+#### while 中的 else
+
+当 while 的条件为 false 时，执行 else。前提是循环不是因为 break 而终止的  
+
+```python
+num = 1
+while num:
+    num -= 1
+else:
+    print('一句只要不break就会打印的话')
+print('end')
+# 一句只要不break就会打印的话
+# end
+```
+
+#### for 中的 else
+
+基本同上。  
+
+## pass 语句
+
+是空语句，作用是保持程序结构的完整性。  
+
+```python
+count = 10
+if count > 30 :
+    print(">30")
+elif count >= 10 :
+else:
+    print("<10")
+# IndentationError: expected an indented block
+# 语法校验错误
 
 
+count = 10
+if count > 30 :
+    print(">30")
+elif count >= 10 :
+    pass
+else:
+    print("<10")
+print("end")
+#end
+```
+
+## 练习：猜数游戏
+
+```python
+import random
+
+result = random.randint(1, 100)
+count = 0
+guess = 0
+while count < 10:
+    print('还剩%s次猜测机会' % (10 - count))
+    guess = input("请输入您的猜测数字：")
+    if not guess.isdigit():
+        print('请输入数字')
+        continue
+    guess = int(guess)
+    count += 1
+    if guess == result:
+        print("猜对了！正确答案是%s，您用了%s次猜到了正确答案" % (result, count))
+        break
+    elif guess < result:
+        print("您猜低了一点点哦！")
+    else:
+        print("您猜高了一点点哦！")
+else:
+    print('机会用完了，请下次再来')
+```
 
