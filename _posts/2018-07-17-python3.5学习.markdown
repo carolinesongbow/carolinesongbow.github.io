@@ -1264,3 +1264,148 @@ else:
     print('机会用完了，请下次再来')
 ```
 
+# 函数
+
+## 调用函数
+
+[Python官方API]: https://docs.python.org/3/library/functions.html
+
+
+
+给函数起别名：  
+
+```python
+abs_copy = abs
+print(abs_copy(-1)) #1
+```
+
+## 定义函数
+
+* 函数代码块以 def 关键词开关，后接函数标识名称和圆括号。
+* 所有传入的参数和自变量都必须放在圆括号中，可以在圆括号中定义参数。
+* 函数的第一行语句可以选择性使用文档字符串，用于存放文档说明。
+* 函数内容以冒号开始，并且要缩进。
+* return 结束函数，选择性返回一个值给调用方。不带表达式的 return 相当于返回 None。所以 return None 可以简写为 return。
+* 函数名必须以字母开头，可以包括下划线。  
+
+```python
+def add_num(a, b):
+    print(a + b)
+    return
+add_num(1, 2) #3
+```
+
+## 函数的参数
+
+调用函数时可以使用以下的参数类型：  
+
+* 必须参数
+* 关键字参数
+* 默认参数
+* 可变参数
+* 组合参数
+
+### 必须参数
+
+必须参数必须以正确的顺序传入函数。调用时数量必须和声明时一样。  
+
+### 关键字参数
+
+使用关键字参数允许调用函数时参数的顺序与声明时不一致。  
+
+```python
+def person_info(name, mobile):
+    print('name =', name)
+    print('mobile =', mobile)
+    return
+person_info(mobile=123, name='Jim')
+# name = Jim
+# mobile = 123
+```
+
+### 默认参数
+
+调用函数时，如果 没有传递参数，就会使用默认参数。  
+
+```python
+def printmobile(mobile = 123):
+    print(mobile)
+    return
+printmobile(321) #321
+printmobile() #123
+```
+
+调用注意：  
+
+* 默认参数必须放在非默认参数之后。
+* 若要更改某个默认参数值，又不想传入其他参数，且该默认参数的位置不是第一个，则可以通过传入关键字参数的方式修改默认值。
+* 若有一个默认参数以关键字参数的方式修改默认值，则其他要修改的默认值也得以关键字参数的方式传入。
+
+### 可变参数
+
+参数前带 * 的参数就是可变参数，可以传入不定数量个参数。  
+
+`*` 的参数当作元组来处理，`**` 当作字典来处理。  
+
+不传就是个空元组/字典。  
+
+```python
+def group(group_name, *person_names):
+    print(type(person_names))
+    for name in person_names:
+        group_name += (' %s' % name)
+    print(group_name)
+    return
+
+group('SHD')
+# <class 'tuple'>
+# SHD
+group('SHD', 'Geguri', 'Ado', 'Fearless', 'Sky', 'Diya', 130, ['freefeel', '#'])
+# <class 'tuple'>
+# SHD Geguri Ado Fearless Sky Diya 130 ['freefeel', '#']
+
+
+# 双*示范
+def group(person, **person_info):
+    print(type(person_info))
+    for key,value in person_info.items():
+        person += (' %s=%s' % (key,value))
+    print(person)
+    return
+
+persons = {'Geguri':'D.Va', 'Fearless':'Winston'}
+group('Geguri', character=persons['Geguri']) 
+#Geguri character=D.Va
+```
+
+### 组合参数
+
+自动按序匹配参数类型。  
+
+不能定义两个同类型的
+
+```python
+def exp(p1, p2, df=0, *vart, **kw):
+    print('p1=', p1, 'p2=', p2, 'df=', df, 'vart=', vart, 'kw=', kw)
+
+exp(1,2)
+#p1= 1 p2= 2 df= 0 vart= () kw= {}
+exp(1,2,c=3)
+#p1= 1 p2= 2 df= 0 vart= () kw= {'c':3}
+exp(1,2,3,'a','b')
+#p1= 1 p2= 2 df= 3 vart= ('a','b') kw= {}
+exp(1,2,3,'abc',x=9)
+#p1= 1 p2= 2 df= 3 vart= ('abc') kw= {'x':9}
+
+def exp(*tupleparam, **dictparam):
+    print('tuple', tupleparam)
+    print('dict', dictparam)
+    return
+exp('a', b=3, 7, c=6)
+#SyntaxError: positional argument follows keyword argument
+
+def exp2(*tupleparam1, *tupleparam2):
+    pass
+#SyntaxError: invalid syntax
+```
+
