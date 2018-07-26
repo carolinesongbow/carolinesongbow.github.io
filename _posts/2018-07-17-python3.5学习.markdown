@@ -1382,7 +1382,7 @@ group('Geguri', character=persons['Geguri'])
 
 自动按序匹配参数类型。  
 
-不能定义两个同类型的
+不能定义两个同类型的可变参数。传入不同的参数类型时，不可穿插，要按顺序来。  
 
 ```python
 def exp(p1, p2, df=0, *vart, **kw):
@@ -1407,5 +1407,124 @@ exp('a', b=3, 7, c=6)
 def exp2(*tupleparam1, *tupleparam2):
     pass
 #SyntaxError: invalid syntax
+```
+
+## 变量作用域
+
+### 全局变量
+
+如果我们定义了一个名为 num 的全局变量，在函数体中也定义了一个名为 num 的局部变量，函数中默认使用局部变量。  
+
+如果需要在函数中把某个变量定义为全局变量，则需要在被定义的变量前加关键字 global。  
+
+```python
+num = 1
+def test_global1():
+    num = 2
+    return
+def test_global2():
+    global num
+    num = 2
+    # 不可以写成 global num = 2，需先定义全局变量
+    return
+
+test_global1()
+print(num) #1
+test_global2()
+print(num) #2
+```
+
+ ## 返回函数
+
+一个函数的返回值可以是一个函数。  
+
+```python
+def outer(is_plus):
+    def plus(a, b):
+        return a + b
+    def reduce(a, b):
+        return a - b
+    if is_plus:
+        return plus
+    return reduce
+
+plus_function = outer(True)
+print(plus_function) #<function outer.<locals>.plus at 0x00000206260C9EA0>
+print(plus_function(3, 1)) #4
+
+reduce_function = outer(False)
+print(reduce_function) #<function outer.<locals>.reduce at 0x00000206260EF048>
+print(reduce_function(3, 1)) #2
+```
+
+**闭包（Closure）：如果在一个内部函数里对外部函数（非全局作用域）的变量进行引用，内部函数就被认为是闭包。**  
+
+个人理解：一个函数把另一个函数作为一个工具包返回给了调用方。  
+
+同样的函数，每次返回的闭包都是一个新的函数对象（即使函数入参一样）。
+
+
+
+讲个鬼故事：  
+
+```python
+def count():
+    fs = []
+    for i in range(1, 4):
+        def square():
+            return i*i
+        fs.append(square)
+    return fs
+
+f1,f2,f3 = count()
+print(f1(), f2(), f3()) #9 9 9
+```
+
+执行顺序：for 循环中先挨个把工具函数放到了列表中，放完以后才执行计算，此时 i = 3。  
+
+## 匿名函数 
+
+lambda 的语法：  
+
+`lambda 参数[, 参数2] : 表达式` 
+
+```python
+#=====方法1=======
+def custom(in_list):
+    return_list = []
+    for param in in_list:
+        if param > 3:
+            return_list.append(param)
+    return return_list
+print(custom([1, 2, 3, 4, 5]))
+
+#=====方法2=======
+def bigger_than3(x):
+    return x > 3
+result_list = filter(bigger_than3, [1, 2, 3, 4, 5])
+print([item for item in result_list])
+
+#=====方法3=======
+result_list = filter(lambda x: x > 3, [1, 2, 3, 4, 5])
+print([item for item in result_list])
+
+#=====方法4=======
+print([item for item in filter(lambda x: x > 3, [1, 2, 3, 4, 5])])
+```
+
+`item for item in filter` 是 filter 类的取值方式。filter 函数返回一个 filter 对象——一个迭代器。filter 函数的参数：一个返回值为 bool 的函数对象，以及一个可迭代对象。  
+
+```python
+# 无参数 lambda
+t = lambda : 1
+print(t()) #1
+
+# 多参数 lambda
+plus = lambda a,b : a + b
+print(plus(1,2)) #3
+
+# 默认参数 lambda
+default_value = lambda a, b = 1 : a + b
+print(default_value(2, 2), default_value(2)) #4 3
 ```
 
