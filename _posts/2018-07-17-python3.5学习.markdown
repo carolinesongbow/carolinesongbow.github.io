@@ -1528,3 +1528,30 @@ default_value = lambda a, b = 1 : a + b
 print(default_value(2, 2), default_value(2)) #4 3
 ```
 
+## 偏函数
+
+`带有第一个参数默认值的新函数 = partial(原函数, 函数的第一个参数)`  
+
+```python
+import functools
+
+def result_score(total_score, minus_score):
+    return total_score - minus_score
+
+remain_score_of_100 = functools.partial(result_score, 100)
+print(remain_score_of_100(30))
+remain_score_of_1000 = functools.partial(result_score, 1000)
+print(remain_score_of_1000(700))
+
+# 以上等价于↓↓↓↓
+
+def result_score(minus_score, total_score = 100):
+    return total_score - minus_score
+print(result_score(30))
+def result_score2(minus_score, total_score = 1000):
+    return total_score - minus_score
+print(result_score(700))
+```
+
+其实就是给函数了一个默认值，只不过变化起默认值来更简单方便。  
+
