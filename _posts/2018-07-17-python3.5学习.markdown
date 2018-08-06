@@ -1555,3 +1555,466 @@ print(result_score(700))
 
 其实就是给函数了一个默认值，只不过变化起默认值来更简单方便。  
 
+# 面向对象编程
+
+## 类的定义与使用
+
+### 类的定义
+
+```python
+class MyClass(object):
+    i = 123
+    def func(self):
+        return 'hello world', self.i
+
+```
+
+* 类名驼峰，首字母大写；
+* 类名后的括号表示继承哪个类，不写默认为 object
+
+### 类的使用
+
+```python
+class MyClass():
+    i = 123
+    def func(self):
+        return 'hello world', self.i
+
+my_class = MyClass()
+my_class.i = 10
+print(my_class.func())
+# ('hello world', 10)
+```
+
+## 深入类
+
+### 类的构造方法
+
+`__init__([param])` 是一个类的构造函数，默认构造函数规则与 Java 相同。  
+
+与 Java 不同的是，当一个类中重载多个构造方法时，Python 只使用最后那个构造方法，实际上无法「重载」。  
+
+### 类的访问权限
+
+在 Python 中，类的成员变量可以不做声明，调用方想怎么用就怎么用。  
+
+```python
+class MyClass():
+    def __init__(self, i):
+        self.i = i
+        print('带i参数的init')
+
+    def func(self):
+        return 'hello world', self.i
+
+my_class = MyClass(1)
+my_class.i = 10
+print(my_class.func())
+```
+
+当实例的变量名以`__`开头时，则它是一个私有变量，只有内部可以访问。  
+
+讲个鬼故事：  
+
+```python
+class MyClass():
+    def __init__(self, i):
+        self.__i = i
+        print('带i参数的init')
+
+    def func(self):
+        return 'hello world', self.__i
+
+my_class = MyClass(1) #带i参数的init
+print(my_class.__i) #报错
+my_class.__i = 10
+print(my_class.__i) #10
+print(my_class.func()) #('hello world', 1)
+```
+
+关于这个问题，个人的理解是这样的：  
+
+* 对象中有个私有变量 __i，在构造对象时初始化为1；
+* 直接调用该对象的私有变量，报错；
+* 将 10 赋个一个名叫「my_class.__i」的变量，该变量与 my_class 对象及其成员变量无关；
+* 最后，这个「my_class.__i」的变量的值为 10，但对象中的 \_\_i 的值仍是 1。
+
+Python 中的 getter 和 setter:  
+
+```python
+class MyClass():
+    def __init__(self, i):
+        self.__i = i
+        print('带i参数的init')
+
+    def get_i(self):
+        return self.__i
+
+    def set_i(self, i):
+        self.__i = i
+
+my_class = MyClass(1)
+print('原i', my_class.get_i()) #原i 1
+my_class.set_i(2)
+print('新i', my_class.get_i()) #新i 2
+
+```
+
+私有方法：  
+
+```python
+class MyClass():
+    def __init__(self, i):
+        self.__i = i
+        print('带i参数的init')
+
+    def __func(self):
+        return 'hello world', self.__i
+
+my_class = MyClass(1)
+my_class.__func() 
+#AttributeError: 'MyClass' object has no attribute '__func'
+```
+
+## 继承
+
+Python 的继承有以下特点：  
+
+* 基类的构造方法不会被自动调用，需要在子类的构造方法中专门调用；
+* 调用基类方法时需要加上基类的类名前缀，并带上 self 参数变量；
+* 在子类中找不到对应的方法，才到基类中逐个查找。
+
+```python
+class Animal():
+    def __init__(self):
+        print('animal init')
+
+    def running(self):
+        print('animal is running')
+
+class Cat(Animal):
+    def __init__(self, name):
+        self.name = name
+        print('cat init')
+
+    def running(self):
+        print('cat is running')
+
+
+cat = Cat('Chee')
+# 只打印了 cat init，印证基类构造方法不会被自动调用
+cat.running()
+# cat is running
+Animal.running(cat)
+# animal is running，重写方法的父类方法的调用方式
+```
+
+另外，需要的时候，基类方法会用到子类对象属性：  
+
+```python
+class Animal():
+    def __init__(self):
+        print('animal init')
+
+    def running(self):
+        print('animal %s is running' % self.name)
+
+class Cat(Animal):
+    def __init__(self, name):
+        self.name = name
+        print('cat init')
+
+    def running(self):
+        print('cat is running')
+
+
+cat = Cat('Chee')
+#cat init
+Animal.running(cat)
+#animal Chee is running
+```
+
+个人理解，这里面用到的父类的方法，相当于一个打包好的方法，然后用子类的对象去提供方法中需要用到的参数。  
+
+## 多态
+
+```python
+class Animal():
+    def running(self):
+        print('animal %s is running' % self.name)
+
+class Cat(Animal):
+    def __init__(self, name):
+        self.name = name
+        print('cat init')
+
+    def running(self):
+        print('cat is running')
+
+
+def let_animal_run(animal):
+    animal.running()
+
+cat = Cat('Chee')
+let_animal_run(cat)
+# cat is running
+```
+
+特别说明一下`isinstance`方法，isinstance(子类对象, 父类) ==> true，instance(父类对象, 子类) ==> false。
+
+## 多重继承
+
+Python 可以继承多个类，当父类方法冲突时，以类声明的第一个父类去找，并且找第一个父类的父类……直到找到为止。若第一个父类的所有父类都没有该方法，则找第二个父类。  
+
+```python
+class Animal():
+    def drink(self):
+        print('animal drink')
+
+class Wolf(Animal):
+    pass
+
+class Person():
+    def drink(self):
+        print('person drink')
+
+class WolfPerson(Wolf, Person):
+    pass
+
+wolf_person = WolfPerson()
+wolf_person.drink()
+# animal drink
+```
+
+## 获取对象信息
+
+#### type()
+
+```python
+import types
+
+def func():
+    pass
+
+type(func) == types.FunctionType # True
+type(abs) == types.BuiltinFunctionType # True
+type(lambda x: x) == types.LambdaType # True
+type((x for x in range(10))) == types.GeneratorType #True
+```
+
+#### dir()
+
+dir(对象) 返回一个字符串的 list，内容是这个对象的所有属性和方法。  
+
+
+
+## 类的专有方法
+
+### \_\_str\_\_()
+
+即 Java 中的 toString()。  
+
+只有在命令行中，对象的显示默认调用 \_\_repr\_\_()。
+
+### \_\_iter\_\_()
+
+即 Java 中的 iterator()。返回一个迭代对象。  
+
+如果想将一个类用于 for...in 循环，就必须实现该方法。该方法返回一个迭代对象， for 循环时，会先调用 `__inter__()`方法得到一个迭代器，然后会不断调用该迭代对象的 `__next__()`方法，直到遇到 StopIteration 错误时退出循环。  
+
+```python
+#斐波那契数列输出
+class Fib():
+    def __init__(self):
+        self.a, self.b = 0, 1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.a, self.b = self.b, self.a + self.b
+        if self.a > 100:
+            raise StopIteration()
+        return self.a
+
+fib = Fib()
+for f in fib:
+    print(f)
+```
+
+### \_\_getitem\_\_()
+
+像 list 一样按照下标取出元素，需要实现`__getitem__()`方法。
+
+```python
+class Fib():
+    def __getitem__(self, item):
+        a, b = 0, 1
+        for i in range(item + 1):
+            a, b = b, a + b
+        return a
+
+fib = Fib()
+print(fib[2])
+```
+
+### \_\_getattr\_\_()
+
+若实现了该方法，则当外部获取对象不存在的属性时不会报错，而会按该方法的定义返回。  
+
+```python
+class Cat():
+    def __getattr__(self, attr):
+        if attr == 'name':
+            return 'chee'
+        return 'abc'
+
+cat = Cat()
+print(cat.name) #chee
+print(cat.age) #abc
+```
+
+### \_\_call\_\_()
+
+类如果实现了该方法，就直接可以对实例进行方法调用，`对象名()`这样写就是调用 call 方法了。  
+
+```python
+class Cat():
+    def __init__(self, name):
+        self.name = name
+
+    def __call__(self):
+        if self.name == 'chee':
+            print('麻~~~~')
+        else:
+            print('喵~~~~')
+
+chee = Cat('chee')
+chee() #麻~~~~
+```
+
+`callable(对象)`返回对象类是否实现了`__call__()`方法。  
+
+
+
+# 异常
+
+## 异常处理
+
+```python
+def exp_exception(a, b):
+    try:
+        return a/b
+    except Exception:
+        print('catch exception')
+        return 0
+
+print(exp_exception(1, 0))
+# catch exception
+# 0
+```
+
+## 抛出异常
+
+Python 使用 raise 语句抛出一个指定异常（即 throw）。  
+
+Python 中的重要内建异常类
+
+| 异常名称       | 描述                          |
+| -------------- | ----------------------------- |
+| Exception      | 常规错误的基类                |
+| AttributeError | 对象没有这个属性              |
+| IOError        | 输入/输出流操作失败           |
+| IndexError     | 序列中没有此索引              |
+| KeyError       | 映射中没有这个键              |
+| NameError      | 未声明/初始化对象（没有属性） |
+| SyntaxError    | Python 语法错误               |
+| ValueError     | 传入无效参数                  |
+| SystemError    | 一般解释器系统错误            |
+
+
+
+```python
+def param_validate(a):
+    if a < 0 or a == 0:
+        raise ValueError('a must be larger than 0')
+    print('function do sth')
+
+param_validate(-1)
+#ValueError: a must be larger than 0
+```
+
+## 捕捉多个异常
+
+```python
+def param_validate(a, b):
+    try:
+        if a < 0 or a == 0:
+            raise ValueError('a must be larger than 0')
+        print(a/b)
+    except ValueError:
+        print('ValueError')
+    except ZeroDivisionError:
+        print('ZeroDivisionError')
+
+
+param_validate(-1, 0)
+#ValueError
+param_validate(1, 0)
+#ZeroDivisionError
+```
+
+## 使用一个块捕捉多个异常
+
+```python
+def param_validate(a, b):
+    try:
+        if a < 0 or a == 0:
+            raise ValueError('a must be larger than 0')
+        print(a/b)
+    except (ValueError, ZeroDivisionError):
+        print('ValueError or ZeroDivisionError')
+    except ZeroDivisionError:
+        print('ZeroDivisionError')
+
+
+param_validate(-1, 0)
+#ValueError or ZeroDivisionError
+param_validate(1, 0)
+#ValueError or ZeroDivisionError
+```
+
+## 捕捉对象
+
+```python
+def param_validate(a, b):
+    try:
+        if a < 0 or a == 0:
+            raise ValueError('a must be larger than 0')
+        print(a/b)
+    except (ValueError, ZeroDivisionError) as e:
+        print(e)
+
+param_validate(-1, 0)
+#a must be larger than 0
+param_validate(1, 0)
+#division by zero
+```
+
+## 全捕捉
+
+```python
+def param_validate(a, b):
+    try:
+        if a < 0 or a == 0:
+            raise ValueError('a must be larger than 0')
+        print(a/b)
+    except:
+        print('some error happend')
+
+param_validate(-1, 0)
+#some error happend
+param_validate(1, 0)
+#some error happend
+```
+
