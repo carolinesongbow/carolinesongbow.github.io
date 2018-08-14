@@ -8,6 +8,7 @@ tags: [redis]
 Redis 内存模型深入
 
 ## Redis 内存统计
+
 * 使用`redis-cli -h {hostname} -p {port}`连接 redis
 * 连接成功，使用`info memory`查看内存信息
 ```
@@ -116,8 +117,10 @@ Redis 服务器在初始化时，会创建 10000 个字符串对象，为 0-9999
 指向 value 值。  
 
 ## SDS
+
 即简单动态字符串（Simple Dynamic String）的缩写。  
 ### 结构
+
 ```c
 struct sdshdr{
   int len;
@@ -232,6 +235,7 @@ typedef struct list { //双向链表   包括三个操作函数
 ziplist 可以转 linkedlist，而 linkedlist 不能转 ziplist。
 
 ### 哈希
+
 #### 概况
 哈希同时也是 Redis 作为 Key-Value 数据库所使用的数据结构，不可混淆。  
 #### 内部编码
@@ -302,7 +306,8 @@ ziplist 可以转 hashtable，而 hashtable 不能转 ziplist。
 一个集合最多可以存储 2^32-1 个元素。  
 除了支持常规的增删改查，还支持多个集合取交集、并集、差集。  
 
-#### 内部编码  
+#### 内部编码
+
 1. 哈希表 hashtable
 字典的每个键都是一个字符串对象， 每个字符串对象包含了一个集合元素， 而字典的值则全部被设置为 NULL。  
 其余同前，略。    
@@ -315,7 +320,7 @@ typedef struct intset{
 } intset;
 ```
 encoding 的说明：虽然 contents 是 int8_t 类型，但实际上其存储的值是 int16_t、int32_t 或 int64_t，由 encoding 决定。  
-整数集合适用于集合所有元素都是整数且集合元素数量较小的时候，优势在于集中存储，节省空间；虽然对于元素操作复杂度也由 O(n) 变为了 O(1)，但集合数量少的时候操作的时间并没有明显劣势。  
+整数集合适用于集合所有元素都是整数且集合元素数量较小的时候，优势在于集中存储，节省空间；虽然对于元素操作复杂度也由 O(1) 变为了 O(n)，但集合数量少的时候操作的时间并没有明显劣势。  
 
 #### 编码转换
 同时满足以下两个条件则使用整数集合：1）集合中的元素数量小于 512 个；2）集合中所有元素都是整数值。  
@@ -363,9 +368,11 @@ encoding 的说明：虽然 contents 是 int8_t 类型，但实际上其存储�
 
 #### 利用 jemalloc 特性进行优化  
 
-由于 jemalloc 分配内存时数值是不连续的，因此 key/value 变化一个字节，可能会引起占用内存很大的变动。应注意 2 的 n 次方的一些特殊值。  
+由于 jemalloc 分配内存时数值是不连续的，因此 key/value 变化一个字节，可能会引起占用内存很大的变动。应注意一些特殊值。  
 
 例，如果 key 的长度是 8 字节，则 SDS 为 17 字节（free+len+9），jemalloc 分配 32 字节；而若 key 的长度是 7 字节，则 SDS 为 16 字节，jemalloc 分配 16 字节。
+
+![jemalloc-save-space](E:\caroline19891022.github.io\images\jemalloc-save-space.png)
 
 #### 使用整形
 
@@ -377,7 +384,7 @@ encoding 的说明：虽然 contents 是 int8_t 类型，但实际上其存储�
 
 使用 0-9999 这些整数，或可通过调整 REDIS_SHARED_INTEGERS 参数提高共享对象的个数。  
 
-### 关注内存碎片率  
+### 关注内存碎片率
 
 内存碎片率过高（标准为 1.03）时，内存碎片多，可考虑重启 Redis。  
 
