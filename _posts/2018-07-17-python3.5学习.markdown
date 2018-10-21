@@ -1001,6 +1001,8 @@ x = y
 
 在 python 中，`:`用来标识语句块的开始。  
 
+注意：python 中的语句块和 java 中的不一样，即使语句块外未定义某一个变量，语句块中的变量值语句块外可以直接获取到。  
+
 ## 条件语句
 
 以下值在作为布尔表达值时，会被作为是 false：  
@@ -2304,4 +2306,243 @@ datetime 支持 0001 年（datetime.MINYEAR）到 9999 年（datetime.MAXYEAR）
 * calendar.weekday(year,month,day)
 
   返回这一天是周几。
+
+# 文件操作
+
+## 打开文件
+
+`open(file_name[, access_mode][, buffering])`
+
+file_name:文件名；  
+
+access_mode:打开模式，只读/写入/追加 等。默认为只读(r)；  
+
+buffering:寄存区缓冲大小。  
+
+file_name 可为绝对路径也可为相对路径，绝对路径写全地址，相对路径用`.`代替当前路径值，`..`代替父路径。    
+
+access_mode 值说明：  
+
+```
+'r'       open for reading (default)
+'w'       open for writing, truncating the file first
+'x'       create a new file and open it for writing
+'a'       open for writing, appending to the end of the file if it exists
+'b'       binary mode
+'t'       text mode (default)
+'+'       open a disk file for updating (reading and writing)
+```
+
+## 基本文件方法
+
+### 读和写  
+
+读：`file_content = fileObject.read([count])`  count 参数表示读多少。默认读所有。  
+
+写：`write_length = fileObject.write(string)`   
+
+### 读写行  
+
+#### readline
+
+`file.readline([count])` count 表示读多少字符。默认读指针开始这一行的所有内容。  
+
+```python
+# 文件内容如下：
+# 123
+# 456
+# 789
+file = open('test.txt')
+print(file.readline(1)) # 1
+print(file.readline(5)) # 123
+```
+
+个人推测 readline() 的 count 参数的算法为：    
+
+* count 小于等于 0 时，不生效；
+* 前面若没有换行符，则截至当前位置。  
+* 其余情况，均只读一行
+
+#### readlines
+
+`list = file.readlines([hint])` hint 表示读取长度。值小于等于 0 或不传则读所有。    
+
+```python
+# 文件内容如下：
+# 123
+# 456
+# 789
+file = open('test.txt')
+print(file.readlines(1)) # ['123\n']
+print(file.readline(5)) # ['123\n', '456\n']
+```
+
+#### writelines
+
+即 readlines 的反向。换行符不能省。  
+
+### 关闭文件  
+
+fileObject.close()
+
+
+
+### 文件重命名
+
+引入 os 包，如果在重命名操作前对 file 进行了 open 操作并且未 close，则会报错 PermissionError。  
+
+```python
+import os
+os.rename('e:/code/python/test01.txt', 'e:/code/python/test02.txt')
+```
+
+### 删除文件
+
+```python
+if os.path.exists('e:/code/python/test01.txt'):
+    # if 判断，避免抛错
+    print('file exist')
+    os.remove('e:/code/python/test01.txt')
+else:
+    print('file not exist')
+```
+
+## 文件迭代
+
+```python
+# 文件内容如下：
+# 123
+# 456
+# 789
+
+# 方法一：fileinput 不用手动开关文件
+import fileinput
+count = 0
+for line in fileinput.input('e:/code/python/test01.txt'):
+    count += 1
+    print('line', count)
+    print(line)
+# 结果
+# line 1
+# 123
+#
+# line 2
+# 456
+#
+# line 3
+# 789
+# 存在的空行个人认为是原文本最后的'\n'换行字符在控制台解析后的结果
+
+# 方法二：文件迭代器 文件本身就可迭代，方便
+file = open('e:/code/python/test01.txt')
+count = 0
+for line in file:
+    count += 1
+    print('line', count)
+    print(line)
+file.close()
+# 结果同上
+```
+
+
+
+两种方法是完全等价的。
+
+
+
+## StringIO 函数
+
+用途：操作 String 的另一种方法。  
+
+```python
+from io import StringIO
+# 写入值
+# 1.new 对象时写入
+io_object = StringIO('aa')
+# 2.通用的 IO 写入
+io_object.write('bb')
+io_object.writelines(['\nbb\ncc', 'dd'])
+# 输出
+# 1.获取这个流种的所有的值，指针不会动
+io_object.getvalue()
+# 2.通用的 IO 读取
+list = io_object.readlines()
+```
+
+##  序列化和反序列化
+
+### 一般序列化和反序列化
+
+引入 pickle 模块。  
+
+序列化：  
+
+pickle.dump(obj, file[, protocol])  
+
+```python
+import pickle
+
+# dumps 的应用
+dumps_obj = pickle.dumps('123')
+print(dumps_obj) #b'\x80\x03X\x03\x00\x00\x00123q\x00.'
+print(type(dumps_obj)) #<class 'bytes'>
+
+# dump 的应用
+# 1. 打开这个待写的文件
+student_file = open('student.txt', 'wb')
+# 2. 生成待写的对象
+xiao_ming = dict(name='xiaoming', age=12)
+students = []
+students.append(xiao_ming)
+# 3. 序列化输出到文件
+pickle.dump(students, student_file)
+# 4. 关闭文件
+student_file.close()
+```
+
+反序列化：  
+
+```python
+student_file = open('student.txt', 'rb')
+students = pickle.load(student_file)
+print(students) #[{'name': 'xiaoming', 'age': 12}]
+student_file.close()
+```
+
+### JSON 序列化和反序列化
+
+* json.dumps() 序列化
+* json.loads() 反序列化
+
+```python
+# 关于 dumps
+students_dumps = json.dumps(students)
+print(students_dumps) #[{"name": "xiaoming", "age": 12}]
+print(type(students_dumps)) #<class 'str'>
+
+# 序列化
+file_object = open('student.txt', 'w')
+json.dump(students, file_object)
+file_object.close()
+
+# 反序列化
+file_object = open('student.txt')
+json_object = json.load(file_object)
+file_object.close()
+print(json_object) #[{'name': 'xiaoming', 'age': 12}]
+print(type(json_object)) #<class 'list'>
+```
+
+
+
+## with
+
+自己加的，书里没写到（这么好用的东西竟然不写，真的是。。。）  
+
+```python
+with open('student.txt') as file_object:
+    aa = json.load(file_object)
+print(aa) #[{'name': 'xiaoming', 'age': 12}]
+print(type(aa)) #<class 'list'>
+```
 
