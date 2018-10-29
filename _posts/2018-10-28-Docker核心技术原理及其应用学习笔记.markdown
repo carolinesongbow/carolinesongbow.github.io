@@ -31,6 +31,8 @@ Docker 容器的概念约等于虚拟机。
 
 ![docker镜像常用操作](../images/docker-image.png)
 
+
+
 ## 镜像搜索
 
 * 命令格式：
