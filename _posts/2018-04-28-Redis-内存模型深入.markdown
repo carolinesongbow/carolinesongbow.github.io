@@ -240,8 +240,8 @@ ziplist 可以转 linkedlist，而 linkedlist 不能转 ziplist。
 哈希同时也是 Redis 作为 Key-Value 数据库所使用的数据结构，不可混淆。  
 #### 内部编码
 1. 压缩列表 ziplist
-  同上。  
-  优势为集中存储，节省空间。  
+    同上。  
+    优势为集中存储，节省空间。  
 
 2. 哈希表 hashtable
 
@@ -372,7 +372,7 @@ encoding 的说明：虽然 contents 是 int8_t 类型，但实际上其存储�
 
 例，如果 key 的长度是 8 字节，则 SDS 为 17 字节（free+len+9），jemalloc 分配 32 字节；而若 key 的长度是 7 字节，则 SDS 为 16 字节，jemalloc 分配 16 字节。
 
-![jemalloc-save-space](E:\caroline19891022.github.io\images\jemalloc-save-space.png)
+![jemalloc-save-space](../images/jemalloc-save-space.png)
 
 #### 使用整形
 

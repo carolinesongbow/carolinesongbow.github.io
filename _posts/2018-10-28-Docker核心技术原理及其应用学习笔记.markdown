@@ -1,0 +1,158 @@
+---
+layout: post
+title:  "「Docker核心技术原理及其应用学习笔记」"
+date:   2018-10-28 16:17:54 +0800
+tags: [docker]
+---
+
+# Docker概览
+
+Docker 容器的概念约等于虚拟机。  
+
+
+
+## Docker 底层
+
+* Namespaces 命名空间
+
+  为 Docker 容器提供操作系统层面的隔离
+
+* Control Groups 控制组
+
+  为 Docker 容器提供硬件层面的隔离
+
+* Union File System 联合文件系统
+
+  利用分层 layer 思想管理镜像和容器
+
+# 镜像
+
+镜像是一个 Docker 的可执行文件，通过镜像可以创建一个或多个容器。    
+
+![docker镜像常用操作](../images/docker-image.png)
+
+## 镜像搜索
+
+* 命令格式：
+  ​	docker search [OPTIONS] TERM
+
+* 命令参数(OPTIONS)：
+
+
+```
+  	-f,  --filter filter   	根据提供的格式筛选结果
+  	     --format string   	利用Go语言的format格式化输出结果
+  	     --limit int       	展示最大的结果数，默认25个
+  	     --no-trunc        	内容全部显示
+
+```
+
+## 本地镜像
+
+### docker pull
+
+作用：
+​	下载远程仓库（如Docker Hub）中的镜像
+命令格式：
+​	`docker pull [OPTIONS] NAME[:TAG|@DIGEST]`
+命令参数(OPTIONS)：
+​	-a, --all-tags               	下载所有符合给定tag的镜像
+
+
+
+### docker images
+
+作用：
+​	列出本地镜像
+命令格式：
+​	`docker images [OPTIONS][REPOSITORY[:TAG]]`  
+​     或者  `docker image ls [OPTIONS][REPOSITORY[:TAG]]`  
+命令参数(OPTIONS)：	
+​	-a, --all             		展示所有镜像 (默认隐藏底层的镜像)
+​	     --no-trunc        	不缩略显示
+​	-q, --quiet           	只显示镜像ID
+
+### docker rmi/docker image rm
+
+作用：
+​	将本地的一个或多个镜像删除
+命令格式：
+​	`docker rmi [OPTIONS] IMAGE [IMAGE...]`  
+​     或者  `docker image rm [OPTIONS] IMAGE [IMAGE...]`  
+命令参数(OPTIONS)：	 
+​	-f, --force      		强制删除
+
+
+
+### docker save
+
+作用：  
+​	将本地的一个或多个镜像打包保存成本地tar文件(输出到STDOUT)  
+命令格式：  
+​	`docker save [OPTIONS] IMAGE [IMAGE...]`  
+命令参数(OPTIONS)：	  
+​	-o, --output string   		指定写入的文件名和路径  
+
+`docker save centos:7 > centosfile.tar`  
+
+`docker save centos:7 -o centosfile.tar`  
+
+
+
+save 的时候最好用指定名称+版本号的方式，不然 load 进来后名称和版本号就是 null。
+
+
+
+### docker load
+
+
+
+作用：  
+​	将save命令打包的镜像导入本地镜像库中  
+命令格式：  
+​	`docker load [OPTIONS]`
+命令参数(OPTIONS)：	  
+​	-i,  --input string   	指定要打入的文件，如没有指定，默认是STDIN  
+​	-q, --quiet          		不打印导入过程信息   
+
+### docker tag 
+
+作用：  
+​	对本地镜像的NAME、TAG进行重命名，并新产生一个命名后镜像  
+命令格式：  
+​	`docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]`  
+
+当对一个正常镜像重命名时，会新建一个引用；当对一个无名称和 tag 的镜像重命名时，会修改原镜像名称。  
+
+
+
+### docker image inspect
+
+作用：  
+​	查看本地一个或多个镜像的详细信息  
+命令格式：  
+​	`docker image inspect [OPTIONS] IMAGE [IMAGE...]`  
+命令参数(OPTIONS)：	 
+​	-f, --format string          利用特定Go语言的format格式输出结果  
+
+```python
+E:\code\dockerfiles>docker image inspect -f "{{json .Metadata.LastTagTime}}" ubuntu
+"0001-01-01T00:00:00Z"
+
+E:\code\dockerfiles>docker image inspect -f "{{json .Metadata}}" ubuntu
+{"LastTagTime":"0001-01-01T00:00:00Z"}
+```
+
+### docker history
+
+作用：  
+​	查看本地一个镜像的历史(历史分层)信息  
+命令格式：  
+​	`docker history [OPTIONS] IMAGE`  
+命令参数(OPTIONS)：  
+​	-H, --human		将创建时间、大小进行优化打印(默认为true)  
+​	-q, --quiet           	只显示镜像ID  
+​	     --no-trunc        	不缩略显示  
+
+
+
