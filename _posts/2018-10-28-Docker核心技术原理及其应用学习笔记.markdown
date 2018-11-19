@@ -158,3 +158,82 @@ E:\code\dockerfiles>docker image inspect -f "{{json .Metadata}}" ubuntu
 
 
 
+# 容器
+
+容器是一种轻量级、可移植、并将应用程序进行打包的技术，使应用程序可以在几乎任何地方以相同的方式运行。  
+
+Docker 将镜像文件运行起来后，产生的对象就是容器。容器相当于是镜像运行起来的一个实例。容器具备一定的生命周期。  
+
+可以借助 docker ps 命令查看运行的容器。  
+
+## 容器与虚拟机
+
+### 相同点
+
+* 硬件资源共享使用
+* 生命周期相似
+* 可以安装应用
+* 数据会存储在宿主机上(/var/lib/docker/containers)
+
+### 不同点
+
+* 虚拟机是一个完整的操作系统，容器运行在宿主机的内核上（本质上一系列进程的结合）
+* 容器轻量级，虚拟机重量级
+
+## 容器的生命周期
+
+![docker容器生命周期](../images/docker容器生命周期.png)
+
+### 创建容器 docker create
+
+作用：
+​	利用镜像创建出一个Created 状态的待启动容器
+命令格式：
+​	`docker create [OPTIONS] IMAGE [COMMAND][ARG...]`
+命令参数(OPTIONS)：查看更多
+​	-t, --tty           		分配一个伪TTY，也就是分配虚拟终端
+​      	-i, --interactive    	即使没有连接，也要保持STDIN打开
+​          	     --name          		为容器起名，如果没有指定将会随机产生一个名称
+命令参数（COMMAND\ARG）:
+​	COMMAND 表示容器启动后，需要在容器中执行的命令，如ps、ls 等命令
+​	ARG 表示执行 COMMAND 时需要提供的一些参数，如ps 命令的 aux、ls命令的-a等等
+
+### 删除容器 docker rm
+
+`docker rm [OPTIONS] CONTAINER [CONTAINER...]`
+
+可以指定为容器的名字或 id。  
+
+### 启动容器 docker start
+
+作用：
+​	将一个或多个处于创建状态或关闭状态的容器启动起来
+命令格式：
+​	`docker start [OPTIONS] CONTAINER [CONTAINER...]`
+命令参数(OPTIONS)：
+​	-a, --attach		将当前shell的 STDOUT/STDERR 连接到容器上
+​	-i, --interactive		将当前shell的 STDIN连接到容器上	
+
+
+
+只有创建的时候有 -i 参数，这里的 -i 才有效。  
+
+### 创建容器并启动 docker run
+
+作用：
+​	利用镜像创建并启动一个容器
+命令格式：
+​	`docker run [OPTIONS] IMAGE [COMMAND][ARG...]`
+命令参数(OPTIONS)：查看更多
+​	-t, --tty           		分配一个伪TTY，也就是分配虚拟终端
+​      	-i, --interactive    	即使没有连接，也要保持STDIN打开
+​          	     --name          		为容器起名，如果没有指定将会随机产生一个名称
+​	-d, --detach		在后台运行容器并打印出容器ID
+​	--rm			当容器退出运行后，自动删除容器
+命令参数（COMMAND\ARG）:
+​	COMMAND 表示容器启动后，需要在容器中执行的命令，如ps、ls 等命令
+​	ARG 表示执行 COMMAND 时需要提供的一些参数，如ps 命令的 aux、ls命令的-a等等  
+
+* docker run 相当于 docker create + docker start –a       前台模式
+* docker run -d 相当于 docker create + docker start       后台模式
+
