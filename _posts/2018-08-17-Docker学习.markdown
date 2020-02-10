@@ -1,0 +1,19 @@
+---
+layout: post
+title:  "Docker学习"  
+date:   2018-08-17 11:25:54 +0800
+tags: [docker]
+---
+
+
+
+# 镜像
+
+## 获取镜像
+
+docker pull \[选项\] \[Docker Registry 地\]
+
+```shell
+
+```
+
