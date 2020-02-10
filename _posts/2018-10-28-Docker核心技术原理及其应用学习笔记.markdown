@@ -376,3 +376,24 @@ stop 命令使用 kill -term 杀掉进程
 
 
 
+# 容器与镜像
+
+
+
+
+
+![1547970788929](../images/1547970788929.png)
+
+
+
+## 容器提交 docker commit
+
+作用：
+​	根据容器生成一个新的镜像
+命令格式：
+​	docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+命令参数(OPTIONS)：
+​	-a, --author string    	作者
+​	-c, --change list      	为创建的镜像加入Dockerfile命令
+​	-m, --message string   	提交信息，类似git commit -m
+​	-p, --pause            	提交时暂停容器 (default true)	
