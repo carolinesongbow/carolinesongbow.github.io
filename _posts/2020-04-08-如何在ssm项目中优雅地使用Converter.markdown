@@ -5,9 +5,10 @@ date:   2020-04-08 16:01:54 +0800
 tags: [springboot, mybatis, converter]
 ---
 
-# 如何在ssm项目中优雅地使用Converter
+
 
 ## 读取springboot的配置文件时使用Converter
+
 因为项目中引入了公司自己编写的一个支持 BaseMapper 的 Mybatis 包，但这个自编 Mybatis 包有个问题，没有默认方言配置，不配置方言会报 NPE。
 
 而 Mybatis 的默认 yaml 文件配置中，没有关于方言的配置，之前项目中使用了丑陋麻烦的注入方案：
@@ -64,7 +65,33 @@ public class MybatisConfig implements TransactionManagementConfigurer {
 
 如果已经有 Mybatis 的配置类，加入一行方言配置倒是比较方便的做法。
 
-但目前项目中没有这个，故我做了如下配置：
+但我想试试有没有别的办法。
+
+
+
+对代码进行分析，发现在自写的 Configuration 类中，有属性定义`protected Dialect dialect;`
+
+问题来了，Configuration 类中的属性，又是什么时候设置的？只要我干涉这个设置方法，就有可能可使配置生效。
+
+查看 MybatisProperties 类，重点代码缩略如下：
+
+```java
+@ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
+public class MybatisProperties {
+
+  public static final String MYBATIS_PREFIX = "mybatis";
+    
+  /**
+   * A Configuration object for customize default settings. If {@link #configLocation} is specified, this property is
+   * not used.
+   */
+  @NestedConfigurationProperty
+  private Configuration configuration;
+```
+
+也就是说，配置文件中以`mybatis.configuration`为开头的配置都读取了进来，理论上，我配置上以`mybatis.configuration.dialect`为键的配置，该配置应该就能生效。
+
+故我做了如下配置：
 
 1. yaml 文件配置：
 
@@ -72,11 +99,18 @@ public class MybatisConfig implements TransactionManagementConfigurer {
    mybatis.configuration.dialect: org.apache.ibatis.dialect.MysqlDialect
    ```
 
-   这样配置以后，启动的时候报异常，无法把一个配置 String 转为一个 Dialect 对象。
+   
 
-   故需要一个转换器。
+这样配置以后，启动的时候报异常：无法把一个配置 String 转为一个 Dialect 对象。
+
+配置中的所有键值，实质上是通过转换器转换为代码中定义的对象类型的，而一些基本的转换器都已经被定义好了，如 String 转 Integer，String 转 Enum 等等，我们现在要做的，就是自己写一个转换器，把`org.apache.ibatis.dialect.MysqlDialect`转成一个 Dialect 对象，并把这个转换器，注册到框架的转换器的集合中去。
+
+中间寻找方案的过程就不赘述了，最后转换器的定义：
+
+
 
 2. 增加将类型转换 Converter
+
     ```java
     @Component
     @ConfigurationPropertiesBinding
