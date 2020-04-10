@@ -87,6 +87,7 @@ public class MybatisProperties {
    */
   @NestedConfigurationProperty
   private Configuration configuration;
+}
 ```
 
 也就是说，配置文件中以`mybatis.configuration`为开头的配置都读取了进来，理论上，我配置上以`mybatis.configuration.dialect`为键的配置，该配置应该就能生效。
