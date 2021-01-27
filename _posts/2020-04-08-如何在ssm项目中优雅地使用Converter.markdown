@@ -205,6 +205,6 @@ where is_working=1 and applicant_position='JAVA';
 修改 yaml 文件：
 
 ```yaml
-mybaits.configuration.default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+mybatis.configuration.default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
 ```
 
