@@ -1,15 +1,4 @@
----
-layout: page
-title: SOMETHING ABOUT ME
-image:
-  feature: abstract-5.jpg
-  credit:
-  creditlink:
-comments: false
-modified: 2017-03-03
----
-
-IMAGINE  
+### IMAGINE  
 
 **JOHN LENNON**  
 
