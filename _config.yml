@@ -95,8 +95,8 @@ ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "caroline"
-sidebar-avatar: /favicon.ico      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-about-description: "Java开发 资深喷子"
+sidebar-avatar: /images/541825041.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
