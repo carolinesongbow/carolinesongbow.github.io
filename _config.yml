@@ -7,24 +7,6 @@ words_per_minute: 200
 # When testing locally leave blank or use http://localhost:4000
 url:
 
-# Owner/author information
-owner:
-  name:           Caroline
-  avatar:         541825041.jpg
-  bio:            "Java开发 资深喷子"
-  email:          caroline19891022@gmail.com
-  # Social networking links used in footer. Update and remove as you like.
-  twitter:
-  facebook:
-  github:
-  stackexchange:
-  linkedin:
-  instagram:
-  flickr:
-  tumblr:
-  # google plus id, include the '+', eg +mmistakes
-  google_plus:
-
 # Publish posts or collection documents with a future date.
 future: true
 
@@ -96,7 +78,7 @@ ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "Java开发 资深喷子"
-sidebar-avatar: /images/541825041.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /blog/images/541825041.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
