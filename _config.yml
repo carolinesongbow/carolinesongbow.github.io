@@ -92,10 +92,10 @@ feed_show_tags: true
 
 # Personalize the colours in your website. Colour values can be any valid CSS colour
 
-navbar-col: "#FCD7EC"
-navbar-text-col: "#CCE3FA"
+navbar-col: "#5b6d5b"
+navbar-text-col: "#ca8a8b"
 navbar-border-col: "#DDDDDD"
-page-col: "#FFFFFF"
+page-col: "#f6e6e4"
 text-col: "#404040"
 link-col: "#008AFF"
 hover-col: "#0085A1"
@@ -108,7 +108,7 @@ footer-link-col: "#404040"
 
 #navbar-img: "/images/Beyonce-Feminist.jpg"
 #footer-img: "/assets/img/bgimage.png"
-page-img: "/assets/img/bgimage.png"
+#page-img: "/assets/img/bgimage.png"
 
 # Suggest a colour for mobile browsers to use as the browser's theme. This is only supported by a few mobile browsers.
 #mobile-theme-col: "#0085A1"
