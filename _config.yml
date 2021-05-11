@@ -94,12 +94,12 @@ feed_show_tags: true
 
 navbar-col: "#5b6d5b"
 navbar-text-col: "#ca8a8b"
-navbar-border-col: "#DDDDDD"
+navbar-border-col: "#5b6d5b"
 page-col: "#F7F7F7"
 text-col: "#404040"
 link-col: "#9c6c6d"
-hover-col: "#935b5c"
-footer-col: "#EAEAEA"
+hover-col: "#e5aaab"
+footer-col: "#89a289"
 footer-text-col: "#777777"
 footer-link-col: "#404040"
 
