@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>leetcode on </title>
+    <link>/tags/leetcode/</link>
+    <description>Recent content in leetcode on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 10 Feb 2020 23:19:54 +0800</lastBuildDate><atom:link href="/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>leetcode刷题笔记</title>
+      <link>/post/2020-02-10-leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 10 Feb 2020 23:19:54 +0800</pubDate>
+      
+      <guid>/post/2020-02-10-leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</guid>
+      <description>[231]2的幂 我一开始解题的时候，思路是：为2的幂的数字有一个共同点——2进制的时候最高位为1，后面都为0。所以该数-1，二进制数的所有数都为1。
+初版代码：
+class Solution { public boolean isPowerOfTwo(int n) { if (n == 1) { return true; } if (n &amp;lt;= 0) { return false; } String s = Integer.toBinaryString(n - 1); return !s.contains(&amp;#34;0&amp;#34;); } } 解题结果：
+ 23:01	info ​	解答成功: ​	执行耗时:2 ms,击败了26.88% 的Java用户 ​	内存消耗:39.1 MB,击败了5.23% 的Java用户
+ 不管是耗时还是内存都比较差。
+故寻求答案发现，其实我在上面解答的时候就已经意识到了这个问题，追深一层：
+   32 1 0 0 0 0     31 0 1 1 1 1   &amp;amp; 0 0 0 0 0    可推导2的幂的另一个共同点：x &amp;amp; (x-1) = 0</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on </title>
+    <link>/categories/</link>
+    <description>Recent content in Categories on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 09 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test</title>
+      <link>/categories/test/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Test with whitespaces</title>
+      <link>/categories/test-with-whitespaces/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/test-with-whitespaces/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>业余学习</title>
+      <link>/categories/%E4%B8%9A%E4%BD%99%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Mon, 02 Jan 2017 23:39:54 +0800</pubDate>
+      
+      <guid>/categories/%E4%B8%9A%E4%BD%99%E5%AD%A6%E4%B9%A0/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

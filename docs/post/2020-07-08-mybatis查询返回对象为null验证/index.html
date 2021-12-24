@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='昨天浏览项目代码的时候，发现代码中有如下判断：
+List&amp;lt;User&amp;gt; users = userDao.selectUsers(age); for(User user : users) { if (user != null) { // 这里的null判断是我疑惑的点  mqQueue.push(user); } } 感觉如果返回对象属性都是 null 的情况下，Mybatis 应该会返回一个空的 User 对象才对，猜测应该不用进行 null 判断，故做了如下代码修改进行验证：
+  数据库数据准备
+User表：
+   id age remark1 remark2     1 11     2 11     3 11        User 类
+@Data public class User { private Integer id; private Integer age; private String remark1; private String remark2; }   XML 查询语句'><title>mybatis查询返回对象为null验证</title>
+
+<link rel='canonical' href='/post/2020-07-08-mybatis%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E4%B8%BAnull%E9%AA%8C%E8%AF%81/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='mybatis查询返回对象为null验证'>
+<meta property='og:description' content='昨天浏览项目代码的时候，发现代码中有如下判断：
+List&amp;lt;User&amp;gt; users = userDao.selectUsers(age); for(User user : users) { if (user != null) { // 这里的null判断是我疑惑的点  mqQueue.push(user); } } 感觉如果返回对象属性都是 null 的情况下，Mybatis 应该会返回一个空的 User 对象才对，猜测应该不用进行 null 判断，故做了如下代码修改进行验证：
+  数据库数据准备
+User表：
+   id age remark1 remark2     1 11     2 11     3 11        User 类
+@Data public class User { private Integer id; private Integer age; private String remark1; private String remark2; }   XML 查询语句'>
+<meta property='og:url' content='/post/2020-07-08-mybatis%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E4%B8%BAnull%E9%AA%8C%E8%AF%81/'>
+<meta property='og:site_name' content=''>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='mybatis' /><meta property='article:published_time' content='2020-07-08T09:06:54&#43;08:00'/><meta property='article:modified_time' content='2020-07-08T09:06:54&#43;08:00'/>
+<meta name="twitter:title" content="mybatis查询返回对象为null验证">
+<meta name="twitter:description" content="昨天浏览项目代码的时候，发现代码中有如下判断：
+List&amp;lt;User&amp;gt; users = userDao.selectUsers(age); for(User user : users) { if (user != null) { // 这里的null判断是我疑惑的点  mqQueue.push(user); } } 感觉如果返回对象属性都是 null 的情况下，Mybatis 应该会返回一个空的 User 对象才对，猜测应该不用进行 null 判断，故做了如下代码修改进行验证：
+  数据库数据准备
+User表：
+   id age remark1 remark2     1 11     2 11     3 11        User 类
+@Data public class User { private Integer id; private Integer age; private String remark1; private String remark2; }   XML 查询语句">
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+            
+        
+        
+        <h1 class="site-name"><a href="/"></a></h1>
+        <h2 class="site-description">Caroline 的个人博客</h2><ol class="social-menu">
+                
+                    <li>
+                        <a 
+                            href='https://github.com/carolinesongbow'
+                            target="_blank"
+                            title="GitHub"
+                        >
+                            
+                            
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                            
+                        </a>
+                    </li>
+                
+            </ol></header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/post' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>Posts</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/page/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span></span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/post/2020-07-08-mybatis%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E4%B8%BAnull%E9%AA%8C%E8%AF%81/">mybatis查询返回对象为null验证</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 08, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p>昨天浏览项目代码的时候，发现代码中有如下判断：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userDao</span><span class="o">.</span><span class="na">selectUsers</span><span class="o">(</span><span class="n">age</span><span class="o">);</span>
+<span class="k">for</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span> <span class="o">:</span> <span class="n">users</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">user</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 这里的null判断是我疑惑的点
+</span><span class="c1"></span>        <span class="n">mqQueue</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>感觉如果返回对象属性都是 null 的情况下，Mybatis 应该会返回一个空的 User 对象才对，猜测应该不用进行 null 判断，故做了如下代码修改进行验证：</p>
+<ul>
+<li>
+<p>数据库数据准备</p>
+<p>User表：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>age</th>
+<th>remark1</th>
+<th>remark2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>11</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>11</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>11</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>User 类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Data</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">remark1</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">remark2</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>XML 查询语句</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selectUsers&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;User&#34;</span><span class="nt">&gt;</span>
+	select remark1,remark2 from User where age=&#39;11&#39;
+</code></pre></div></li>
+</ul>
+<!-- raw HTML omitted -->
+<ul>
+<li>
+<p>Dao 定义</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">selectUsers</span><span class="o">();</span>
+</code></pre></div></li>
+<li>
+<p>测试代码</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testMybatisNull</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userDao</span><span class="o">.</span><span class="na">selectUsers</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>测试结果打印</p>
+<pre><code>[null, null, null]
+</code></pre></li>
+</ul>
+<p>故当 Mybatis 查询结果不包含必不为空的字段时，应做 null 判断。</p>
+<p>个人认为这是 Mybatis 的问题。可自行使用其他方式（比如查询结果中带上 id 等）避免查询返回对象为 null 的情况。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mybatis/">mybatis</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2021 
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

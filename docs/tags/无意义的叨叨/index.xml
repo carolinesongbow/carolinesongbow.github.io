@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>无意义的叨叨 on </title>
+    <link>/tags/%E6%97%A0%E6%84%8F%E4%B9%89%E7%9A%84%E5%8F%A8%E5%8F%A8/</link>
+    <description>Recent content in 无意义的叨叨 on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 11 Jun 2021 14:20:54 +0800</lastBuildDate><atom:link href="/tags/%E6%97%A0%E6%84%8F%E4%B9%89%E7%9A%84%E5%8F%A8%E5%8F%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>发现华点</title>
+      <link>/post/2021-08-23-%E5%8F%91%E7%8E%B0%E5%8D%8E%E7%82%B9/</link>
+      <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
+      
+      <guid>/post/2021-08-23-%E5%8F%91%E7%8E%B0%E5%8D%8E%E7%82%B9/</guid>
+      <description>刚才在测数据的时候发现一件事：「60分及格」这个约定似乎与正态分布的规律不谋而合了。
+把一组数做正态分布曲线，如果把正好落在平均数那个点的数的 score 计为 100，那么正好落在平均数+-平均偏离值的那个点的数的 score 则正好是 60 左右。
+神奇！
+final GaussianDistributionUtil test = new GaussianDistributionUtil(100d, 30d); for (double i = 100d; i &amp;lt; 10000; i+=10) { final double score = test.calculateScore(i)*100; System.out.println(i + &amp;#34;\t&amp;#34; + score); if (score == 0) { break; } }    值 分数     100.0 100.0   110.0 94.59594689067654   120.0 80.0737402916808   130.0 60.653065971263345   140.</description>
+    </item>
+    
+  </channel>
+</rss>

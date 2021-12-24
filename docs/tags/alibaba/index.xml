@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>alibaba on </title>
+    <link>/tags/alibaba/</link>
+    <description>Recent content in alibaba on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 18 Mar 2017 11:10:54 +0800</lastBuildDate><atom:link href="/tags/alibaba/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Alibaba: Java 代码规范（部分）</title>
+      <link>/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</link>
+      <pubDate>Sat, 18 Mar 2017 11:10:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</guid>
+      <description>Java 代码规范 编程规约 命名规则   【强制】抽象类命名使用 Abstract 或 Base 开头；异常类命名使用 Exception 结尾；测试类 命名以它要测试的类的名称开始，以 Test 结尾。
+  【强制】POJO 类中布尔类型的变量，都不要加 is，否则部分框架解析会引起序列化错误。
+反例：定义为基本数据类型 boolean isSuccess；的属性，它的方法也是 isSuccess()，RPC 框架在反向解析的时候，“以为”对应的属性名称是 success，导致属性获取不到，进而抛出异 常。
+  【强制】包名统一使用小写，点分隔符之间有且仅有一个自然语义的英语单词。包名统一使用单数形式，但是类名如果有复数含义，类名可以使用复数形式。
+正例： 应用工具类包名为 com.alibaba.open.util、类名为 MessageUtils（此规则参考 spring 的框架结构）
+  【推荐】接口类中的方法和属性不要加任何修饰符号（public 也不要加），保持代码的简洁 性，并加上有效的 Javadoc 注释。尽量不要在接口里定义变量，如果一定要定义变量，肯定是 与接口方法相关，并且是整个应用的基础常量。
+正例：接口方法签名：void f(); 接口基础常量表示：String COMPANY = &amp;ldquo;alibaba&amp;rdquo;;
+反例：接口方法定义：public abstract void f();
+说明：JDK8 中接口允许有默认实现，那么这个 default 方法，是对所有实现类都有价值的默 认实现。
+  【参考】各层命名规约：
+A) Service/DAO 层方法命名规约
+&amp;ndash;1） 获取单个对象的方法用 get 做前缀。</description>
+    </item>
+    
+  </channel>
+</rss>

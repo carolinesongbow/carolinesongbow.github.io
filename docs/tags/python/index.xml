@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on </title>
+    <link>/tags/python/</link>
+    <description>Recent content in python on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 17 Jul 2018 21:23:54 +0800</lastBuildDate><atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>python3.5学习</title>
+      <link>/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Tue, 17 Jul 2018 21:23:54 +0800</pubDate>
+      
+      <guid>/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</guid>
+      <description>基础 数据类型 Python 3 中有 6 种标准的数据类型：Number, String, List, Tuple, Sets, Dictionary。
+其中 Number 类型有 3 种：整型 int，浮点型 float，复数 complex。
+整型 int 整型没有限制大小，可以当作 long 类型使用。
+在整数除法中，/的结果是浮点型，//的结果才是整型，相当于 Java 中的除，在 Python 中叫「地板除」。
+浮点型 float 浮点型参与的任何计算结果都是浮点型，包括除、余、地板除。
+复数 complex 复数由实数部分和虚数部分构成，可以用 a+bj 或 complex(a,b) 表示，复数的实部 a 和虚部 b 都是浮点型。
+数据类型转换   int(x) 将 x 转换为整型
+如果 x 为浮点，则简单粗暴地削去其小数部分
+  float(x) 将 x 转换为浮点型
+  complex(x) 将 x 转换为复数，虚数部分为 0。
+  complex(x, y) 将 x 和 y 转换为复数。</description>
+    </item>
+    
+    <item>
+      <title>python学习笔记（更新中）</title>
+      <link>/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
+      <pubDate>Sat, 22 Jul 2017 00:09:54 +0800</pubDate>
+      
+      <guid>/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
+      <description>基础知识 字符串  单引号和双引号是一个意思，三个引号被用于长短的文字或者说明 字符串+数字 会报错 字符串*数字 表示显示几遍的意思  # 字符串 乘以 数字 word = &amp;#34;words&amp;#34; * 3 print(word) # wordswordswords words = &amp;#39;a loooooong word&amp;#39; num = 12 string = &amp;#39;bang!&amp;#39; total = string * (len(words) - num) print(total) # bang!bang!bang!bang!  字符串分片 字符串的分片实际上可以看作是把字符串的一部分截取出来，复制储存在另一个地方（相当于是个副本），不会对原字符串做改动。
+分片时的字符串index，正数是从0开始从前往后数，负数是从-1开始从后往前数
+截取的时候与java的substring一样——包左不包右
+# 字符串分片 birthDay = &amp;#39;happy birth day to you&amp;#39; print(birthDay[0]) # h print(birthDay[-3]) # y print(birthDay[11:14]) # da print(birthDay[5:]) # birth day to you print(birthDay[:5]) # happy print(birthDay[-5:5]) # 啥都不输出，也不报错  基本运算    ： 加。有一个元素为浮点，结果为浮点；     ： 减。同上     ： 乘。同上   / ： 除以。有一个元素为浮点，结果为浮点；除不尽的情况下，即使两个都是整，结果也是浮点；有浮点的精度问题； ** ： 幂。有一个元素为浮点，结果为浮点； % ： 模。有一个元素为浮点，结果为浮点；有浮点的精度问题； //： 整除。有一个元素为浮点，结果为浮点。  math_calc(19.</description>
+    </item>
+    
+  </channel>
+</rss>

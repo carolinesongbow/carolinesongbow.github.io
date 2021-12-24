@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='基本概念  mongodb 中文网站：www.mongoing.com mongodb 中文文档：docs.mongoing.com nosql 数据库相比传统 sql 数据库少了：实时一致性；事务；多表联合查询。 杀掉 MongoDB 的进程需使用kill -15或不带参数，不能使用kill -9  MongoDB 相比于其他 nosql 数据库的优点  相较于 redis 而言，可以提供复杂结构的数据存储，而 redis 只有简单的键值对存储； 相较于 hbase 的单索引，MongoDB 的索引更灵活，支持单键索引、多键索引、数组索引、全文索引。  基础操作   创建并使用一个库：use test
+  展示所有库：show dbs
+  插入一条数据（并新建一个集合&amp;ndash;相当于表的概念）：db.my_collection.insert({num:1})
+  展示所有集合：show collections
+  查询集合所有内容：db.my_collection.find()
+  条件查询：db.my_collection.find({num:2})
+  JS 语法循环插入：for(i=1;i&amp;lt;=100;i&#43;&#43;)db.my_collection.insert({num:i})
+  查询数量：db.my_collection.find().count()
+  查询跳过：.skip(2)
+  查询限制条数：.limit(2)
+  查询排序：.sort({num:1}) 1即asc，-1即desc'><title>mongodb基础学习笔记（更新中）</title>
+
+<link rel='canonical' href='/post/2017-10-17-mongodb%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='mongodb基础学习笔记（更新中）'>
+<meta property='og:description' content='基本概念  mongodb 中文网站：www.mongoing.com mongodb 中文文档：docs.mongoing.com nosql 数据库相比传统 sql 数据库少了：实时一致性；事务；多表联合查询。 杀掉 MongoDB 的进程需使用kill -15或不带参数，不能使用kill -9  MongoDB 相比于其他 nosql 数据库的优点  相较于 redis 而言，可以提供复杂结构的数据存储，而 redis 只有简单的键值对存储； 相较于 hbase 的单索引，MongoDB 的索引更灵活，支持单键索引、多键索引、数组索引、全文索引。  基础操作   创建并使用一个库：use test
+  展示所有库：show dbs
+  插入一条数据（并新建一个集合&amp;ndash;相当于表的概念）：db.my_collection.insert({num:1})
+  展示所有集合：show collections
+  查询集合所有内容：db.my_collection.find()
+  条件查询：db.my_collection.find({num:2})
+  JS 语法循环插入：for(i=1;i&amp;lt;=100;i&#43;&#43;)db.my_collection.insert({num:i})
+  查询数量：db.my_collection.find().count()
+  查询跳过：.skip(2)
+  查询限制条数：.limit(2)
+  查询排序：.sort({num:1}) 1即asc，-1即desc'>
+<meta property='og:url' content='/post/2017-10-17-mongodb%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/'>
+<meta property='og:site_name' content=''>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='mongodb' /><meta property='article:tag' content='nosql' /><meta property='article:published_time' content='2017-10-17T21:26:54&#43;08:00'/><meta property='article:modified_time' content='2017-10-17T21:26:54&#43;08:00'/>
+<meta name="twitter:title" content="mongodb基础学习笔记（更新中）">
+<meta name="twitter:description" content="基本概念  mongodb 中文网站：www.mongoing.com mongodb 中文文档：docs.mongoing.com nosql 数据库相比传统 sql 数据库少了：实时一致性；事务；多表联合查询。 杀掉 MongoDB 的进程需使用kill -15或不带参数，不能使用kill -9  MongoDB 相比于其他 nosql 数据库的优点  相较于 redis 而言，可以提供复杂结构的数据存储，而 redis 只有简单的键值对存储； 相较于 hbase 的单索引，MongoDB 的索引更灵活，支持单键索引、多键索引、数组索引、全文索引。  基础操作   创建并使用一个库：use test
+  展示所有库：show dbs
+  插入一条数据（并新建一个集合&amp;ndash;相当于表的概念）：db.my_collection.insert({num:1})
+  展示所有集合：show collections
+  查询集合所有内容：db.my_collection.find()
+  条件查询：db.my_collection.find({num:2})
+  JS 语法循环插入：for(i=1;i&amp;lt;=100;i&#43;&#43;)db.my_collection.insert({num:i})
+  查询数量：db.my_collection.find().count()
+  查询跳过：.skip(2)
+  查询限制条数：.limit(2)
+  查询排序：.sort({num:1}) 1即asc，-1即desc">
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span></span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/post/2017-10-17-mongodb%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/">mongodb基础学习笔记（更新中）</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 17, 2017</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h1 id="基本概念">基本概念</h1>
+<ul>
+<li>mongodb 中文网站：www.mongoing.com</li>
+<li>mongodb 中文文档：docs.mongoing.com</li>
+<li>nosql 数据库相比传统 sql 数据库少了：实时一致性；事务；多表联合查询。</li>
+<li>杀掉 MongoDB 的进程需使用<code>kill -15</code>或不带参数，不能使用<code>kill -9</code></li>
+</ul>
+<h2 id="mongodb-相比于其他-nosql-数据库的优点">MongoDB 相比于其他 nosql 数据库的优点</h2>
+<ol>
+<li>相较于 redis 而言，可以提供复杂结构的数据存储，而 redis 只有简单的键值对存储；</li>
+<li>相较于 hbase 的单索引，MongoDB 的索引更灵活，支持单键索引、多键索引、数组索引、全文索引。</li>
+</ol>
+<h1 id="基础操作">基础操作</h1>
+<ul>
+<li>
+<p>创建并使用一个库：<code>use test</code></p>
+</li>
+<li>
+<p>展示所有库：<code>show dbs</code></p>
+</li>
+<li>
+<p>插入一条数据（并新建一个集合&ndash;相当于表的概念）：<code>db.my_collection.insert({num:1})</code></p>
+</li>
+<li>
+<p>展示所有集合：<code>show collections</code></p>
+</li>
+<li>
+<p>查询集合所有内容：<code>db.my_collection.find()</code></p>
+</li>
+<li>
+<p>条件查询：<code>db.my_collection.find({num:2})</code></p>
+</li>
+<li>
+<p>JS 语法循环插入：<code>for(i=1;i&lt;=100;i++)db.my_collection.insert({num:i})</code></p>
+</li>
+<li>
+<p>查询数量：<code>db.my_collection.find().count()</code></p>
+</li>
+<li>
+<p>查询跳过：<code>.skip(2)</code></p>
+</li>
+<li>
+<p>查询限制条数：<code>.limit(2)</code></p>
+</li>
+<li>
+<p>查询排序：<code>.sort({num:1})</code> 1即asc，-1即desc</p>
+</li>
+<li>
+<p>全字段更新：<code>.update({num:1}, {num:999})</code><br>
+第一个参数是查找属性，第二个参数修改后属性<br>
+当多条数据满足查找条件时，仅更新第一条</p>
+</li>
+<li>
+<p>部分字段更新：<code>.update({num:1}, {$set:{age:88}})</code></p>
+</li>
+<li>
+<p>插入或更新：<code>.update({num:1}, {age:88}, true)</code> 当查询条件不存在时，就创建一条</p>
+</li>
+<li>
+<p>更新所有查到的数据：<code>.update({num:1}, {$set:{age:88}}, false, true)</code><br>
+这种情况只允许部分字段更新，不允许更新或插入模式。</p>
+</li>
+<li>
+<p>删除数据：<code>.remove({num:1})</code></p>
+</li>
+<li>
+<p>删除集合：<code>db.my_collection.drop()</code></p>
+</li>
+<li>
+<p>查询索引：<code>.getIndexes()</code></p>
+</li>
+<li>
+<p>创建索引：<code>.ensureIndex({num:1})</code> 1即asc，-1即desc</p>
+</li>
+</ul>
+<h1 id="常见索引">常见索引</h1>
+<h2 id="_id索引">_id索引</h2>
+<p>默认自动建立的索引</p>
+<h2 id="单键索引">单键索引</h2>
+<p>创建：<code>.ensureIndex({num:1})</code><br>
+重复创建时，MongoDB 会直接返回成功</p>
+<h2 id="多键索引">多键索引</h2>
+<p>如果索引字段为一个数组，则为多键索引</p>
+<h2 id="复合索引">复合索引</h2>
+<p>即联合索引<br>
+创建：<code>.ensureIndex({num:1, age:1})</code></p>
+<h2 id="过期索引">过期索引</h2>
+<p>一段时间后会过期的索引。</p>
+<ol>
+<li>索引过期后，<strong>相应数据会被删除</strong>。</li>
+<li>索引字段必须是 ISODate 或 ISODate 数组，不能使用时间戳，否则不能被自动删除。</li>
+<li>索引字段如果是 ISODate 数组，则按照最快到时的时间进行删除。</li>
+<li>过期索引不能是复合索引。</li>
+<li>删除时间不精确。由后台程序每 60s 跑一次。</li>
+</ol>
+<p>插入 ISODate 数据：<code>.insert({num:1, age:88, time:new Date()})</code><br>
+创建：<code>.ensureIndex({time:1}, {expireAfterSeconds:10})</code></p>
+<h2 id="全文索引">全文索引</h2>
+<p>对字符串与字符串数组创建全文可搜索的索引<br>
+每个集合只能有一个全文索引<br>
+创建单个键的全文索引：<code>.ensureIndex({title:&quot;text&quot;})</code><br>
+创建多个键的全文索引：<code>.ensureIndex({title:&quot;text&quot;, article:&quot;text&quot;})</code><br>
+对所有键创建全文索引：<code>.ensureIndex({&quot;$**&quot;:&quot;text&quot;})</code><br>
+使用全文索引查询：<code>.find({$text:{$search:&quot;coffee&quot;}})</code><br>
+或查询：<code>.find({$text:{$search:&quot;coffee cola tea&quot;}})</code><br>
+非查询，加<code>-</code>即为排除该字段：<code>.find({$text:{$search:&quot;coffee cola -tea&quot;}})</code><br>
+与查询，加双引号表示一定得有它：<code>.find({$text:{$search:&quot;\&quot;coffee\&quot; \&quot;cola\&quot; \&quot;tea\&quot;&quot;}})</code></p>
+<p>全文索引相似度：<br>
+<code>.find({$text:{$search:&quot;coffee cola&quot;}}, {my_score:{$meta:&quot;textScore&quot;}})</code><br>
+全文索引相似度并排序：<br>
+<code>.find({$text:{$search:&quot;coffee cola&quot;}}, {my_score:{$meta:&quot;textScore&quot;}}).sort(my_score:{$meta:&quot;textScore&quot;}})</code></p>
+<p>全文索引的限制：</p>
+<ol>
+<li>每次查询，只能指定一个 $text 查询</li>
+<li>$text 查询不能出现在 $nor 查询中</li>
+<li>查询中如果包含了 $text，那么 hint 不再起作用</li>
+<li>不支持中文</li>
+</ol>
+<h2 id="索引属性">索引属性</h2>
+<p>索引命名：<br>
+MongoDB 有一套默认的索引命名方式，为了直观可以自行命名索引：<br>
+<code>.ensureIndex({num:1, age:1}, {name:&quot;my_normal_index&quot;})</code></p>
+<h2 id="地理位置索引">地理位置索引</h2>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mongodb/">mongodb</a>
+        
+            <a href="/tags/nosql/">nosql</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2021 
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title"></h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#mongodb-相比于其他-nosql-数据库的优点">MongoDB 相比于其他 nosql 数据库的优点</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#_id索引">_id索引</a></li>
+    <li><a href="#单键索引">单键索引</a></li>
+    <li><a href="#多键索引">多键索引</a></li>
+    <li><a href="#复合索引">复合索引</a></li>
+    <li><a href="#过期索引">过期索引</a></li>
+    <li><a href="#全文索引">全文索引</a></li>
+    <li><a href="#索引属性">索引属性</a></li>
+    <li><a href="#地理位置索引">地理位置索引</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

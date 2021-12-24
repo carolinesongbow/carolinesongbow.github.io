@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='基础知识 字符串  单引号和双引号是一个意思，三个引号被用于长短的文字或者说明 字符串&#43;数字 会报错 字符串*数字 表示显示几遍的意思  # 字符串 乘以 数字 word = &amp;#34;words&amp;#34; * 3 print(word) # wordswordswords words = &amp;#39;a loooooong word&amp;#39; num = 12 string = &amp;#39;bang!&amp;#39; total = string * (len(words) - num) print(total) # bang!bang!bang!bang!  字符串分片 字符串的分片实际上可以看作是把字符串的一部分截取出来，复制储存在另一个地方（相当于是个副本），不会对原字符串做改动。
+分片时的字符串index，正数是从0开始从前往后数，负数是从-1开始从后往前数
+截取的时候与java的substring一样——包左不包右
+# 字符串分片 birthDay = &amp;#39;happy birth day to you&amp;#39; print(birthDay[0]) # h print(birthDay[-3]) # y print(birthDay[11:14]) # da print(birthDay[5:]) # birth day to you print(birthDay[:5]) # happy print(birthDay[-5:5]) # 啥都不输出，也不报错  基本运算    ： 加。有一个元素为浮点，结果为浮点；     ： 减。同上     ： 乘。同上   / ： 除以。有一个元素为浮点，结果为浮点；除不尽的情况下，即使两个都是整，结果也是浮点；有浮点的精度问题； ** ： 幂。有一个元素为浮点，结果为浮点； % ： 模。有一个元素为浮点，结果为浮点；有浮点的精度问题； //： 整除。有一个元素为浮点，结果为浮点。  math_calc(19.'><title>python学习笔记（更新中）</title>
+
+<link rel='canonical' href='/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='python学习笔记（更新中）'>
+<meta property='og:description' content='基础知识 字符串  单引号和双引号是一个意思，三个引号被用于长短的文字或者说明 字符串&#43;数字 会报错 字符串*数字 表示显示几遍的意思  # 字符串 乘以 数字 word = &amp;#34;words&amp;#34; * 3 print(word) # wordswordswords words = &amp;#39;a loooooong word&amp;#39; num = 12 string = &amp;#39;bang!&amp;#39; total = string * (len(words) - num) print(total) # bang!bang!bang!bang!  字符串分片 字符串的分片实际上可以看作是把字符串的一部分截取出来，复制储存在另一个地方（相当于是个副本），不会对原字符串做改动。
+分片时的字符串index，正数是从0开始从前往后数，负数是从-1开始从后往前数
+截取的时候与java的substring一样——包左不包右
+# 字符串分片 birthDay = &amp;#39;happy birth day to you&amp;#39; print(birthDay[0]) # h print(birthDay[-3]) # y print(birthDay[11:14]) # da print(birthDay[5:]) # birth day to you print(birthDay[:5]) # happy print(birthDay[-5:5]) # 啥都不输出，也不报错  基本运算    ： 加。有一个元素为浮点，结果为浮点；     ： 减。同上     ： 乘。同上   / ： 除以。有一个元素为浮点，结果为浮点；除不尽的情况下，即使两个都是整，结果也是浮点；有浮点的精度问题； ** ： 幂。有一个元素为浮点，结果为浮点； % ： 模。有一个元素为浮点，结果为浮点；有浮点的精度问题； //： 整除。有一个元素为浮点，结果为浮点。  math_calc(19.'>
+<meta property='og:url' content='/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/'>
+<meta property='og:site_name' content=''>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2017-07-22T00:09:54&#43;08:00'/><meta property='article:modified_time' content='2017-07-22T00:09:54&#43;08:00'/>
+<meta name="twitter:title" content="python学习笔记（更新中）">
+<meta name="twitter:description" content="基础知识 字符串  单引号和双引号是一个意思，三个引号被用于长短的文字或者说明 字符串&#43;数字 会报错 字符串*数字 表示显示几遍的意思  # 字符串 乘以 数字 word = &amp;#34;words&amp;#34; * 3 print(word) # wordswordswords words = &amp;#39;a loooooong word&amp;#39; num = 12 string = &amp;#39;bang!&amp;#39; total = string * (len(words) - num) print(total) # bang!bang!bang!bang!  字符串分片 字符串的分片实际上可以看作是把字符串的一部分截取出来，复制储存在另一个地方（相当于是个副本），不会对原字符串做改动。
+分片时的字符串index，正数是从0开始从前往后数，负数是从-1开始从后往前数
+截取的时候与java的substring一样——包左不包右
+# 字符串分片 birthDay = &amp;#39;happy birth day to you&amp;#39; print(birthDay[0]) # h print(birthDay[-3]) # y print(birthDay[11:14]) # da print(birthDay[5:]) # birth day to you print(birthDay[:5]) # happy print(birthDay[-5:5]) # 啥都不输出，也不报错  基本运算    ： 加。有一个元素为浮点，结果为浮点；     ： 减。同上     ： 乘。同上   / ： 除以。有一个元素为浮点，结果为浮点；除不尽的情况下，即使两个都是整，结果也是浮点；有浮点的精度问题； ** ： 幂。有一个元素为浮点，结果为浮点； % ： 模。有一个元素为浮点，结果为浮点；有浮点的精度问题； //： 整除。有一个元素为浮点，结果为浮点。  math_calc(19.">
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span></span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/">python学习笔记（更新中）</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 22, 2017</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="基础知识">基础知识</h2>
+<h3 id="字符串">字符串</h3>
+<ul>
+<li>单引号和双引号是一个意思，三个引号被用于长短的文字或者说明</li>
+<li>字符串+数字 会报错</li>
+<li>字符串*数字 表示显示几遍的意思</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="c1"># 字符串 乘以 数字</span>
+<span class="n">word</span> <span class="o">=</span> <span class="s2">&#34;words&#34;</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="k">print</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="c1"># wordswordswords</span>
+
+<span class="n">words</span> <span class="o">=</span> <span class="s1">&#39;a loooooong word&#39;</span>
+<span class="n">num</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;bang!&#39;</span>
+<span class="n">total</span> <span class="o">=</span> <span class="n">string</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)</span> <span class="o">-</span> <span class="n">num</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="c1"># bang!bang!bang!bang!  </span>
+</code></pre></div><h4 id="字符串分片">字符串分片</h4>
+<p>字符串的分片实际上可以看作是把字符串的一部分截取出来，复制储存在另一个地方（相当于是个副本），不会对原字符串做改动。<br>
+分片时的字符串index，正数是从0开始从前往后数，负数是从-1开始从后往前数<br>
+截取的时候与java的substring一样——包左不包右</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="c1"># 字符串分片</span>
+<span class="n">birthDay</span> <span class="o">=</span> <span class="s1">&#39;happy birth day to you&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">birthDay</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># h</span>
+<span class="k">print</span><span class="p">(</span><span class="n">birthDay</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span> <span class="c1"># y</span>
+<span class="k">print</span><span class="p">(</span><span class="n">birthDay</span><span class="p">[</span><span class="mi">11</span><span class="p">:</span><span class="mi">14</span><span class="p">])</span> <span class="c1">#  da</span>
+<span class="k">print</span><span class="p">(</span><span class="n">birthDay</span><span class="p">[</span><span class="mi">5</span><span class="p">:])</span> <span class="c1">#  birth day to you</span>
+<span class="k">print</span><span class="p">(</span><span class="n">birthDay</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span> <span class="c1"># happy</span>
+<span class="k">print</span><span class="p">(</span><span class="n">birthDay</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span> <span class="c1"># 啥都不输出，也不报错  </span>
+</code></pre></div><h3 id="基本运算">基本运算</h3>
+<ul>
+<li>
+<ul>
+<li>： 加。有一个元素为浮点，结果为浮点；</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>： 减。同上</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>： 乘。同上</li>
+</ul>
+</li>
+<li>/ ： 除以。有一个元素为浮点，结果为浮点；除不尽的情况下，即使两个都是整，结果也是浮点；有浮点的精度问题；</li>
+<li>** ： 幂。有一个元素为浮点，结果为浮点；</li>
+<li>% ： 模。有一个元素为浮点，结果为浮点；有浮点的精度问题；</li>
+<li>//： 整除。有一个元素为浮点，结果为浮点。</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">math_calc</span><span class="p">(</span><span class="mf">19.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="c1"># 加     20.0</span>
+<span class="c1"># 减     19.799999999999997</span>
+<span class="c1"># 乘     1.99</span>
+<span class="c1"># 除以    198.99999999999997</span>
+<span class="c1"># 幂     1.34860668348221</span>
+<span class="c1"># 模     0.09999999999999748</span>
+<span class="c1"># 整除    198.0</span>
+</code></pre></div><h3 id="逻辑判断">逻辑判断</h3>
+<ul>
+<li>多条件比较</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">middle</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">print</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="n">middle</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># True  </span>
+</code></pre></div><ul>
+<li>
+<p>字符串比较<br>
+相当于 java 中的 String.equals 方法，在 python 中可以直接用 == 来判断</p>
+</li>
+<li>
+<p>不同类型的比较<br>
+除了整数和浮点类型之间以外，不同类型对象不能使用“&lt;, &gt;, &lt;=, &gt;=”来判断。<br>
+所有类型对象之间均能使用“==, !=”来判断。<br>
+整数和浮点类型的判断，与数学常识相同。</p>
+</li>
+<li>
+<p>对象本身判断
+在python中，任何对象都可以用<code>bool(对象)</code>的方式来进行判断，只有以下情况结果为false:
+0，None，空字符串，空集合，false布尔值。</p>
+</li>
+<li>
+<p>判断字符
+<code>not x</code> : 即取反。
+<code>x and y</code> : 且。
+<code>x or y</code> : 或。</p>
+</li>
+</ul>
+<h4 id="if-elif-else">if-elif-else</h4>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">account_login_reset</span><span class="p">(</span><span class="n">store_password</span><span class="p">):</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;input password:&#39;</span><span class="p">)</span>
+    <span class="n">is_correct</span> <span class="o">=</span> <span class="n">password</span> <span class="o">==</span> <span class="n">store_password</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">is_reset</span> <span class="o">=</span> <span class="n">password</span> <span class="o">==</span> <span class="n">store_password</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">is_correct</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;login success&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">is_reset</span><span class="p">:</span>
+        <span class="n">new_password</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;input new password:&#39;</span><span class="p">)</span>
+        <span class="n">store_password</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_password</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;reset success!login again&#39;</span><span class="p">)</span>
+        <span class="n">account_login_reset</span><span class="p">(</span><span class="n">store_password</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;incorrect password&#39;</span><span class="p">)</span>
+        <span class="n">account_login_reset</span><span class="p">(</span><span class="n">store_password</span><span class="p">)</span>
+
+<span class="n">account_login_reset</span><span class="p">([</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="s1">&#39;123456&#39;</span><span class="p">])</span>
+</code></pre></div><h3 id="循环">循环</h3>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">for</span> <span class="n">every_letter</span> <span class="ow">in</span> <span class="s1">&#39;hello world&#39;</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">every_letter</span><span class="p">)</span>
+</code></pre></div><ol>
+<li>字符串可以被for循环遍历</li>
+<li><code>for...in</code> 相当于 java 中的 foreach</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="c1"># 打印九九乘法口诀表</span>
+<span class="k">def</span> <span class="nf">print_nine_nine</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} * {} = {}</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">*</span><span class="n">j</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">()</span>
+</code></pre></div><h3 id="集合">集合</h3>
+<h4 id="list">list</h4>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="c1"># 创建列表</span>
+<span class="n">album</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># 创建非空列表</span>
+<span class="n">album</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Black Star&#39;</span><span class="p">,</span> <span class="s1">&#39;David Bowie&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="bp">True</span><span class="p">]</span>
+<span class="c1"># 增加元素</span>
+<span class="n">album</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;new song&#39;</span><span class="p">)</span>
+<span class="c1"># 列表索引</span>
+<span class="k">print</span><span class="p">(</span><span class="n">album</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">album</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># 打印列表第一个元素和最后一个元素</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Black Star&#39;</span> <span class="ow">in</span> <span class="n">album</span><span class="p">)</span> <span class="c1"># true，相当于contains</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;David Bowie&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">album</span><span class="p">)</span> <span class="c1"># false</span>
+<span class="c1"># 列表求和</span>
+<span class="n">a_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">a_list</span><span class="p">))</span> <span class="c1"># 6 list里的元素求和</span>
+</code></pre></div><h2 id="自定义函数">自定义函数</h2>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="c1"># 函数的定义</span>
+<span class="k">def</span> <span class="nf">fahrenheit_converter</span> <span class="p">(</span><span class="n">C</span><span class="p">):</span>
+	<span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span> <span class="mi">9</span><span class="o">/</span><span class="mi">5</span> <span class="o">+</span><span class="mi">32</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;F&#39;</span>
+
+<span class="c1"># 函数的调用</span>
+<span class="k">print</span><span class="p">(</span><span class="n">fahrenheit_converter</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>
+
+</code></pre></div><p>函数调用时，传参有两种方式：位置传参和参数名传参。两种方式可以混合使用。</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">triangle_math</span><span class="p">(</span><span class="n">lineOne</span><span class="p">,</span> <span class="n">lineTwo</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">lineOne</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">lineTwo</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+
+<span class="c1"># 传参的两种方式</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;the right triangle third sids</span><span class="se">\&#39;</span><span class="s1">s length is {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">triangle_math</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;2the right triangle third sids</span><span class="se">\&#39;</span><span class="s1">s length is {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">triangle_math</span><span class="p">(</span><span class="n">lineOne</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">lineTwo</span><span class="o">=</span><span class="mi">4</span><span class="p">))))</span>  
+</code></pre></div><p>定义函数的时候，可以设置某个参数有默认值</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="c1"># 函数定义默认值</span>
+<span class="k">def</span> <span class="nf">defaultValue</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Sarah&#39;</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{name} is a beautiful girl&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">))</span>
+    <span class="k">return</span>
+
+<span class="n">defaultValue</span><span class="p">()</span> <span class="c1"># Sarah is a beautiful girl</span>
+<span class="n">defaultValue</span><span class="p">(</span><span class="s1">&#39;Caro&#39;</span><span class="p">)</span> <span class="c1"># Caro is a beautiful girl</span>
+</code></pre></div><h2 id="基本函数">基本函数</h2>
+<ul>
+<li><code>type()</code> 用来查看变量的类型</li>
+<li><code>print()</code> 打印</li>
+<li><code>open()</code>  打开文件，第二个参数mode值为&rsquo;w&rsquo;表示写入模式：有则覆盖，无则新建</li>
+<li><code>write()</code> 输出文件</li>
+<li><code>int()</code> 变量类型转换为int</li>
+<li><code>str()</code> 变量类型转换为string</li>
+<li><code>len(str)</code> 输出字符串长度</li>
+<li><code>str1.find(str2)</code> 在str2中寻找str1的起始位置角标；找不到则为-1</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="c1"># 查找字符串a在字符串b中的位置</span>
+<span class="n">search</span> <span class="o">=</span> <span class="s1">&#39;168&#39;</span>
+<span class="n">num_a</span> <span class="o">=</span> <span class="s1">&#39;13861680006&#39;</span>
+<span class="n">num_b</span> <span class="o">=</span> <span class="s1">&#39;16812220006&#39;</span>
+<span class="n">num_c</span> <span class="o">=</span> <span class="s1">&#39;13181542561&#39;</span>
+
+<span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">num_a</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; to &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_a</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">search</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">num_b</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; to &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_b</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">search</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">num_c</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; to &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_c</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">search</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">search</span><span class="p">)))</span>  
+</code></pre></div><ul>
+<li>format() 字符串填空</li>
+<li>input() 用户输入信息</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="c1"># 字符串format函数</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} is {}</span><span class="se">\&#39;</span><span class="s1">s birthday.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Today&#39;</span><span class="p">,</span> <span class="s1">&#39;Caro&#39;</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;{when} is {name}</span><span class="se">\&#39;</span><span class="s1">s birthday.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">when</span> <span class="o">=</span> <span class="s1">&#39;Today&#39;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Caro&#39;</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;{1} is {0}</span><span class="se">\&#39;</span><span class="s1">s birthday&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Caro&#39;</span><span class="p">,</span> <span class="s1">&#39;Today&#39;</span><span class="p">))</span>  
+</code></pre></div><ul>
+<li><code>range(left_num, right_num)</code> 集合，包括 left_num 到 right_num 的元素，包左不包右</li>
+</ul>
+<h2 id="基本规则">基本规则</h2>
+<ul>
+<li>为防止中文注释乱码或报错，可在文件开头加一行魔法注释：<code>#coding:utf-8</code></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">python</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2021 
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title"></h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#基础知识">基础知识</a>
+      <ol>
+        <li><a href="#字符串">字符串</a>
+          <ol>
+            <li><a href="#字符串分片">字符串分片</a></li>
+          </ol>
+        </li>
+        <li><a href="#基本运算">基本运算</a></li>
+        <li><a href="#逻辑判断">逻辑判断</a>
+          <ol>
+            <li><a href="#if-elif-else">if-elif-else</a></li>
+          </ol>
+        </li>
+        <li><a href="#循环">循环</a></li>
+        <li><a href="#集合">集合</a>
+          <ol>
+            <li><a href="#list">list</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#自定义函数">自定义函数</a></li>
+    <li><a href="#基本函数">基本函数</a></li>
+    <li><a href="#基本规则">基本规则</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

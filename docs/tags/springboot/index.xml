@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Springboot on </title>
+    <link>/tags/springboot/</link>
+    <description>Recent content in Springboot on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 04 Nov 2021 11:11:54 +0800</lastBuildDate><atom:link href="/tags/springboot/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Springboot读取配置的另外一种方法</title>
+      <link>/post/2021-11-04-springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Thu, 04 Nov 2021 11:11:54 +0800</pubDate>
+      
+      <guid>/post/2021-11-04-springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
+      <description>@Component @Configuration public class MyConfig { public MyConfig(AbstractEnvirionment environment) { for (PropertySource instanceof OriginTrackedMapPropertySource &amp;amp;&amp;amp; propertySource.getName().contains(&amp;#34;.properties&amp;#34;)) { OriginTrackedMapPropertySource source = (OriginTrackedMapPropertySource) propertySource; for (Map.Entry&amp;lt;String, Object&amp;gt; entry : source.getSource().entrySet()) { System.out.println(entry.getKey() + &amp;#34;:&amp;#34; + entry.getValue()); } } } } 记录一下，之后研究。</description>
+    </item>
+    
+    <item>
+      <title>如何在ssm项目中优雅地使用Converter</title>
+      <link>/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/</link>
+      <pubDate>Wed, 08 Apr 2020 16:01:54 +0800</pubDate>
+      
+      <guid>/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/</guid>
+      <description>读取springboot的配置文件时使用Converter 因为项目中引入了公司自己编写的一个支持 BaseMapper 的 Mybatis 包，但这个自编 Mybatis 包有个问题，没有默认方言配置，不配置方言会报 NPE。
+而 Mybatis 的默认 yaml 文件配置中，没有关于方言的配置，之前项目中使用了丑陋麻烦的注入方案：
+@Configuration @EnableTransactionManagement @AutoConfigureAfter({SpringBootConfiguration.class}) public class MybatisConfig implements TransactionManagementConfigurer { private String dialect = &amp;#34;org.apache.ibatis.dialect.MysqlDialect&amp;#34;; @Autowired private DataSource dataSource; @Bean(name = &amp;#34;sqlSessionFactory&amp;#34;) public SqlSessionFactory sqlSessionFactoryBean() { SqlSessionFactory sqlSessionFactoryBean = new SqlSessionFactoryBean(); sqlSessionFactoryBean.setDataSource(dataSource); sqlSessionFactoryBean.setTypeAliasesPackage(&amp;#34;com.xxxx.xxx&amp;#34;); sqlSessionFactoryBean.setDialect(dialect); ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(); try { sqlSessionFactoryBean.setMapperLocations(resolver.getResources(&amp;#34;classpath*:com/xxx/xxx/*.xml&amp;#34;)); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCaseForMap(true); return sqlSessionFacotryBean.getObject(); } catch (Exception e) { throw new RuntimeException(e); } } @Bean @Override public PlatformTransactionManager annotationDrivenTransactionManager() { return new DataSourceTransactionManager(dataSource); } @Configuration @AutoConfigureAfter(MybatisConfig.</description>
+    </item>
+    
+    <item>
+      <title>Springboot下拦截器实现</title>
+      <link>/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</guid>
+      <description>新建一个注释类  @Target(ElementType.METHOD) @Retention(RetentionPolicy.RUNTIME) @Documented public @interface RequestCheck { boolean value() default true; } 新建一个拦截器类  @Aspect @Component public class RequestInterceptor { public Log logger = LogFactory.getLog(this.getClass()); // 拦截开关  @Value(&amp;#34;${common.app.checkAuth}&amp;#34;) private Boolean checkAuth; private static final byte[] userStore = RedisUtil.serialize(&amp;#34;__token_app_userStore&amp;#34;); @Pointcut(&amp;#34;execution(* com.mytest..*.*(..)) &amp;amp;&amp;amp; @annotation(com.mytest.app.util.annotation.RequestCheck)&amp;#34;) private void requestNeedCheck() { } @Before(&amp;#34;requestNeedCheck()&amp;#34;) public void before(JoinPoint joinPoint) throws Throwable { if (!checkAuth) { return; } HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()) .getRequest(); String userId = request.</description>
+    </item>
+    
+  </channel>
+</rss>

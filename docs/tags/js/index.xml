@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JS on </title>
+    <link>/tags/js/</link>
+    <description>Recent content in JS on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 04 Mar 2017 13:45:54 +0800</lastBuildDate><atom:link href="/tags/js/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AJAX 给 JS 全局变量赋值的问题</title>
+      <link>/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <description>在执行下面这段代码时遇到问题：
+var applseq = &amp;#34;&amp;#34;; $.ajax({ type: &amp;#34;GET&amp;#34;, url: &amp;#34;/app/appserver/ca/hdjrforward&amp;#34;, data: { &amp;#34;code&amp;#34;: code }, dataType: &amp;#34;json&amp;#34;, success: function (data) { applseq = data.body.applseq; alert(&amp;#34;1：&amp;#34;+applseq); } alert(&amp;#34;2：&amp;#34;+applseq); }); 运行结果是，先弹「2：」，接着弹「1：422133」。
+且结果是必然如是发生的。
+笔者一开始猜想这会不会是浏览器在遇到异步请求时使用了多线程的方式来处理，才导致了这样的结果。查询资料发现，JS 运行在浏览器中是单线程的。
+引用如下：
+ 因为JS运行在浏览器中，是单线程的，每个window一个JS线程，既然是单线程的，在某个特定的时刻只有特定的代码能够被执行，并阻塞其它的代码。而浏览器是事件驱动的（Event driven），浏览器中很多行为是异步（Asynchronized）的，会创建事件并放入执行队列中。javascript引擎是单线程处理它的任务队列，你可以理解成就是普通函数和回调函数构成的队列。当异步事件发生时，如mouse click, a timer firing, or an XMLHttpRequest completing（鼠标点击事件发生、定时器触发事件发生、XMLHttpRequest完成回调触发等），将他们放入执行队列，等待当前代码执行完成。
+  前面已经提到浏览器是事件驱动的（Event driven），浏览器中很多行为是异步（Asynchronized）的，例如：鼠标点击事件、窗口大小拖拉事件、定时器触发事件、 XMLHttpRequest完成回调等。当一个异步事件发生的时候，它就进入事件队列。浏览器有一个内部大消息循环，Event Loop（事件循环），会轮询大的事件队列并处理事件。例如，浏览器当前正在忙于处理onclick事件，这时另外一个事件发生了（如：window onSize），这个异步事件就被放入事件队列等待处理，只有前面的处理完毕了，空闲了才会执行这个事件。setTimeout也是一样，当调用的时 候，js引擎会启动定时器timer，大约xxms以后执行xxx，当定时器时间到，就把该事件放到主事件队列等待处理（浏览器不忙的时候才会真正执行）。
+ ——出自 http://www.cnblogs.com/yasmi/articles/5064588.html
+解决办法：
+在 Ajax 请求中设置非异步：
+async: false, </description>
+    </item>
+    
+    <item>
+      <title>AJAX POST请求提交表单信息</title>
+      <link>/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</link>
+      <pubDate>Sat, 04 Mar 2017 13:42:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</guid>
+      <description>当前使用的 jQuery 版本不支持 serializeObject，因此引入该函数：
+$.prototype.serializeObject=function(){ var obj=new Object(); $.each(this.serializeArray(),function(index,param){ if(!(param.name in obj)){ obj[param.name]=param.value; } }); return obj; }; 然后序列化该表单数据，并发送 AJAX 请求：
+var param = JSON.stringify($(&amp;#34;#applicationForm&amp;#34;).serializeObject()); $.ajax({ url: &amp;#34;/app/saveUsers&amp;#34;, data: param, type: &amp;#34;POST&amp;#34;, contentType: &amp;#34;application/json&amp;#34;, success: function(data){ if (data.head.retFlag==&amp;#34;00000&amp;#34;){ alert(&amp;#34;注册成功！&amp;#34;); window.location.href=&amp;#39;/app/ht/signContract.html&amp;#39;; return; } else { alert(data.head.retMsg); return; } }}); </description>
+    </item>
+    
+  </channel>
+</rss>

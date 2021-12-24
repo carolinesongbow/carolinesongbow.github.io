@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on </title>
+    <link>/tags/docker/</link>
+    <description>Recent content in docker on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 28 Oct 2018 16:17:54 +0800</lastBuildDate><atom:link href="/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>「Docker核心技术原理及其应用学习笔记」</title>
+      <link>/post/2018-10-28-docker%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sun, 28 Oct 2018 16:17:54 +0800</pubDate>
+      
+      <guid>/post/2018-10-28-docker%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>Docker概览 Docker 容器的概念约等于虚拟机。
+Docker 底层   Namespaces 命名空间
+为 Docker 容器提供操作系统层面的隔离
+  Control Groups 控制组
+为 Docker 容器提供硬件层面的隔离
+  Union File System 联合文件系统
+利用分层 layer 思想管理镜像和容器
+  镜像 镜像是一个 Docker 的可执行文件，通过镜像可以创建一个或多个容器。
+ docker镜像常用操作 
+镜像搜索   命令格式： ​	docker search [OPTIONS] TERM
+  命令参数(OPTIONS)：
+   -f, --filter filter 根据提供的格式筛选结果 --format string 利用Go语言的format格式化输出结果 --limit int 展示最大的结果数，默认25个 --no-trunc 内容全部显示 本地镜像 docker pull 作用： ​	下载远程仓库（如Docker Hub）中的镜像 命令格式： ​	docker pull [OPTIONS] NAME[:TAG|@DIGEST] 命令参数(OPTIONS)： ​	-a, &amp;ndash;all-tags 下载所有符合给定tag的镜像</description>
+    </item>
+    
+    <item>
+      <title>Docker学习</title>
+      <link>/post/2018-08-17-docker%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Fri, 17 Aug 2018 11:25:54 +0800</pubDate>
+      
+      <guid>/post/2018-08-17-docker%E5%AD%A6%E4%B9%A0/</guid>
+      <description>镜像 获取镜像 docker pull [选项] [Docker Registry 地]</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Docker概览 Docker 容器的概念约等于虚拟机。
+Docker 底层   Namespaces 命名空间
+为 Docker 容器提供操作系统层面的隔离
+  Control Groups 控制组
+为 Docker 容器提供硬件层面的隔离
+  Union File System 联合文件系统
+利用分层 layer 思想管理镜像和容器
+  镜像 镜像是一个 Docker 的可执行文件，通过镜像可以创建一个或多个容器。
+ docker镜像常用操作 
+镜像搜索   命令格式： ​	docker search [OPTIONS] TERM
+  命令参数(OPTIONS)：
+   -f, --filter filter 根据提供的格式筛选结果 --format string 利用Go语言的format格式化输出结果 --limit int 展示最大的结果数，默认25个 --no-trunc 内容全部显示 本地镜像 docker pull 作用： ​	下载远程仓库（如Docker Hub）中的镜像 命令格式： ​	docker pull [OPTIONS] NAME[:TAG|@DIGEST] 命令参数(OPTIONS)： ​	-a, &amp;ndash;all-tags 下载所有符合给定tag的镜像'><title>「Docker核心技术原理及其应用学习笔记」</title>
+
+<link rel='canonical' href='/post/2018-10-28-docker%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='「Docker核心技术原理及其应用学习笔记」'>
+<meta property='og:description' content='Docker概览 Docker 容器的概念约等于虚拟机。
+Docker 底层   Namespaces 命名空间
+为 Docker 容器提供操作系统层面的隔离
+  Control Groups 控制组
+为 Docker 容器提供硬件层面的隔离
+  Union File System 联合文件系统
+利用分层 layer 思想管理镜像和容器
+  镜像 镜像是一个 Docker 的可执行文件，通过镜像可以创建一个或多个容器。
+ docker镜像常用操作 
+镜像搜索   命令格式： ​	docker search [OPTIONS] TERM
+  命令参数(OPTIONS)：
+   -f, --filter filter 根据提供的格式筛选结果 --format string 利用Go语言的format格式化输出结果 --limit int 展示最大的结果数，默认25个 --no-trunc 内容全部显示 本地镜像 docker pull 作用： ​	下载远程仓库（如Docker Hub）中的镜像 命令格式： ​	docker pull [OPTIONS] NAME[:TAG|@DIGEST] 命令参数(OPTIONS)： ​	-a, &amp;ndash;all-tags 下载所有符合给定tag的镜像'>
+<meta property='og:url' content='/post/2018-10-28-docker%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content=''>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='docker' /><meta property='article:published_time' content='2018-10-28T16:17:54&#43;08:00'/><meta property='article:modified_time' content='2018-10-28T16:17:54&#43;08:00'/>
+<meta name="twitter:title" content="「Docker核心技术原理及其应用学习笔记」">
+<meta name="twitter:description" content="Docker概览 Docker 容器的概念约等于虚拟机。
+Docker 底层   Namespaces 命名空间
+为 Docker 容器提供操作系统层面的隔离
+  Control Groups 控制组
+为 Docker 容器提供硬件层面的隔离
+  Union File System 联合文件系统
+利用分层 layer 思想管理镜像和容器
+  镜像 镜像是一个 Docker 的可执行文件，通过镜像可以创建一个或多个容器。
+ docker镜像常用操作 
+镜像搜索   命令格式： ​	docker search [OPTIONS] TERM
+  命令参数(OPTIONS)：
+   -f, --filter filter 根据提供的格式筛选结果 --format string 利用Go语言的format格式化输出结果 --limit int 展示最大的结果数，默认25个 --no-trunc 内容全部显示 本地镜像 docker pull 作用： ​	下载远程仓库（如Docker Hub）中的镜像 命令格式： ​	docker pull [OPTIONS] NAME[:TAG|@DIGEST] 命令参数(OPTIONS)： ​	-a, &amp;ndash;all-tags 下载所有符合给定tag的镜像">
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span></span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/post/2018-10-28-docker%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">「Docker核心技术原理及其应用学习笔记」</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 28, 2018</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h1 id="docker概览">Docker概览</h1>
+<p>Docker 容器的概念约等于虚拟机。</p>
+<h2 id="docker-底层">Docker 底层</h2>
+<ul>
+<li>
+<p>Namespaces 命名空间</p>
+<p>为 Docker 容器提供操作系统层面的隔离</p>
+</li>
+<li>
+<p>Control Groups 控制组</p>
+<p>为 Docker 容器提供硬件层面的隔离</p>
+</li>
+<li>
+<p>Union File System 联合文件系统</p>
+<p>利用分层 layer 思想管理镜像和容器</p>
+</li>
+</ul>
+<h1 id="镜像">镜像</h1>
+<p>镜像是一个 Docker 的可执行文件，通过镜像可以创建一个或多个容器。</p>
+<p><figure 
+	>
+	<a href="/../../images/docker-image.png" >
+		<img src="/../../images/docker-image.png"
+			
+			
+			
+			loading="lazy"
+			alt="docker镜像常用操作">
+	</a>
+	
+	<figcaption>docker镜像常用操作</figcaption>
+	
+</figure></p>
+<h2 id="镜像搜索">镜像搜索</h2>
+<ul>
+<li>
+<p>命令格式：
+​	docker search [OPTIONS] TERM</p>
+</li>
+<li>
+<p>命令参数(OPTIONS)：</p>
+</li>
+</ul>
+<pre><code>  	-f,  --filter filter   	根据提供的格式筛选结果
+  	     --format string   	利用Go语言的format格式化输出结果
+  	     --limit int       	展示最大的结果数，默认25个
+  	     --no-trunc        	内容全部显示
+
+</code></pre><h2 id="本地镜像">本地镜像</h2>
+<h3 id="docker-pull">docker pull</h3>
+<p>作用：
+​	下载远程仓库（如Docker Hub）中的镜像
+命令格式：
+​	<code>docker pull [OPTIONS] NAME[:TAG|@DIGEST]</code>
+命令参数(OPTIONS)：
+​	-a, &ndash;all-tags               	下载所有符合给定tag的镜像</p>
+<h3 id="docker-images">docker images</h3>
+<p>作用：
+​	列出本地镜像
+命令格式：
+​	<code>docker images [OPTIONS][REPOSITORY[:TAG]]</code><br>
+​     或者  <code>docker image ls [OPTIONS][REPOSITORY[:TAG]]</code><br>
+命令参数(OPTIONS)：
+​	-a, &ndash;all             		展示所有镜像 (默认隐藏底层的镜像)
+​	     &ndash;no-trunc        	不缩略显示
+​	-q, &ndash;quiet           	只显示镜像ID</p>
+<h3 id="docker-rmidocker-image-rm">docker rmi/docker image rm</h3>
+<p>作用：
+​	将本地的一个或多个镜像删除
+命令格式：
+​	<code>docker rmi [OPTIONS] IMAGE [IMAGE...]</code><br>
+​     或者  <code>docker image rm [OPTIONS] IMAGE [IMAGE...]</code><br>
+命令参数(OPTIONS)：	
+​	-f, &ndash;force      		强制删除</p>
+<h3 id="docker-save">docker save</h3>
+<p>作用：<br>
+​	将本地的一个或多个镜像打包保存成本地tar文件(输出到STDOUT)<br>
+命令格式：<br>
+​	<code>docker save [OPTIONS] IMAGE [IMAGE...]</code><br>
+命令参数(OPTIONS)：<br>
+​	-o, &ndash;output string   		指定写入的文件名和路径</p>
+<p><code>docker save centos:7 &gt; centosfile.tar</code></p>
+<p><code>docker save centos:7 -o centosfile.tar</code></p>
+<p>save 的时候最好用指定名称+版本号的方式，不然 load 进来后名称和版本号就是 null。</p>
+<h3 id="docker-load">docker load</h3>
+<p>作用：<br>
+​	将save命令打包的镜像导入本地镜像库中<br>
+命令格式：<br>
+​	<code>docker load [OPTIONS]</code>
+命令参数(OPTIONS)：<br>
+​	-i,  &ndash;input string   	指定要打入的文件，如没有指定，默认是STDIN<br>
+​	-q, &ndash;quiet          		不打印导入过程信息</p>
+<h3 id="docker-tag">docker tag</h3>
+<p>作用：<br>
+​	对本地镜像的NAME、TAG进行重命名，并新产生一个命名后镜像<br>
+命令格式：<br>
+​	<code>docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]</code></p>
+<p>当对一个正常镜像重命名时，会新建一个引用；当对一个无名称和 tag 的镜像重命名时，会修改原镜像名称。</p>
+<h3 id="docker-image-inspect">docker image inspect</h3>
+<p>作用：<br>
+​	查看本地一个或多个镜像的详细信息<br>
+命令格式：<br>
+​	<code>docker image inspect [OPTIONS] IMAGE [IMAGE...]</code><br>
+命令参数(OPTIONS)：	
+​	-f, &ndash;format string          利用特定Go语言的format格式输出结果</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">E</span><span class="p">:</span>\<span class="n">code</span>\<span class="n">dockerfiles</span><span class="o">&gt;</span><span class="n">docker</span> <span class="n">image</span> <span class="n">inspect</span> <span class="o">-</span><span class="n">f</span> <span class="s2">&#34;{{json .Metadata.LastTagTime}}&#34;</span> <span class="n">ubuntu</span>
+<span class="s2">&#34;0001-01-01T00:00:00Z&#34;</span>
+
+<span class="n">E</span><span class="p">:</span>\<span class="n">code</span>\<span class="n">dockerfiles</span><span class="o">&gt;</span><span class="n">docker</span> <span class="n">image</span> <span class="n">inspect</span> <span class="o">-</span><span class="n">f</span> <span class="s2">&#34;{{json .Metadata}}&#34;</span> <span class="n">ubuntu</span>
+<span class="p">{</span><span class="s2">&#34;LastTagTime&#34;</span><span class="p">:</span><span class="s2">&#34;0001-01-01T00:00:00Z&#34;</span><span class="p">}</span>
+</code></pre></div><h3 id="docker-history">docker history</h3>
+<p>作用：<br>
+​	查看本地一个镜像的历史(历史分层)信息<br>
+命令格式：<br>
+​	<code>docker history [OPTIONS] IMAGE</code><br>
+命令参数(OPTIONS)：<br>
+​	-H, &ndash;human		将创建时间、大小进行优化打印(默认为true)<br>
+​	-q, &ndash;quiet           	只显示镜像ID<br>
+​	     &ndash;no-trunc        	不缩略显示</p>
+<h1 id="容器">容器</h1>
+<p>容器是一种轻量级、可移植、并将应用程序进行打包的技术，使应用程序可以在几乎任何地方以相同的方式运行。</p>
+<p>Docker 将镜像文件运行起来后，产生的对象就是容器。容器相当于是镜像运行起来的一个实例。容器具备一定的生命周期。</p>
+<p>可以借助 docker ps 命令查看运行的容器。</p>
+<h2 id="容器与虚拟机">容器与虚拟机</h2>
+<h3 id="相同点">相同点</h3>
+<ul>
+<li>硬件资源共享使用</li>
+<li>生命周期相似</li>
+<li>可以安装应用</li>
+<li>数据会存储在宿主机上(/var/lib/docker/containers)</li>
+</ul>
+<h3 id="不同点">不同点</h3>
+<ul>
+<li>虚拟机是一个完整的操作系统，容器运行在宿主机的内核上（本质上一系列进程的结合）</li>
+<li>容器轻量级，虚拟机重量级</li>
+</ul>
+<h2 id="容器的生命周期">容器的生命周期</h2>
+<p><figure 
+	>
+	<a href="/../../images/docker%e5%ae%b9%e5%99%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f.png" >
+		<img src="/../../images/docker%e5%ae%b9%e5%99%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f.png"
+			
+			
+			
+			loading="lazy"
+			alt="docker容器生命周期">
+	</a>
+	
+	<figcaption>docker容器生命周期</figcaption>
+	
+</figure></p>
+<h3 id="创建容器-docker-create">创建容器 docker create</h3>
+<p>作用：
+​	利用镜像创建出一个Created 状态的待启动容器
+命令格式：
+​	<code>docker create [OPTIONS] IMAGE [COMMAND][ARG...]</code>
+命令参数(OPTIONS)：查看更多
+​	-t, &ndash;tty           		分配一个伪TTY，也就是分配虚拟终端
+​      	-i, &ndash;interactive    	即使没有连接，也要保持STDIN打开
+​          	     &ndash;name          		为容器起名，如果没有指定将会随机产生一个名称
+命令参数（COMMAND\ARG）:
+​	COMMAND 表示容器启动后，需要在容器中执行的命令，如ps、ls 等命令
+​	ARG 表示执行 COMMAND 时需要提供的一些参数，如ps 命令的 aux、ls命令的-a等等</p>
+<h3 id="删除容器-docker-rm">删除容器 docker rm</h3>
+<p><code>docker rm [OPTIONS] CONTAINER [CONTAINER...]</code></p>
+<p>可以指定为容器的名字或 id。</p>
+<h3 id="启动容器-docker-start">启动容器 docker start</h3>
+<p>作用：
+​	将一个或多个处于创建状态或关闭状态的容器启动起来
+命令格式：
+​	<code>docker start [OPTIONS] CONTAINER [CONTAINER...]</code>
+命令参数(OPTIONS)：
+​	-a, &ndash;attach		将当前shell的 STDOUT/STDERR 连接到容器上
+​	-i, &ndash;interactive		将当前shell的 STDIN连接到容器上</p>
+<p>只有创建的时候有 -i 参数，这里的 -i 才有效。</p>
+<h3 id="创建容器并启动-docker-run">创建容器并启动 docker run</h3>
+<p>作用：
+​	利用镜像创建并启动一个容器
+命令格式：
+​	<code>docker run [OPTIONS] IMAGE [COMMAND][ARG...]</code>
+命令参数(OPTIONS)：查看更多
+​	-t, &ndash;tty           		分配一个伪TTY，也就是分配虚拟终端
+​      	-i, &ndash;interactive    	即使没有连接，也要保持STDIN打开
+​          	     &ndash;name          		为容器起名，如果没有指定将会随机产生一个名称
+​	-d, &ndash;detach		在后台运行容器并打印出容器ID
+​	&ndash;rm			当容器退出运行后，自动删除容器
+命令参数（COMMAND\ARG）:
+​	COMMAND 表示容器启动后，需要在容器中执行的命令，如ps、ls 等命令
+​	ARG 表示执行 COMMAND 时需要提供的一些参数，如ps 命令的 aux、ls命令的-a等等</p>
+<ul>
+<li>docker run 相当于 docker create + docker start –a       前台模式</li>
+<li>docker run -d 相当于 docker create + docker start       后台模式</li>
+</ul>
+<h3 id="容器关闭-docker-stop">容器关闭 docker stop</h3>
+<p>作用：
+​	关闭一个或多个处于暂停状态或者运行状态的容器
+命令格式：
+​	<code>docker stop [OPTIONS] CONTAINER [CONTAINER...]</code>
+命令参数(OPTIONS)：
+​	-t, &ndash;time int   		关闭前，等待的时间，单位秒(默认 10s)</p>
+<p>stop 命令使用 kill -term 杀掉进程</p>
+<h3 id="容器终止-doker-kill">容器终止 doker kill</h3>
+<p>作用：
+​	强制并立即关闭一个或多个处于暂停状态或者运行状态的容器
+命令格式：
+​	<code>docker kill [OPTIONS] CONTAINER [CONTAINER...]</code>
+命令参数(OPTIONS)：
+​	-s, &ndash;signal string   	指定发送给容器的关闭信号 (默认“KILL”信号)</p>
+<p>比如 kill -9 可以写为 docker kill 容器名 -s &lsquo;9&rsquo;</p>
+<h3 id="容器暂停取消暂停-docker-pauseunpause">容器暂停/取消暂停 docker pause/unpause</h3>
+<p>作用：
+​	暂停一个或多个处于运行状态的容器
+命令格式：
+​	<code>docker pause CONTAINER [CONTAINER...]</code></p>
+<p>作用：
+​	取消一个或多个处于暂停状态的容器，恢复运行
+命令格式：
+​	<code>docker unpause CONTAINER [CONTAINER...]</code></p>
+<h3 id="容器重启-docker-restart">容器重启 docker restart</h3>
+<p>作用：
+​	重启一个或多个处于运行状态、暂停状态、关闭状态或者新建状态的容器
+命令格式：
+​	docker restart [OPTIONS] CONTAINER [CONTAINER&hellip;]
+命令参数(OPTIONS)：
+​	 -t, &ndash;time int   		重启前，等待的时间，单位秒(默认 10s)
+​				实则是关闭前等待的时间</p>
+<p><strong>该命令相当于stop和start命令的结合</strong></p>
+<h2 id="容器信息">容器信息</h2>
+<h3 id="容器详细信息-docker-container-inspect">容器详细信息 docker container inspect</h3>
+<p>作用：
+​	查看本地一个或多个容器的详细信息
+命令格式：
+​	<code>docker container inspect [OPTIONS] CONTAINER [CONTAINER...]</code>
+​      或者 <code>docker inspect [OPTIONS] CONTAINER [CONTAINER...]</code>
+命令参数(OPTIONS)：
+​	-f, &ndash;format string	利用特定Go语言的format格式输出结果
+​	-s, &ndash;size		显示总大小</p>
+<h3 id="容器日志-docker-logs">容器日志 docker logs</h3>
+<p>作用：
+​	查看容器的日志信息
+命令格式：
+​	docker logs [OPTIONS] CONTAINER
+命令参数(OPTIONS)：
+​	    &ndash;details		显示日志的额外信息
+​	-f, &ndash;follow         		动态跟踪显示日志信息
+​	    &ndash;since string  	只显示某事时间节点之后的
+&ndash;tail string    		显示倒数的行数(默认全部)
+​	-t, &ndash;timestamps     	显示timestamps时间
+​	    &ndash;until string   	只显示某时间节点之前的
+注意：
+​	容器日志中记录的是容器主进程的输出STDOUT\STDERR，也就是说 attach 命令输出的会在 logs 中输出，而 exec 的则不会。</p>
+<h3 id="容器重命名-docker-rename">容器重命名 docker rename</h3>
+<p>作用：
+​	修改容器的名称
+命令格式：
+​	<code>docker rename CONTAINER NEW_NAME</code></p>
+<h2 id="容器运行时操作">容器运行时操作</h2>
+<h3 id="容器连接-docker-attach">容器连接 docker attach</h3>
+<p>作用：
+​	将当前终端的STDIN、STDOUT、STDERR绑定到正在运行的容器的主进程上实现连接
+命令格式：
+​	docker attach [OPTIONS] CONTAINER
+命令参数(OPTIONS)：
+​	&ndash;no-stdin             	不绑定STDIN</p>
+<p>这个命令实际上是把当前的控制台绑定到 docker 容器的主进程（即 commond 执行的那个进程）上的，如果 commond 那个命令的进程退出了，那么这个 docker 容器运行也就终止了。</p>
+<h3 id="容器中执行新命令-docker-exec">容器中执行新命令 docker exec</h3>
+<p>作用：
+​	在容器中运行一个命令
+命令格式：
+​	docker exec [OPTIONS] CONTAINER COMMAND [ARG&hellip;]
+命令参数(OPTIONS)：
+​	-d, &ndash;detach               	后台运行命令
+​	-i, &ndash;interactive		即使没连接容器，也将当前的STDIN绑定上
+​	-t, &ndash;tty                  	分配一个虚拟终端
+​	-w, &ndash;workdir string       	指定在容器中的工作目录
+​	-e, &ndash;env list             	设置容器中运行时的环境变量</p>
+<h1 id="容器与镜像">容器与镜像</h1>
+<p><figure 
+	>
+	<a href="/../../images/1547970788929.png" >
+		<img src="/../../images/1547970788929.png"
+			
+			
+			
+			loading="lazy"
+			alt="1547970788929">
+	</a>
+	
+	<figcaption>1547970788929</figcaption>
+	
+</figure></p>
+<h2 id="容器提交-docker-commit">容器提交 docker commit</h2>
+<p>作用：
+​	根据容器生成一个新的镜像
+命令格式：
+​	docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+命令参数(OPTIONS)：
+​	-a, &ndash;author string    	作者
+​	-c, &ndash;change list      	为创建的镜像加入Dockerfile命令
+​	-m, &ndash;message string   	提交信息，类似git commit -m
+​	-p, &ndash;pause            	提交时暂停容器 (default true)</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/docker/">docker</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2021 
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title"></h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#docker-底层">Docker 底层</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#镜像搜索">镜像搜索</a></li>
+    <li><a href="#本地镜像">本地镜像</a>
+      <ol>
+        <li><a href="#docker-pull">docker pull</a></li>
+        <li><a href="#docker-images">docker images</a></li>
+        <li><a href="#docker-rmidocker-image-rm">docker rmi/docker image rm</a></li>
+        <li><a href="#docker-save">docker save</a></li>
+        <li><a href="#docker-load">docker load</a></li>
+        <li><a href="#docker-tag">docker tag</a></li>
+        <li><a href="#docker-image-inspect">docker image inspect</a></li>
+        <li><a href="#docker-history">docker history</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li><a href="#容器与虚拟机">容器与虚拟机</a>
+      <ol>
+        <li><a href="#相同点">相同点</a></li>
+        <li><a href="#不同点">不同点</a></li>
+      </ol>
+    </li>
+    <li><a href="#容器的生命周期">容器的生命周期</a>
+      <ol>
+        <li><a href="#创建容器-docker-create">创建容器 docker create</a></li>
+        <li><a href="#删除容器-docker-rm">删除容器 docker rm</a></li>
+        <li><a href="#启动容器-docker-start">启动容器 docker start</a></li>
+        <li><a href="#创建容器并启动-docker-run">创建容器并启动 docker run</a></li>
+        <li><a href="#容器关闭-docker-stop">容器关闭 docker stop</a></li>
+        <li><a href="#容器终止-doker-kill">容器终止 doker kill</a></li>
+        <li><a href="#容器暂停取消暂停-docker-pauseunpause">容器暂停/取消暂停 docker pause/unpause</a></li>
+        <li><a href="#容器重启-docker-restart">容器重启 docker restart</a></li>
+      </ol>
+    </li>
+    <li><a href="#容器信息">容器信息</a>
+      <ol>
+        <li><a href="#容器详细信息-docker-container-inspect">容器详细信息 docker container inspect</a></li>
+        <li><a href="#容器日志-docker-logs">容器日志 docker logs</a></li>
+        <li><a href="#容器重命名-docker-rename">容器重命名 docker rename</a></li>
+      </ol>
+    </li>
+    <li><a href="#容器运行时操作">容器运行时操作</a>
+      <ol>
+        <li><a href="#容器连接-docker-attach">容器连接 docker attach</a></li>
+        <li><a href="#容器中执行新命令-docker-exec">容器中执行新命令 docker exec</a></li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li><a href="#容器提交-docker-commit">容器提交 docker commit</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

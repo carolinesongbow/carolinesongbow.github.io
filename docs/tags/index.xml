@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on </title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 04 Nov 2021 11:11:54 +0800</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Springboot</title>
+      <link>/tags/springboot/</link>
+      <pubDate>Thu, 04 Nov 2021 11:11:54 +0800</pubDate>
+      
+      <guid>/tags/springboot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jdbc</title>
+      <link>/tags/jdbc/</link>
+      <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
+      
+      <guid>/tags/jdbc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>无意义的叨叨</title>
+      <link>/tags/%E6%97%A0%E6%84%8F%E4%B9%89%E7%9A%84%E5%8F%A8%E5%8F%A8/</link>
+      <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
+      
+      <guid>/tags/%E6%97%A0%E6%84%8F%E4%B9%89%E7%9A%84%E5%8F%A8%E5%8F%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mybatis</title>
+      <link>/tags/mybatis/</link>
+      <pubDate>Wed, 08 Jul 2020 09:06:54 +0800</pubDate>
+      
+      <guid>/tags/mybatis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>converter</title>
+      <link>/tags/converter/</link>
+      <pubDate>Wed, 08 Apr 2020 16:01:54 +0800</pubDate>
+      
+      <guid>/tags/converter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>leetcode</title>
+      <link>/tags/leetcode/</link>
+      <pubDate>Mon, 10 Feb 2020 23:19:54 +0800</pubDate>
+      
+      <guid>/tags/leetcode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes docker</title>
+      <link>/tags/kubernetes-docker/</link>
+      <pubDate>Tue, 09 Apr 2019 10:54:54 +0800</pubDate>
+      
+      <guid>/tags/kubernetes-docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>markdown</title>
+      <link>/tags/markdown/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/markdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tag with whitespaces</title>
+      <link>/tags/tag-with-whitespaces/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/tag-with-whitespaces/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>text</title>
+      <link>/tags/text/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/text/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spring cloud contract</title>
+      <link>/tags/spring-cloud-contract/</link>
+      <pubDate>Wed, 21 Nov 2018 16:33:54 +0800</pubDate>
+      
+      <guid>/tags/spring-cloud-contract/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>/tags/docker/</link>
+      <pubDate>Sun, 28 Oct 2018 16:17:54 +0800</pubDate>
+      
+      <guid>/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>/tags/python/</link>
+      <pubDate>Tue, 17 Jul 2018 21:23:54 +0800</pubDate>
+      
+      <guid>/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redis</title>
+      <link>/tags/redis/</link>
+      <pubDate>Sat, 28 Apr 2018 17:49:00 +0800</pubDate>
+      
+      <guid>/tags/redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mongodb</title>
+      <link>/tags/mongodb/</link>
+      <pubDate>Tue, 17 Oct 2017 21:26:54 +0800</pubDate>
+      
+      <guid>/tags/mongodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nosql</title>
+      <link>/tags/nosql/</link>
+      <pubDate>Tue, 17 Oct 2017 21:26:54 +0800</pubDate>
+      
+      <guid>/tags/nosql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>personal</title>
+      <link>/tags/personal/</link>
+      <pubDate>Thu, 21 Sep 2017 15:33:54 +0800</pubDate>
+      
+      <guid>/tags/personal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jdk</title>
+      <link>/tags/jdk/</link>
+      <pubDate>Fri, 14 Jul 2017 17:41:54 +0800</pubDate>
+      
+      <guid>/tags/jdk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>/tags/linux/</link>
+      <pubDate>Fri, 14 Jul 2017 17:41:54 +0800</pubDate>
+      
+      <guid>/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shell</title>
+      <link>/tags/shell/</link>
+      <pubDate>Sun, 02 Apr 2017 17:57:54 +0800</pubDate>
+      
+      <guid>/tags/shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AOP</title>
+      <link>/tags/aop/</link>
+      <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
+      
+      <guid>/tags/aop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>/tags/java/</link>
+      <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
+      
+      <guid>/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>alibaba</title>
+      <link>/tags/alibaba/</link>
+      <pubDate>Sat, 18 Mar 2017 11:10:54 +0800</pubDate>
+      
+      <guid>/tags/alibaba/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Eureka</title>
+      <link>/tags/eureka/</link>
+      <pubDate>Sat, 04 Mar 2017 14:53:54 +0800</pubDate>
+      
+      <guid>/tags/eureka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AJAX</title>
+      <link>/tags/ajax/</link>
+      <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
+      
+      <guid>/tags/ajax/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jQuery</title>
+      <link>/tags/jquery/</link>
+      <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
+      
+      <guid>/tags/jquery/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JS</title>
+      <link>/tags/js/</link>
+      <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
+      
+      <guid>/tags/js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>/tags/mysql/</link>
+      <pubDate>Sat, 04 Mar 2017 13:29:54 +0800</pubDate>
+      
+      <guid>/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>privacy</title>
+      <link>/tags/privacy/</link>
+      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/privacy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shortcodes</title>
+      <link>/tags/shortcodes/</link>
+      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/shortcodes/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

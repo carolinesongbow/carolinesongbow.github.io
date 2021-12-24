@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jdbc on </title>
+    <link>/tags/jdbc/</link>
+    <description>Recent content in jdbc on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 11 Jun 2021 14:20:54 +0800</lastBuildDate><atom:link href="/tags/jdbc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JDBC数据库连接MariaDB版本冲突问题</title>
+      <link>/post/2021-06-11-jdbc%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5mariadb%E7%89%88%E6%9C%AC%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
+      
+      <guid>/post/2021-06-11-jdbc%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5mariadb%E7%89%88%E6%9C%AC%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</guid>
+      <description>背景 项目中提供数据源连接服务，使用了相当多 JDBC 驱动插件，其中包含 MySQL 5.1.44 版本驱动和 MariaDB 2.2.3 版本驱动。
+问题 有一个用户使用了较低版本的 Mycat，在连接数据源时，长时间连接不上。
+排查 JDBC 的 DriverManager 在连接时，会自动尝试所有的驱动的连接（是的，没错，没法指定驱动连接，狗日的）。在本例中，当遍历至 MariaDB 的驱动时，在接收包的时候遇到版本不兼容问题（低版本 Mycat 数据库和高版本 MariaDB 驱动），DEBUG 调试发现，在读取数据库服务器返回的一个流时卡死。卡死原因不明。大致是数据库与驱动版本不兼容问题导致。
+解决 一开始想尝试用注销再注册的方式把 MariaDB 的驱动放在 DriverManager 静态驱动列表的最尾，防止这一类 MySQL 数据源尝试用 MariaDB 驱动去连接以避免卡死问题。
+尝试过程中追踪 MariaDB 驱动源码发现：
+public static boolean acceptsUrl(String url) { return (url != null) &amp;amp;&amp;amp; (url.startsWith(&amp;#34;jdbc:mariadb:&amp;#34;) || (url.startsWith(&amp;#34;jdbc:mysql:&amp;#34;) &amp;amp;&amp;amp; !url.contains(DISABLE_MYSQL_URL))); } private static final String DISABLE_MYSQL_URL = &amp;#34;disableMariaDbDriver&amp;#34;; 即，不符合这个acceptsUrl方法条件的，则不会尝试使用 MariaDB 进行连接。
+最终解决方式是在 JDBC 连接字符串上增加了 ?disableMariaDbDriver。
+Like jdbc:mysql://localhost:3306/test?</description>
+    </item>
+    
+  </channel>
+</rss>

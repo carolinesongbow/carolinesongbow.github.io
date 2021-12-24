@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Redis 内存模型深入
+Redis 内存统计  使用redis-cli -h {hostname} -p {port}连接 redis 连接成功，使用info memory查看内存信息  used_memory:9451784 #分配器分配的内存总量 used_memory_human:9.01M #上一行的人类看得懂的方式 used_memory_rss:12984320 #Redis进程占据操作系统的内存 used_memory_rss_human:12.38M used_memory_peak:19658408 used_memory_peak_human:18.75M used_memory_peak_perc:48.08% used_memory_overhead:7657748 used_memory_startup&amp;quot;1424544 used_memory_dataset:1794036 used_memory_dataset_perc:22.35% total_system_memory:16862044160 total_system_memory_human:15.70G used_memory_lua:37888 used_memory_lua_human:37.00K maxmemory:0 maxmemory_human:0B maxmemory_policy:noeviction mem_fragmentation_ratio:1.37 #内存碎片比率 mem_allocator:jemalloc-4.0.3 # 内存分配器 active_defrag_running:0 lazyfree_pending_objects:0  used_memory: Redis 分配的内存总量（包括使用的虚拟内存）； used_memory_rss: Redis 进程占据操作系统的内存，和 top 以及 ps 命令看到的是一样的； 即：used_memory &#43; 进程运行内存 &#43; 内存碎片 - 虚拟内存； mem_fragmentation_ratio: 内存碎片比，即 used_memory_rss/used_memory 。 小于1时说明内存不够用了，使用了虚拟内存； 越大说明内存碎片比越大，内存分配器是 jemalloc 的时候1.03是个较健康的状态。 mem_allocator: 内存分配器。包括jemalloc(default)、libc、tcmalloc。  内存划分  数据 值包括5种对外提供的类型：字符串、哈希、列表、集合、有序集合。'><title>Redis 内存模型深入</title>
+
+<link rel='canonical' href='/post/2018-04-28-redis-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B7%B1%E5%85%A5/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Redis 内存模型深入'>
+<meta property='og:description' content='Redis 内存模型深入
+Redis 内存统计  使用redis-cli -h {hostname} -p {port}连接 redis 连接成功，使用info memory查看内存信息  used_memory:9451784 #分配器分配的内存总量 used_memory_human:9.01M #上一行的人类看得懂的方式 used_memory_rss:12984320 #Redis进程占据操作系统的内存 used_memory_rss_human:12.38M used_memory_peak:19658408 used_memory_peak_human:18.75M used_memory_peak_perc:48.08% used_memory_overhead:7657748 used_memory_startup&amp;quot;1424544 used_memory_dataset:1794036 used_memory_dataset_perc:22.35% total_system_memory:16862044160 total_system_memory_human:15.70G used_memory_lua:37888 used_memory_lua_human:37.00K maxmemory:0 maxmemory_human:0B maxmemory_policy:noeviction mem_fragmentation_ratio:1.37 #内存碎片比率 mem_allocator:jemalloc-4.0.3 # 内存分配器 active_defrag_running:0 lazyfree_pending_objects:0  used_memory: Redis 分配的内存总量（包括使用的虚拟内存）； used_memory_rss: Redis 进程占据操作系统的内存，和 top 以及 ps 命令看到的是一样的； 即：used_memory &#43; 进程运行内存 &#43; 内存碎片 - 虚拟内存； mem_fragmentation_ratio: 内存碎片比，即 used_memory_rss/used_memory 。 小于1时说明内存不够用了，使用了虚拟内存； 越大说明内存碎片比越大，内存分配器是 jemalloc 的时候1.03是个较健康的状态。 mem_allocator: 内存分配器。包括jemalloc(default)、libc、tcmalloc。  内存划分  数据 值包括5种对外提供的类型：字符串、哈希、列表、集合、有序集合。'>
+<meta property='og:url' content='/post/2018-04-28-redis-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B7%B1%E5%85%A5/'>
+<meta property='og:site_name' content=''>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='redis' /><meta property='article:published_time' content='2018-04-28T17:49:00&#43;08:00'/><meta property='article:modified_time' content='2018-04-28T17:49:00&#43;08:00'/>
+<meta name="twitter:title" content="Redis 内存模型深入">
+<meta name="twitter:description" content="Redis 内存模型深入
+Redis 内存统计  使用redis-cli -h {hostname} -p {port}连接 redis 连接成功，使用info memory查看内存信息  used_memory:9451784 #分配器分配的内存总量 used_memory_human:9.01M #上一行的人类看得懂的方式 used_memory_rss:12984320 #Redis进程占据操作系统的内存 used_memory_rss_human:12.38M used_memory_peak:19658408 used_memory_peak_human:18.75M used_memory_peak_perc:48.08% used_memory_overhead:7657748 used_memory_startup&amp;quot;1424544 used_memory_dataset:1794036 used_memory_dataset_perc:22.35% total_system_memory:16862044160 total_system_memory_human:15.70G used_memory_lua:37888 used_memory_lua_human:37.00K maxmemory:0 maxmemory_human:0B maxmemory_policy:noeviction mem_fragmentation_ratio:1.37 #内存碎片比率 mem_allocator:jemalloc-4.0.3 # 内存分配器 active_defrag_running:0 lazyfree_pending_objects:0  used_memory: Redis 分配的内存总量（包括使用的虚拟内存）； used_memory_rss: Redis 进程占据操作系统的内存，和 top 以及 ps 命令看到的是一样的； 即：used_memory &#43; 进程运行内存 &#43; 内存碎片 - 虚拟内存； mem_fragmentation_ratio: 内存碎片比，即 used_memory_rss/used_memory 。 小于1时说明内存不够用了，使用了虚拟内存； 越大说明内存碎片比越大，内存分配器是 jemalloc 的时候1.03是个较健康的状态。 mem_allocator: 内存分配器。包括jemalloc(default)、libc、tcmalloc。  内存划分  数据 值包括5种对外提供的类型：字符串、哈希、列表、集合、有序集合。">
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span></span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/post/2018-04-28-redis-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B7%B1%E5%85%A5/">Redis 内存模型深入</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 28, 2018</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p>Redis 内存模型深入</p>
+<h2 id="redis-内存统计">Redis 内存统计</h2>
+<ul>
+<li>使用<code>redis-cli -h {hostname} -p {port}</code>连接 redis</li>
+<li>连接成功，使用<code>info memory</code>查看内存信息</li>
+</ul>
+<pre><code>used_memory:9451784  #分配器分配的内存总量
+used_memory_human:9.01M  #上一行的人类看得懂的方式
+used_memory_rss:12984320  #Redis进程占据操作系统的内存
+used_memory_rss_human:12.38M
+used_memory_peak:19658408
+used_memory_peak_human:18.75M
+used_memory_peak_perc:48.08%
+used_memory_overhead:7657748
+used_memory_startup&quot;1424544
+used_memory_dataset:1794036
+used_memory_dataset_perc:22.35%
+total_system_memory:16862044160
+total_system_memory_human:15.70G
+used_memory_lua:37888
+used_memory_lua_human:37.00K
+maxmemory:0
+maxmemory_human:0B
+maxmemory_policy:noeviction
+mem_fragmentation_ratio:1.37  #内存碎片比率
+mem_allocator:jemalloc-4.0.3 # 内存分配器
+active_defrag_running:0
+lazyfree_pending_objects:0
+</code></pre><ul>
+<li>used_memory: Redis 分配的内存总量（包括使用的虚拟内存）；</li>
+<li>used_memory_rss: Redis 进程占据操作系统的内存，和 top 以及 ps 命令看到的是一样的；
+即：used_memory + 进程运行内存 + 内存碎片 - 虚拟内存；</li>
+<li>mem_fragmentation_ratio: 内存碎片比，即 used_memory_rss/used_memory 。
+小于1时说明内存不够用了，使用了虚拟内存；
+越大说明内存碎片比越大，内存分配器是 jemalloc 的时候1.03是个较健康的状态。</li>
+<li>mem_allocator: 内存分配器。包括jemalloc(default)、libc、tcmalloc。</li>
+</ul>
+<h2 id="内存划分">内存划分</h2>
+<ol>
+<li>数据
+值包括5种对外提供的类型：字符串、哈希、列表、集合、有序集合。<br>
+Redis 内部对每种类型的值可能有2种或更多的内部编码实现。<br>
+数据会统计在 used_memory 中。</li>
+<li>进程本身需要的内存
+Redis 主进程本身运行，代码、常量池等需要占用的内存。<br>
+不属于内存分配器分配，不会统计在 used_memory，但会统计在 used_memory_rss 中。</li>
+<li>缓冲内存
+包括客户端缓冲区、复制积压缓冲区、AOF 缓冲区。<br>
+由分配器分配，统计在 used_memory 和 used_memory_rss 中。</li>
+<li>内存碎片
+内存碎片是 Redis 在分配、回收物理内存过程中产生的。<br>
+如果对数据更改频繁，且数据之间的大小相差很大，会形成内存碎片。<br>
+不统计在 used_memory 中，但会统计在 used_memory_rss 中。<br>
+可以通过安全重启减小内存碎片。</li>
+</ol>
+<h2 id="redis-数据存储细节">Redis 数据存储细节</h2>
+<h3 id="概述">概述</h3>
+<p>当 Redis set hello world 的时候，它干了啥
+<figure 
+	>
+	<a href="/../../images/redis-dictEntry.png" >
+		<img src="/../../images/redis-dictEntry.png"
+			
+			
+			
+			loading="lazy"
+			alt="what Redis have done when set ‘hello world’">
+	</a>
+	
+	<figcaption>what Redis have done when set ‘hello world’</figcaption>
+	
+</figure></p>
+<p>-&gt; <strong>dictEntry</strong> 每个键值对都有一个 dictEntry，里面包含指向 key 和 value 的指针；next 指向下一个 dictEntry，与本 key-value 无关。<br>
+-&gt; <strong>key</strong> 存储于 SDS 结构中</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="nl">SDS</span><span class="p">:</span>
+<span class="k">struct</span> <span class="n">sdsheader</span> <span class="p">{</span>
+     <span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
+     <span class="kt">int</span> <span class="n">free</span><span class="p">;</span>
+     <span class="kt">char</span> <span class="n">buf</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div><p>-&gt; <strong>redisObject</strong> 不管什么类型的 value 都存储在 redisObject 中。redisObject 中的 type 字段指明了 value 对象的类型，ptr 指向对象所在地址。而 redisObject 中的字符串对象仍然是通过 SDS 存储的。<br>
+-&gt; <strong>jemalloc</strong> 以上对象都需要内存分配器分配内存进行存储。</p>
+<h3 id="redisobject">redisObject</h3>
+<p>redisObject 对象非常重要，Redis 对象的类型、内部编码、内存回收、共享对象等功能，都需要 redisObject 支持。<br>
+redisObject 的定义如下（不同版本的 Redis 可能稍有不同）：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">redisObject</span> <span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="nl">type</span><span class="p">:</span><span class="mi">4</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="nl">encoding</span><span class="p">:</span><span class="mi">4</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="nl">lru</span><span class="p">:</span><span class="n">REDIS_LRU_BITS</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">refcount</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">robj</span><span class="p">;</span>
+</code></pre></div><p>一个 redisObject 对象大小为 16 Bype。</p>
+<ul>
+<li>
+<p>type: 对象类型
+包括 REDIS_STRING、REDIS_LIST、REDIS_HASH、REDIS_SET、REDIS_ZSET。</p>
+</li>
+<li>
+<p>encoding: 对象的内部编码
+每种数据类型都有至少两种 encoding。比如字符串有 int/embstr/raw 这三种。目的是优化性能。<br>
+<code>object encoding {key}</code> 可查看对象编码方式。</p>
+</li>
+<li>
+<p>lru: 对象最后一次被命令程序访问的时间
+当前时间 - 最后访问时间(ms)。<br>
+<code>object idletime {key}</code> 查看对象空转时间，且不改变对象 lru 值。<br>
+与 Redis 内存回收有关。如果 Redis 打开了 maxmemory 选项，且内存回收算法选择了 volatile-lru 或 allkeys-lru，会优先释放空转时间最长的对象。</p>
+</li>
+<li>
+<p>refcount: 对象引用次数
+refcount 主要用于对象的引用计数和内存回收。<br>
+当创建新对象时，refcount 初始化为 1；值为 0 时，则该对象内存被释放。<br>
+多次被引用的对象称为<strong>共享对象</strong>，目前只支持整数值的字符串对象。<br>
+Redis 服务器在初始化时，会创建 10000 个字符串对象，为 0-9999 的整数值，Redis 可直接使用这些共享对象。<br>
+关于此特性的调优考虑：尽可能使用 0/1 而非 Y/N。<br>
+<code>object refcount {key}</code> 查看对象 value 引用次数。</p>
+</li>
+<li>
+<p>ptr 数据指针<br>
+指向 value 值。</p>
+</li>
+</ul>
+<h2 id="sds">SDS</h2>
+<p>即简单动态字符串（Simple Dynamic String）的缩写。</p>
+<h3 id="结构">结构</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">sdshdr</span><span class="p">{</span>
+  <span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">free</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">buf</span><span class="p">[];</span>
+<span class="p">};</span>
+</code></pre></div><ul>
+<li>buf：字节数组，用来存储字符串；</li>
+<li>len：buf 已使用的长度；</li>
+<li>free：buf 未使用的长度。</li>
+</ul>
+<p>例：</p>
+<ol>
+<li>
+<p>存储一个无 free 的字符串 “Redis”
+free = 0;
+len = 5;
+buf = [&lsquo;R&rsquo;, &lsquo;e&rsquo;, &rsquo;d', &lsquo;i&rsquo;, &rsquo;s', &lsquo;\0&rsquo;];</p>
+</li>
+<li>
+<p>存储一个有free 的字符串 “Redis”
+free = 4;
+len = 5;
+buf = [&lsquo;R&rsquo;, &lsquo;e&rsquo;, &rsquo;d', &lsquo;i&rsquo;, &rsquo;s', &lsquo;\0&rsquo;, , , , ];</p>
+</li>
+</ol>
+<p>根据以上可知，buf 数组的 length 实际上是 free + len + 1(字符串结尾的空字符)。<br>
+所以一个 SDS 结构数据的长度为 4(free) + 4(len) + buf(free 的值 + len 的值 + 1) = free + len + 9。</p>
+<h3 id="sds-与-c-字符串的比较">SDS 与 C 字符串的比较</h3>
+<p>SDS 在 C 字符串的基础上加入了 free 和 len， 好处如下：</p>
+<ul>
+<li>获取字符串时的计算复杂度
+SDS 是 O(1)，C 字符串是 O(n)；</li>
+<li>缓存区溢出
+C 字符串长度增加而忘记重新分配内存，容易造成缓冲区的溢出；<br>
+SDS 记录了长度，可能会溢出时会自动重新分配内存。</li>
+<li>修改字符串时内存的重分配<br>
+C 字符串修改，要重新分配内存（先释放再申请）；<br>
+SDS 可做空间预分配策略，预先进行多余空间的分配，使得重新分配内存的概率减小。</li>
+<li>存取二进制数据<br>
+C 字符串不可以，因为用空字符作为字符串结束标识；<br>
+SDS 以长度 len 作为字符串结束标识。<br>
+SDS 中的 buf 仍然使用了 C 字符串，因此 SDS 可以使用 C 字符串库中的部分函数；但只有当 SDS 存储文本数据时才可以这样使用，在存储二进制数据时则不行（‘\0’不一定是 buf 的结尾）。</li>
+</ul>
+<h3 id="sds-与-c-字符串在-redis-中的应用">SDS 与 C 字符串在 Redis 中的应用</h3>
+<p>Redis 在存储对象时，包括 key 和不管什么形式的 value，一律使用 SDS。<br>
+各种缓冲区，也使用 SDS。<br>
+只有在字符串不会改变的情况下，如打印日志时，才会使用 C 字符串。</p>
+<h2 id="redis-的对象类型与内部编码">Redis 的对象类型与内部编码</h2>
+<p>Redis 3.0 内部编码类型：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">编码</th>
+<th style="text-align:left">对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">REDIS_STRING</td>
+<td style="text-align:left">REDIS_ENCODING_INT</td>
+<td style="text-align:left">使用整数值实现的字符串对象</td>
+</tr>
+<tr>
+<td style="text-align:left">REDIS_STRING</td>
+<td style="text-align:left">REDIS_ENCODING_EMBSTR</td>
+<td style="text-align:left">使用 embstr 编码的简单动态字符串实现的字符串对象</td>
+</tr>
+<tr>
+<td style="text-align:left">REDIS_STRING</td>
+<td style="text-align:left">REDIS_ENCODING_RAW</td>
+<td style="text-align:left">使用简单动态字符串实现的字符串对象</td>
+</tr>
+<tr>
+<td style="text-align:left">REDIS_LIST</td>
+<td style="text-align:left">REDIS_ENCODING_ZIPLIST</td>
+<td style="text-align:left">使用压缩列表实现的列表对象</td>
+</tr>
+<tr>
+<td style="text-align:left">REDIS_LIST</td>
+<td style="text-align:left">REDIS_ENCODING_LINKEDLIST</td>
+<td style="text-align:left">使用双端链表实现的列表对象</td>
+</tr>
+<tr>
+<td style="text-align:left">REDIS_HASH</td>
+<td style="text-align:left">REDIS_ENCODING_ZIPLIST</td>
+<td style="text-align:left">使用压缩列表实现的哈希对象</td>
+</tr>
+<tr>
+<td style="text-align:left">REDIS_HASH</td>
+<td style="text-align:left">REDIS_ENCODING_HT</td>
+<td style="text-align:left">使用字典实现的哈希对象</td>
+</tr>
+<tr>
+<td style="text-align:left">REDIS_SET</td>
+<td style="text-align:left">REDIS_ENCODING_INTSET</td>
+<td style="text-align:left">使用整数集合实现的集合对象</td>
+</tr>
+<tr>
+<td style="text-align:left">REDIS_SET</td>
+<td style="text-align:left">REDIS_ENCODING_HT</td>
+<td style="text-align:left">使用字典实现的集合对象</td>
+</tr>
+<tr>
+<td style="text-align:left">REDIS_ZSET</td>
+<td style="text-align:left">REDIS_ENCODING_ZIPLIST</td>
+<td style="text-align:left">使用压缩列表实现的有序集合对象</td>
+</tr>
+<tr>
+<td style="text-align:left">REDIS_ZSET</td>
+<td style="text-align:left">REDIS_ENCODING_SKIPLIST</td>
+<td style="text-align:left">使用跳跃表和字典实现的有序集合对象</td>
+</tr>
+</tbody>
+</table>
+<h3 id="字符串">字符串</h3>
+<h4 id="概况">概况</h4>
+<p>字符串是最基础的类型，所有的键都是字符串类型，且字符串之外的其他几种复杂类型的元素也是字符串（？）。<br>
+字符串长度不能超过 512 MB。</p>
+<h4 id="内部编码">内部编码</h4>
+<ol>
+<li>int
+8 个字节的长整型。（其实就是 long）</li>
+<li>embstr
+&lt;=39 字节的字符串。</li>
+<li>raw
+&gt;39 字节的字符串。</li>
+</ol>
+<ul>
+<li>embstr 与 raw 的区别<br>
+都使用 redisObject 和 SDS 保存数据，创建时，embstr 给 redisObject 和 SDS 只分配一次内存空间， raw 需要两次分别给 redisObject 和 SDS 分配空间。<br>
+因此 embstr 创建时少分配一次空间，且地址连续；但如果字符串长度增加需要重新分配内存时，整个 redisObject 和 SDS 都需要重新分配空间，因此 Redis 中的 embstr 实现为只读。</li>
+</ul>
+<h4 id="编码转换">编码转换</h4>
+<p>int 不再是整数，或大小超出 long 的范围，自动转 raw。<br>
+embstr 由于只读，只要修改 embstr 对象，一定转 raw。</p>
+<h3 id="列表">列表</h3>
+<h4 id="概况-1">概况</h4>
+<p>用来存储多个有序的字符串，每个字符串称为元素；<br>
+一个列表可以存储 2^32-1 个元素；<br>
+支持两端插入和弹出，并可获得指定位置或范围的元素。</p>
+<h4 id="内部编码-1">内部编码</h4>
+<ol>
+<li>双端链表 linkedlist<br>
+由一个 list 结构和多个 listNode 结构组成。<br>
+链表中的所有结点指向的都是 type 为字符串的 redisObject</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">list</span> <span class="p">{</span> <span class="c1">//双向链表   包括三个操作函数  
+</span><span class="c1"></span>    <span class="n">listNode</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>  <span class="c1">// 指向链表头结点
+</span><span class="c1"></span>    <span class="n">listNode</span> <span class="o">*</span><span class="n">tail</span><span class="p">;</span>  <span class="c1">// 指向链表尾结点
+</span><span class="c1"></span>    <span class="kt">void</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">dup</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span><span class="c1">//复制函数指针  
+</span><span class="c1"></span>    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">free</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span><span class="c1">//释放函数指针  
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">match</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">key</span><span class="p">);</span><span class="c1">//匹配函数指针  
+</span><span class="c1"></span>    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">len</span><span class="p">;</span>  <span class="c1">//节点计数  
+</span><span class="c1"></span><span class="p">}</span> <span class="n">list</span><span class="p">;</span>
+</code></pre></div><ol start="2">
+<li>压缩列表 ziplist<br>
+是由一系列特殊编码的连续内存块（而不是像双端链表一样每个节点都是指针）组成的顺序型数据结构。<br>
+与双端链表相比，压缩列表可以节省内存空间，但是进行增删改时复杂度较高。</li>
+</ol>
+<ul>
+<li>linkedlist 和 ziplist 的场景
+节点多时，使用双端链表划算；节点少时，应使用压缩列表。</li>
+</ul>
+<h4 id="编码转换-1">编码转换</h4>
+<p>同时满足以下两个条件使用 ziplist：1）列表元素数量小于 512 个；2）所有字符串对象都不足 64 个字节（单字符串，而非 SDS 结构）。<br>
+ziplist 可以转 linkedlist，而 linkedlist 不能转 ziplist。</p>
+<h3 id="哈希">哈希</h3>
+<h4 id="概况-2">概况</h4>
+<p>哈希同时也是 Redis 作为 Key-Value 数据库所使用的数据结构，不可混淆。</p>
+<h4 id="内部编码-2">内部编码</h4>
+<ol>
+<li>
+<p>压缩列表 ziplist
+同上。<br>
+优势为集中存储，节省空间。</p>
+</li>
+<li>
+<p>哈希表 hashtable</p>
+</li>
+</ol>
+<p><figure 
+	>
+	<a href="/../../images/redis-hashtable.jpg" >
+		<img src="/../../images/redis-hashtable.jpg"
+			
+			
+			
+			loading="lazy"
+			alt="hashtable struct">
+	</a>
+	
+	<figcaption>hashtable struct</figcaption>
+	
+</figure></p>
+<p>Redis 数据库所使用的编码。<br>
+包含 1 个 dict 结构、2 个 dictht 结构 、1 个 dictEntry 指针数组 （即 bucket） 和多个 dictEntry 结构。</p>
+<ul>
+<li>dictEntry<br>
+用于保存键值对</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">dictEntry</span><span class="p">{</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">key</span><span class="p">;</span> <span class="c1">// 键值对中的键
+</span><span class="c1"></span>  <span class="k">union</span><span class="p">{</span> <span class="c1">// 键值对中的值（共同体）
+</span><span class="c1"></span>    <span class="kt">void</span> <span class="o">*</span><span class="n">val</span><span class="p">;</span> <span class="c1">// 可能是指向型指针
+</span><span class="c1"></span>    <span class="n">uint64_tu64</span><span class="p">;</span> <span class="c1">// 可能是 64 位整型
+</span><span class="c1"></span>    <span class="n">int64_ts64</span><span class="p">;</span> <span class="c1">// 可能是无符号 64 位整型
+</span><span class="c1"></span>  <span class="p">}</span><span class="n">v</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="n">dictEntry</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span> <span class="c1">// 下一个 dictEntry，用于解决哈希冲突
+</span><span class="c1"></span><span class="p">}</span><span class="n">dictEntry</span><span class="p">;</span>
+</code></pre></div><p>在 64 位系统中，一个 dictEntry 对象占 24 字节（key/val/next 各 8 字节）。</p>
+<ul>
+<li>bucket
+即一个元素为 dictEntry 结构的数组。<br>
+bucket 数组大小：取大于现有元素数量的最小的 2 的 n 次方。<br>
+如 1000 个 dictEntry 的 bucket 大小为 1024;1100 个 dictEntry 的 bucket 大小为 2048。</li>
+<li>dictht</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">dictht</span><span class="p">{</span>
+  <span class="n">dictEntry</span> <span class="o">**</span><span class="n">table</span><span class="p">;</span> <span class="c1">// 指向 bucket
+</span><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">size</span><span class="p">;</span> <span class="c1">// bucket 的大小
+</span><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">sizemask</span><span class="p">;</span> <span class="c1">// =size-1，和哈希值一起决定一个键在 table 中存储的位置
+</span><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">used</span><span class="p">;</span> <span class="c1">// bucket 中已使用的 dictEntry 数量
+</span><span class="c1"></span><span class="p">}</span><span class="n">dictht</span><span class="p">;</span>
+</code></pre></div><ul>
+<li>dict</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">dict</span><span class="p">{</span>
+  <span class="n">dictType</span> <span class="o">*</span><span class="n">type</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">privdata</span><span class="p">;</span>
+  <span class="n">dictht</span> <span class="n">ht</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">trehashidx</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">dict</span><span class="p">;</span>
+</code></pre></div><p>- type &amp; privdata：为了适应不同类型的键值对，用于创建多态字典。<br>
+- ht &amp; trehashidx：用于 rehash，即哈希表的扩展或收缩<br>
+- ht：指向两个 dictht。通常数据存在 ht[0] 中，rehash 时，将 ht[0] 的数据 rehash 到 ht[1] 中，然后将 ht[1] 赋值给 ht[0]，最后清空 ht[1]。</p>
+<p>dict 主要是用于适应不同类型的键值对以及 rehash。</p>
+<h4 id="编码转换-2">编码转换</h4>
+<p>转换规则与列表相似。<br>
+同时满足以下两个条件使用 ziplist：1）哈希中元素数量小于 512 个；2）哈希中所有键和值字符串长度都不足 64 个字节。<br>
+ziplist 可以转 hashtable，而 hashtable 不能转 ziplist。</p>
+<h3 id="集合-set">集合 set</h3>
+<h4 id="概况-3">概况</h4>
+<p>集合与列表类似，都是用来保存多个字符串。<br>
+与列表的区别：</p>
+<ol>
+<li>集合中的元素是无序的，因此不能通过索引来操作元素</li>
+<li>集合中的元素不能重复</li>
+</ol>
+<p>一个集合最多可以存储 2^32-1 个元素。<br>
+除了支持常规的增删改查，还支持多个集合取交集、并集、差集。</p>
+<h4 id="内部编码-3">内部编码</h4>
+<ol>
+<li>哈希表 hashtable
+字典的每个键都是一个字符串对象， 每个字符串对象包含了一个集合元素， 而字典的值则全部被设置为 NULL。<br>
+其余同前，略。</li>
+<li>整数集合 intset</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">intset</span><span class="p">{</span>
+  <span class="n">uint32_t</span> <span class="n">encoding</span><span class="p">;</span> <span class="c1">// contents 存储类型
+</span><span class="c1"></span>  <span class="n">uint32_t</span> <span class="n">length</span><span class="p">;</span> <span class="c1">// 元素个数
+</span><span class="c1"></span>  <span class="n">int8_t</span> <span class="n">contents</span><span class="p">[];</span>
+<span class="p">}</span> <span class="n">intset</span><span class="p">;</span>
+</code></pre></div><p>encoding 的说明：虽然 contents 是 int8_t 类型，但实际上其存储的值是 int16_t、int32_t 或 int64_t，由 encoding 决定。<br>
+整数集合适用于集合所有元素都是整数且集合元素数量较小的时候，优势在于集中存储，节省空间；虽然对于元素操作复杂度也由 O(1) 变为了 O(n)，但集合数量少的时候操作的时间并没有明显劣势。</p>
+<h4 id="编码转换-3">编码转换</h4>
+<p>同时满足以下两个条件则使用整数集合：1）集合中的元素数量小于 512 个；2）集合中所有元素都是整数值。<br>
+整数集合可转为哈希表，哈希表不能转为整数集合。</p>
+<h3 id="有序集合">有序集合</h3>
+<h4 id="概况-4">概况</h4>
+<p>与集合一样，元素都不能重复；</p>
+<p>与集合不同，元素是有顺序的；</p>
+<p>与列表不同，不以索引下标作为排序依据，而为每个元素设置一个分数（score）作为排序依据。</p>
+<h4 id="内部编码-4">内部编码</h4>
+<p>压缩列表（ziplist）或跳跃表（skiplist）。</p>
+<ol>
+<li>
+<p>ziplist</p>
+<p>略。</p>
+</li>
+<li>
+<p>skiplist</p>
+<p>是一种有序数据结构，通过在每个节点中维持多个指向其他节点的指针，达到快速访问节点的目的。</p>
+<p>支持平均 O(logN)、最坏 O(N) 的复杂度进行节点查找，并支持顺序操作。</p>
+<p>Redis 的跳跃表实现由 zskiplist 和 zskiplistNode 两个结构组成：前者用于保存跳跃表信息（如头结点、尾结点、长度等），后者用于表示跳跃表节点。</p>
+<p>具体结构比较复杂，略。</p>
+</li>
+</ol>
+<h4 id="编码转换-4">编码转换</h4>
+<p>同时满足以下两个条件则使用 ziplist：1）元素总量小于 128；2）所有成员长度都不足 64 字节。</p>
+<p>可由 ziplist 转 skiplist，反向则不能。</p>
+<h2 id="应用举例">应用举例</h2>
+<h3 id="优化内存占用">优化内存占用</h3>
+<h4 id="利用-jemalloc-特性进行优化">利用 jemalloc 特性进行优化</h4>
+<p>由于 jemalloc 分配内存时数值是不连续的，因此 key/value 变化一个字节，可能会引起占用内存很大的变动。应注意一些特殊值。</p>
+<p>例，如果 key 的长度是 8 字节，则 SDS 为 17 字节（free+len+9），jemalloc 分配 32 字节；而若 key 的长度是 7 字节，则 SDS 为 16 字节，jemalloc 分配 16 字节。</p>
+<p><figure 
+	>
+	<a href="/../../images/jemalloc-save-space.png" >
+		<img src="/../../images/jemalloc-save-space.png"
+			
+			
+			
+			loading="lazy"
+			alt="jemalloc-save-space">
+	</a>
+	
+	<figcaption>jemalloc-save-space</figcaption>
+	
+</figure></p>
+<h4 id="使用整形">使用整形</h4>
+<p>如果是整型/长整型，Redis 会使用 int 类型来存储，可节省空间。</p>
+<h4 id="共享对象">共享对象</h4>
+<p>利用共享对象，可以减少对象的创建，节省内部空间。</p>
+<p>使用 0-9999 这些整数，或可通过调整 REDIS_SHARED_INTEGERS 参数提高共享对象的个数。</p>
+<h3 id="关注内存碎片率">关注内存碎片率</h3>
+<p>内存碎片率过高（标准为 1.03）时，内存碎片多，可考虑重启 Redis。</p>
+<p>碎片率小于 1，则机器内存不足，可考虑拓展机器。</p>
+<blockquote>
+<p>本文参考自 <a class="link" href="http://www.cnblogs.com/kismetv/p/8654978.html"  target="_blank" rel="noopener"
+    >编程迷思博客</a></p>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/redis/">redis</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2021 
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title"></h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#redis-内存统计">Redis 内存统计</a></li>
+    <li><a href="#内存划分">内存划分</a></li>
+    <li><a href="#redis-数据存储细节">Redis 数据存储细节</a>
+      <ol>
+        <li><a href="#概述">概述</a></li>
+        <li><a href="#redisobject">redisObject</a></li>
+      </ol>
+    </li>
+    <li><a href="#sds">SDS</a>
+      <ol>
+        <li><a href="#结构">结构</a></li>
+        <li><a href="#sds-与-c-字符串的比较">SDS 与 C 字符串的比较</a></li>
+        <li><a href="#sds-与-c-字符串在-redis-中的应用">SDS 与 C 字符串在 Redis 中的应用</a></li>
+      </ol>
+    </li>
+    <li><a href="#redis-的对象类型与内部编码">Redis 的对象类型与内部编码</a>
+      <ol>
+        <li><a href="#字符串">字符串</a>
+          <ol>
+            <li><a href="#概况">概况</a></li>
+            <li><a href="#内部编码">内部编码</a></li>
+            <li><a href="#编码转换">编码转换</a></li>
+          </ol>
+        </li>
+        <li><a href="#列表">列表</a>
+          <ol>
+            <li><a href="#概况-1">概况</a></li>
+            <li><a href="#内部编码-1">内部编码</a></li>
+            <li><a href="#编码转换-1">编码转换</a></li>
+          </ol>
+        </li>
+        <li><a href="#哈希">哈希</a>
+          <ol>
+            <li><a href="#概况-2">概况</a></li>
+            <li><a href="#内部编码-2">内部编码</a></li>
+            <li><a href="#编码转换-2">编码转换</a></li>
+          </ol>
+        </li>
+        <li><a href="#集合-set">集合 set</a>
+          <ol>
+            <li><a href="#概况-3">概况</a></li>
+            <li><a href="#内部编码-3">内部编码</a></li>
+            <li><a href="#编码转换-3">编码转换</a></li>
+          </ol>
+        </li>
+        <li><a href="#有序集合">有序集合</a>
+          <ol>
+            <li><a href="#概况-4">概况</a></li>
+            <li><a href="#内部编码-4">内部编码</a></li>
+            <li><a href="#编码转换-4">编码转换</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#应用举例">应用举例</a>
+      <ol>
+        <li><a href="#优化内存占用">优化内存占用</a>
+          <ol>
+            <li><a href="#利用-jemalloc-特性进行优化">利用 jemalloc 特性进行优化</a></li>
+            <li><a href="#使用整形">使用整形</a></li>
+            <li><a href="#共享对象">共享对象</a></li>
+          </ol>
+        </li>
+        <li><a href="#关注内存碎片率">关注内存碎片率</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

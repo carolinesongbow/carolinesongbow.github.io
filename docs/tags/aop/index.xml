@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AOP on </title>
+    <link>/tags/aop/</link>
+    <description>Recent content in AOP on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 24 Mar 2017 10:06:54 +0800</lastBuildDate><atom:link href="/tags/aop/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Springboot下拦截器实现</title>
+      <link>/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</guid>
+      <description>新建一个注释类  @Target(ElementType.METHOD) @Retention(RetentionPolicy.RUNTIME) @Documented public @interface RequestCheck { boolean value() default true; } 新建一个拦截器类  @Aspect @Component public class RequestInterceptor { public Log logger = LogFactory.getLog(this.getClass()); // 拦截开关  @Value(&amp;#34;${common.app.checkAuth}&amp;#34;) private Boolean checkAuth; private static final byte[] userStore = RedisUtil.serialize(&amp;#34;__token_app_userStore&amp;#34;); @Pointcut(&amp;#34;execution(* com.mytest..*.*(..)) &amp;amp;&amp;amp; @annotation(com.mytest.app.util.annotation.RequestCheck)&amp;#34;) private void requestNeedCheck() { } @Before(&amp;#34;requestNeedCheck()&amp;#34;) public void before(JoinPoint joinPoint) throws Throwable { if (!checkAuth) { return; } HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()) .getRequest(); String userId = request.</description>
+    </item>
+    
+  </channel>
+</rss>

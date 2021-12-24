@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>spring cloud contract on </title>
+    <link>/tags/spring-cloud-contract/</link>
+    <description>Recent content in spring cloud contract on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 21 Nov 2018 16:33:54 +0800</lastBuildDate><atom:link href="/tags/spring-cloud-contract/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring Cloud Contract契约测试实践</title>
+      <link>/post/2018-11-21-spring-cloud-contract%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Wed, 21 Nov 2018 16:33:54 +0800</pubDate>
+      
+      <guid>/post/2018-11-21-spring-cloud-contract%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/</guid>
+      <description>背景 今年公司在申请 ISO-9000，因此多了很多质量上的管理要求。之前听到测试部提出需要做大覆盖量的集成测试，感到非常不妥。因为目前我们使用的技术是微服务技术，且有相当一部分数据依赖于外部系统（如银联接口等），如果做集成测试，由于服务很多，因此第一，很难保证数据的一致性；第二，很难保证其他服务的稳定程度。后果就是出现错误的概率高、维护成本高、排查问题的成本高。
+因此我在网上搜索微服务适用的测试框架，发现现在有些新的测试框架是基于契约的测试，这样对微服务来说会更友好。
+由于目前项目使用的就是 spring cloud，因此选择了目前已经较成熟的契约测试框架 spring cloud contract 进行实践调研。
+spring cloud contract 官方文档地址
+代码实践 本地场景 由于一个项目组几乎都维护着多个服务，某个开发任务可能需要同时修改多个系统。因此在开发自测时，需要用本地的契约测试。
+服务端  导入 gradle 配置：  buildscript { ext { //...  springCloudContractVersion = &amp;#39;2.0.1.RELEASE&amp;#39; } dependencies { //...  classpath(&amp;#39;org.springframework.cloud:spring-cloud-contract-gradle-plugin:${springCloudContractVersion}&amp;#39;) } } //... apply plugin: &amp;#39;spring-cloud-contract&amp;#39; apply plugin: &amp;#39;maven-publish&amp;#39; dependencyManagement { imports { //...  mavenBom &amp;#39;org.springframework.cloud:spring-cloud-contract-dependencies:&amp;#39; + springCloudContractVersion } } dependencies { //...  testCompile(&amp;#39;org.springframeword.cloud:spring-cloud-starter-contract-verifier&amp;#39;) } contracts { // 基类所在的包  packageWithBaseClasses &amp;#39;com.</description>
+    </item>
+    
+  </channel>
+</rss>
