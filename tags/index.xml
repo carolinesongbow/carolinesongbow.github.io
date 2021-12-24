@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 芝士饼干蛋挞</title>
+    <link>http://example.org/tags/</link>
+    <description>Recent content in Tags on 芝士饼干蛋挞</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Nov 2021 11:11:54 +0800</lastBuildDate><atom:link href="http://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Springboot</title>
+      <link>http://example.org/tags/springboot/</link>
+      <pubDate>Thu, 04 Nov 2021 11:11:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/springboot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jdbc</title>
+      <link>http://example.org/tags/jdbc/</link>
+      <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/jdbc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>无意义的叨叨</title>
+      <link>http://example.org/tags/%E6%97%A0%E6%84%8F%E4%B9%89%E7%9A%84%E5%8F%A8%E5%8F%A8/</link>
+      <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/%E6%97%A0%E6%84%8F%E4%B9%89%E7%9A%84%E5%8F%A8%E5%8F%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mybatis</title>
+      <link>http://example.org/tags/mybatis/</link>
+      <pubDate>Wed, 08 Jul 2020 09:06:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/mybatis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>converter</title>
+      <link>http://example.org/tags/converter/</link>
+      <pubDate>Wed, 08 Apr 2020 16:01:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/converter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>leetcode</title>
+      <link>http://example.org/tags/leetcode/</link>
+      <pubDate>Mon, 10 Feb 2020 23:19:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/leetcode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes docker</title>
+      <link>http://example.org/tags/kubernetes-docker/</link>
+      <pubDate>Tue, 09 Apr 2019 10:54:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/kubernetes-docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>markdown</title>
+      <link>http://example.org/tags/markdown/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/markdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tag with whitespaces</title>
+      <link>http://example.org/tags/tag-with-whitespaces/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/tag-with-whitespaces/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>text</title>
+      <link>http://example.org/tags/text/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/text/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spring cloud contract</title>
+      <link>http://example.org/tags/spring-cloud-contract/</link>
+      <pubDate>Wed, 21 Nov 2018 16:33:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/spring-cloud-contract/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>http://example.org/tags/docker/</link>
+      <pubDate>Sun, 28 Oct 2018 16:17:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>http://example.org/tags/python/</link>
+      <pubDate>Tue, 17 Jul 2018 21:23:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redis</title>
+      <link>http://example.org/tags/redis/</link>
+      <pubDate>Sat, 28 Apr 2018 17:49:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mongodb</title>
+      <link>http://example.org/tags/mongodb/</link>
+      <pubDate>Tue, 17 Oct 2017 21:26:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/mongodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nosql</title>
+      <link>http://example.org/tags/nosql/</link>
+      <pubDate>Tue, 17 Oct 2017 21:26:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/nosql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>personal</title>
+      <link>http://example.org/tags/personal/</link>
+      <pubDate>Thu, 21 Sep 2017 15:33:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/personal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jdk</title>
+      <link>http://example.org/tags/jdk/</link>
+      <pubDate>Fri, 14 Jul 2017 17:41:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/jdk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>http://example.org/tags/linux/</link>
+      <pubDate>Fri, 14 Jul 2017 17:41:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shell</title>
+      <link>http://example.org/tags/shell/</link>
+      <pubDate>Sun, 02 Apr 2017 17:57:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AOP</title>
+      <link>http://example.org/tags/aop/</link>
+      <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/aop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>http://example.org/tags/java/</link>
+      <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>alibaba</title>
+      <link>http://example.org/tags/alibaba/</link>
+      <pubDate>Sat, 18 Mar 2017 11:10:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/alibaba/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Eureka</title>
+      <link>http://example.org/tags/eureka/</link>
+      <pubDate>Sat, 04 Mar 2017 14:53:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/eureka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AJAX</title>
+      <link>http://example.org/tags/ajax/</link>
+      <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/ajax/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jQuery</title>
+      <link>http://example.org/tags/jquery/</link>
+      <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/jquery/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JS</title>
+      <link>http://example.org/tags/js/</link>
+      <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>http://example.org/tags/mysql/</link>
+      <pubDate>Sat, 04 Mar 2017 13:29:54 +0800</pubDate>
+      
+      <guid>http://example.org/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>privacy</title>
+      <link>http://example.org/tags/privacy/</link>
+      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/privacy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shortcodes</title>
+      <link>http://example.org/tags/shortcodes/</link>
+      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/shortcodes/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
