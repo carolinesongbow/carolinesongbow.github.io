@@ -2,7 +2,7 @@ module:
     hugoVersion:
         extended: true
         min: "0.87.0"
-baseURL: https://carolinesongbow.github.io/blog
+baseURL: https://carolinesongbow.github.io/blog/
 
 params:
     mainSections:
