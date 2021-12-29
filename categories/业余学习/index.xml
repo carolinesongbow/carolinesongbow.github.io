@@ -6,7 +6,16 @@
     <description>Recent content in 业余学习 on 芝士饼干蛋挞</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Jan 2017 23:39:54 +0800</lastBuildDate><atom:link href="http://example.org/categories/%E4%B8%9A%E4%BD%99%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Nov 2021 11:11:54 +0800</lastBuildDate><atom:link href="http://example.org/categories/%E4%B8%9A%E4%BD%99%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Springboot读取配置的另外一种方法</title>
+      <link>http://example.org/post/2021-11-04-springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Thu, 04 Nov 2021 11:11:54 +0800</pubDate>
+      
+      <guid>http://example.org/post/2021-11-04-springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
+      <description>@Component @Configuration public class MyConfig { public MyConfig(AbstractEnvirionment environment) { for (PropertySource instanceof OriginTrackedMapPropertySource &amp;amp;&amp;amp; propertySource.getName().contains(&amp;#34;.properties&amp;#34;)) { OriginTrackedMapPropertySource source = (OriginTrackedMapPropertySource) propertySource; for (Map.Entry&amp;lt;String, Object&amp;gt; entry : source.getSource().entrySet()) { System.out.println(entry.getKey() + &amp;#34;:&amp;#34; + entry.getValue()); } } } } 记录一下，之后研究。</description>
+    </item>
+    
     <item>
       <title>MySQL 搭建主从数据库</title>
       <link>http://example.org/post/2017-01-02-mysql%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
