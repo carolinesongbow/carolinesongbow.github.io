@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 芝士饼干蛋挞</title>
+    <link>http://carolinesongbow.github.io/tags/</link>
+    <description>Recent content in Tags on 芝士饼干蛋挞</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Nov 2021 11:11:54 +0800</lastBuildDate><atom:link href="http://carolinesongbow.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Springboot</title>
+      <link>http://carolinesongbow.github.io/tags/springboot/</link>
+      <pubDate>Thu, 04 Nov 2021 11:11:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/springboot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jdbc</title>
+      <link>http://carolinesongbow.github.io/tags/jdbc/</link>
+      <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/jdbc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mybatis</title>
+      <link>http://carolinesongbow.github.io/tags/mybatis/</link>
+      <pubDate>Wed, 08 Jul 2020 09:06:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/mybatis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>converter</title>
+      <link>http://carolinesongbow.github.io/tags/converter/</link>
+      <pubDate>Wed, 08 Apr 2020 16:01:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/converter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>leetcode</title>
+      <link>http://carolinesongbow.github.io/tags/leetcode/</link>
+      <pubDate>Mon, 10 Feb 2020 23:19:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/leetcode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes docker</title>
+      <link>http://carolinesongbow.github.io/tags/kubernetes-docker/</link>
+      <pubDate>Tue, 09 Apr 2019 10:54:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/kubernetes-docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spring cloud contract</title>
+      <link>http://carolinesongbow.github.io/tags/spring-cloud-contract/</link>
+      <pubDate>Wed, 21 Nov 2018 16:33:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/spring-cloud-contract/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>http://carolinesongbow.github.io/tags/docker/</link>
+      <pubDate>Sun, 28 Oct 2018 16:17:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>http://carolinesongbow.github.io/tags/python/</link>
+      <pubDate>Tue, 17 Jul 2018 21:23:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redis</title>
+      <link>http://carolinesongbow.github.io/tags/redis/</link>
+      <pubDate>Sat, 28 Apr 2018 17:49:00 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mongodb</title>
+      <link>http://carolinesongbow.github.io/tags/mongodb/</link>
+      <pubDate>Tue, 17 Oct 2017 21:26:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/mongodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nosql</title>
+      <link>http://carolinesongbow.github.io/tags/nosql/</link>
+      <pubDate>Tue, 17 Oct 2017 21:26:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/nosql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>personal</title>
+      <link>http://carolinesongbow.github.io/tags/personal/</link>
+      <pubDate>Thu, 21 Sep 2017 15:33:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/personal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jdk</title>
+      <link>http://carolinesongbow.github.io/tags/jdk/</link>
+      <pubDate>Fri, 14 Jul 2017 17:41:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/jdk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>http://carolinesongbow.github.io/tags/linux/</link>
+      <pubDate>Fri, 14 Jul 2017 17:41:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shell</title>
+      <link>http://carolinesongbow.github.io/tags/shell/</link>
+      <pubDate>Sun, 02 Apr 2017 17:57:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AOP</title>
+      <link>http://carolinesongbow.github.io/tags/aop/</link>
+      <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/aop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>http://carolinesongbow.github.io/tags/java/</link>
+      <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>alibaba</title>
+      <link>http://carolinesongbow.github.io/tags/alibaba/</link>
+      <pubDate>Sat, 18 Mar 2017 11:10:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/alibaba/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Eureka</title>
+      <link>http://carolinesongbow.github.io/tags/eureka/</link>
+      <pubDate>Sat, 04 Mar 2017 14:53:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/eureka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AJAX</title>
+      <link>http://carolinesongbow.github.io/tags/ajax/</link>
+      <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/ajax/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jQuery</title>
+      <link>http://carolinesongbow.github.io/tags/jquery/</link>
+      <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/jquery/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JS</title>
+      <link>http://carolinesongbow.github.io/tags/js/</link>
+      <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>http://carolinesongbow.github.io/tags/mysql/</link>
+      <pubDate>Sat, 04 Mar 2017 13:29:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

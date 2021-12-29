@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mybatis on </title>
+    <link>/tags/mybatis/</link>
+    <description>Recent content in mybatis on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 08 Jul 2020 09:06:54 +0800</lastBuildDate><atom:link href="/tags/mybatis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mybatis查询返回对象为null验证</title>
+      <link>/post/2020-07-08-mybatis%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E4%B8%BAnull%E9%AA%8C%E8%AF%81/</link>
+      <pubDate>Wed, 08 Jul 2020 09:06:54 +0800</pubDate>
+      
+      <guid>/post/2020-07-08-mybatis%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E4%B8%BAnull%E9%AA%8C%E8%AF%81/</guid>
+      <description>昨天浏览项目代码的时候，发现代码中有如下判断：
+List&amp;lt;User&amp;gt; users = userDao.selectUsers(age); for(User user : users) { if (user != null) { // 这里的null判断是我疑惑的点  mqQueue.push(user); } } 感觉如果返回对象属性都是 null 的情况下，Mybatis 应该会返回一个空的 User 对象才对，猜测应该不用进行 null 判断，故做了如下代码修改进行验证：
+  数据库数据准备
+User表：
+   id age remark1 remark2     1 11     2 11     3 11        User 类
+@Data public class User { private Integer id; private Integer age; private String remark1; private String remark2; }   XML 查询语句</description>
+    </item>
+    
+    <item>
+      <title>如何在ssm项目中优雅地使用Converter</title>
+      <link>/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/</link>
+      <pubDate>Wed, 08 Apr 2020 16:01:54 +0800</pubDate>
+      
+      <guid>/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/</guid>
+      <description>读取springboot的配置文件时使用Converter 因为项目中引入了公司自己编写的一个支持 BaseMapper 的 Mybatis 包，但这个自编 Mybatis 包有个问题，没有默认方言配置，不配置方言会报 NPE。
+而 Mybatis 的默认 yaml 文件配置中，没有关于方言的配置，之前项目中使用了丑陋麻烦的注入方案：
+@Configuration @EnableTransactionManagement @AutoConfigureAfter({SpringBootConfiguration.class}) public class MybatisConfig implements TransactionManagementConfigurer { private String dialect = &amp;#34;org.apache.ibatis.dialect.MysqlDialect&amp;#34;; @Autowired private DataSource dataSource; @Bean(name = &amp;#34;sqlSessionFactory&amp;#34;) public SqlSessionFactory sqlSessionFactoryBean() { SqlSessionFactory sqlSessionFactoryBean = new SqlSessionFactoryBean(); sqlSessionFactoryBean.setDataSource(dataSource); sqlSessionFactoryBean.setTypeAliasesPackage(&amp;#34;com.xxxx.xxx&amp;#34;); sqlSessionFactoryBean.setDialect(dialect); ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(); try { sqlSessionFactoryBean.setMapperLocations(resolver.getResources(&amp;#34;classpath*:com/xxx/xxx/*.xml&amp;#34;)); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCaseForMap(true); return sqlSessionFacotryBean.getObject(); } catch (Exception e) { throw new RuntimeException(e); } } @Bean @Override public PlatformTransactionManager annotationDrivenTransactionManager() { return new DataSourceTransactionManager(dataSource); } @Configuration @AutoConfigureAfter(MybatisConfig.</description>
+    </item>
+    
+  </channel>
+</rss>

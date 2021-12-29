@@ -1,0 +1,223 @@
+---
+layout: post
+title:  "python学习笔记（更新中）"  
+date:   2017-07-22 00:09:54 +0800
+tags: [python]
+---  
+
+## 基础知识  
+### 字符串  
+* 单引号和双引号是一个意思，三个引号被用于长短的文字或者说明  
+* 字符串+数字 会报错
+* 字符串*数字 表示显示几遍的意思  
+
+```py  
+# 字符串 乘以 数字
+word = "words" * 3
+print(word) # wordswordswords
+
+words = 'a loooooong word'
+num = 12
+string = 'bang!'
+total = string * (len(words) - num)
+print(total) # bang!bang!bang!bang!  
+```  
+
+#### 字符串分片  
+字符串的分片实际上可以看作是把字符串的一部分截取出来，复制储存在另一个地方（相当于是个副本），不会对原字符串做改动。  
+分片时的字符串index，正数是从0开始从前往后数，负数是从-1开始从后往前数  
+截取的时候与java的substring一样——包左不包右  
+
+```py  
+# 字符串分片
+birthDay = 'happy birth day to you'
+print(birthDay[0]) # h
+print(birthDay[-3]) # y
+print(birthDay[11:14]) #  da
+print(birthDay[5:]) #  birth day to you
+print(birthDay[:5]) # happy
+print(birthDay[-5:5]) # 啥都不输出，也不报错  
+```  
+
+### 基本运算  
+* + ： 加。有一个元素为浮点，结果为浮点；
+* - ： 减。同上
+* * ： 乘。同上
+* / ： 除以。有一个元素为浮点，结果为浮点；除不尽的情况下，即使两个都是整，结果也是浮点；有浮点的精度问题；
+* ** ： 幂。有一个元素为浮点，结果为浮点；
+* % ： 模。有一个元素为浮点，结果为浮点；有浮点的精度问题；
+* //： 整除。有一个元素为浮点，结果为浮点。
+
+```py  
+math_calc(19.9, 0.1)
+# 加     20.0
+# 减     19.799999999999997
+# 乘     1.99
+# 除以    198.99999999999997
+# 幂     1.34860668348221
+# 模     0.09999999999999748
+# 整除    198.0
+```  
+
+### 逻辑判断  
+* 多条件比较  
+
+```py  
+middle = 5
+print(1 < middle < 10) # True  
+```  
+
+* 字符串比较  
+相当于 java 中的 String.equals 方法，在 python 中可以直接用 == 来判断  
+
+* 不同类型的比较  
+除了整数和浮点类型之间以外，不同类型对象不能使用“<, >, <=, >=”来判断。  
+所有类型对象之间均能使用“==, !=”来判断。  
+整数和浮点类型的判断，与数学常识相同。  
+
+* 对象本身判断
+在python中，任何对象都可以用```bool(对象)```的方式来进行判断，只有以下情况结果为false:
+0，None，空字符串，空集合，false布尔值。
+
+* 判断字符
+```not x``` : 即取反。
+```x and y``` : 且。
+```x or y``` : 或。
+
+
+#### if-elif-else
+```py
+def account_login_reset(store_password):
+    password = input('input password:')
+    is_correct = password == store_password[-1]
+    is_reset = password == store_password[0]
+    if is_correct:
+        print('login success')
+    elif is_reset:
+        new_password = input('input new password:')
+        store_password.append(new_password)
+        print('reset success!login again')
+        account_login_reset(store_password)
+    else:
+        print('incorrect password')
+        account_login_reset(store_password)
+
+account_login_reset(['0', '123456'])
+```
+
+### 循环
+```py
+for every_letter in 'hello world':
+    print(every_letter)
+```
+1. 字符串可以被for循环遍历
+2. ```for...in``` 相当于 java 中的 foreach
+
+```py
+# 打印九九乘法口诀表
+def print_nine_nine():
+    for i in range(1, 10):
+        for j in range(1, i + 1):
+            print('{} * {} = {}\t'.format(j, i, i*j), end='')
+        print()
+```
+
+
+### 集合
+#### list
+```py
+# 创建列表
+album = []
+# 创建非空列表
+album = ['Black Star', 'David Bowie', 25, True]
+# 增加元素
+album.append('new song')
+# 列表索引
+print(album[0], album[-1]) # 打印列表第一个元素和最后一个元素
+print('Black Star' in album) # true，相当于contains
+print('David Bowie' not in album) # false
+# 列表求和
+a_list = [1, 2, 3]
+print(sum(a_list)) # 6 list里的元素求和
+```
+
+
+## 自定义函数  
+
+```py  
+# 函数的定义
+def fahrenheit_converter (C):
+	return str(C * 9/5 +32) + 'F'
+
+# 函数的调用
+print(fahrenheit_converter(32))
+
+```    
+
+函数调用时，传参有两种方式：位置传参和参数名传参。两种方式可以混合使用。  
+
+```py  
+def triangle_math(lineOne, lineTwo):
+    return (lineOne ** 2 + lineTwo ** 2) ** (1 / 2)
+
+
+# 传参的两种方式
+print('the right triangle third sids\'s length is {}'.format(str(triangle_math(3, 4))))
+print('2the right triangle third sids\'s length is {}'.format(str(triangle_math(lineOne=3, lineTwo=4))))  
+```  
+
+定义函数的时候，可以设置某个参数有默认值  
+
+```py  
+# 函数定义默认值
+def defaultValue(name='Sarah'):
+    print('{name} is a beautiful girl'.format(name = name))
+    return
+
+defaultValue() # Sarah is a beautiful girl
+defaultValue('Caro') # Caro is a beautiful girl
+```  
+
+
+
+
+
+
+## 基本函数  
+* ```type()``` 用来查看变量的类型
+* ```print()``` 打印  
+* ```open()```  打开文件，第二个参数mode值为'w'表示写入模式：有则覆盖，无则新建    
+* ```write()``` 输出文件
+* ```int()``` 变量类型转换为int
+* ```str()``` 变量类型转换为string
+* ```len(str)``` 输出字符串长度
+* ```str1.find(str2)``` 在str2中寻找str1的起始位置角标；找不到则为-1    
+
+```py 
+# 查找字符串a在字符串b中的位置
+search = '168'
+num_a = '13861680006'
+num_b = '16812220006'
+num_c = '13181542561'
+
+print(str(num_a.find(search)) + ' to ' + str(num_a.find(search) + len(search)))
+print(str(num_b.find(search)) + ' to ' + str(num_b.find(search) + len(search)))
+print(str(num_c.find(search)) + ' to ' + str(num_c.find(search) + len(search)))  
+```    
+
+* format() 字符串填空
+* input() 用户输入信息
+
+
+```py  
+# 字符串format函数
+print('{} is {}\'s birthday.'.format('Today', 'Caro'))
+print('{when} is {name}\'s birthday.'.format(when = 'Today', name = 'Caro'))
+print('{1} is {0}\'s birthday'.format('Caro', 'Today'))  
+```  
+
+* ```range(left_num, right_num)``` 集合，包括 left_num 到 right_num 的元素，包左不包右
+
+
+## 基本规则
+* 为防止中文注释乱码或报错，可在文件开头加一行魔法注释：```#coding:utf-8```

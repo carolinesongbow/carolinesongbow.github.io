@@ -1,0 +1,214 @@
+---
+layout: post
+title:  "shell学习笔记（更新中）"  
+date:   2017-04-02 17:57:54 +0800  
+tags: [shell, linux]
+---  
+## 什么时候不使用shell  
+* 大量数据处理任务，尤其是当要求速度时（排序、哈希、递归）。
+* 涉及重型数学运算（使用 C++ 或 FORTRAN 来替代）。  
+* 需要跨平台（使用 C 或 Java 替代）。
+* 需要结构化编程的复杂应用程序（变量的类型检查，函数原型等）。
+* 非常非常关键性的任务。
+* 当需要确保安全性时。
+* 项目由具有互锁依赖性的子组件组成。
+* 需要大量文件操作（Bash仅限于串行文件访问，且它的逐行执行方式笨拙并低效）。
+* 需支持多维数组。
+* 需支持数据结构。
+* 需生成/操纵图形或 GUI。
+* 需要直接访问系统硬件或外部外围设备。
+* 需要端口或 socket I/O。
+* 需要使用库或历史代码生成的接口。
+* 专有的封闭源代码应用程序。
+
+## 一个简单的栗子：清理脚本  
+```shell  
+#!/bin/bash
+# Proper header for a Bash script.
+
+# Cleanup, version 2
+
+# Run as root, of course.
+# Insert code here to print error message and exit if not root.
+
+LOG_DIR=/var/log
+# Variables are better than hard-coded values.
+cd $LOG_DIR
+
+# cat /dev/null > file 即把 file 放入垃圾箱，并给 file 赋空值
+cat /dev/null > messages
+cat /dev/null > wtmp
+
+
+echo "Logs cleaned up."
+
+exit #  The right and proper method of "exiting" from a script.
+     #  A bare "exit" (no parameter) returns the exit status
+     #+ of the preceding command.   
+```  
+
+## 特殊字符  
+* \# : 注释该字符至行尾  
+* ; : 命令分隔符。允许将两个或多个命令放在同一行上。  
+* ;; : 终止一个 case 的选项  
+```shell  
+case "$variable" in
+  abc)  echo "\$variable = abc" ;;
+  xyz)  echo "\$variable = xyz" ;;
+esac  
+```  
+* 单引号 vs 双引号  
+单引号里的任何字符都会原样输出，变量无效；  
+双引号中可以有变量。  
+单引号字符串中不能出现单引号；  
+双引号字符串中可以出现转义字符。  
+
+* 逗号  
+连接两个计算表达式，两个都执行，但只返回后一个。  
+```shell  
+let "t = ((a = 9, 15 / 3))"
+echo $t
+echo $a
+# 输出：5，9  
+```  
+也可以连接字符串。  
+   
+```shell  
+# 输出 /bin/*calc 和 /usr/bin/*calc 文件
+for file in /{,usr/}bin/*calc
+#             ^    Find all executable files ending in "calc"
+#+                 in /bin and /usr/bin directories.
+do
+        if [ -x "$file" ]
+        then
+          echo $file
+        fi
+done
+
+# /bin/ipcalc
+# /usr/bin/kcalc
+# /usr/bin/oidcalc
+# /usr/bin/oocalc  
+
+```  
+
+
+插播一个 [cat 的功能](http://www.cnblogs.com/perfy/archive/2012/07/23/2605550.html)：
+* cat filename : 显示文件内容
+* cat > filename : 创建新文件
+* cat file1 file2 > file : 将几个文件合并为一个
+* cat /dev/null > file : 把 file 放入垃圾箱，并给 file 赋空值
+
+
+### 字符串操作
+#### 获取字符串长度   
+```shell  
+string="abcd"echo
+${#string}
+# 输出：4  
+```  
+
+#### 提取子字符串  
+```shell  
+string="google is a great company"
+echo ${string:1:4}
+# 输出：oogl 包左且包右  
+```  
+
+#### 查找子字符串  
+```shell  
+string="google is a great company"
+echo 'expr index "$string" is'
+# 输出：7 出现的位置角标  
+```  
+
+### if语句
+```shell  
+if [ condition1 ]
+then
+	command1
+	conmand2
+elif [ condition2 ]
+	command3
+else
+	command4
+fi  
+```  
+注意：方括号前后需加空格。  
+[if 的条件表达式](http://www.cnblogs.com/myitm/archive/2012/07/05/2577416.html)：  
+* 文件表达式  
+-f file : 如果文件存在  
+-d directory : 如果目录存在  
+-s file : 文件存在且非空  
+-r file : 文件存在且可读(-w -x 同理)  
+* 整数变量表达式  
+a -eq b : 等于  
+a -ne b : 不等于  
+a -ge b : 大于等于  
+a -gt b : 大于  
+a -le b : 小于等于  
+a -lt b : 小于  
+* 字符串变量表达式  
+$a = $b : 等于  
+$a != $b  
+-z $a : 为空  
+$a : 非空  
+* 逻辑表达式  
+! : 非  
+-a : 与  
+-o : 或  
+
+### case语句  
+```shell  
+case $a in
+value1)
+	command
+;;
+value2)
+	command
+;;
+esac  
+```  
+
+### 判断  
+`-e`：判断文件或目录是否存在  
+`-d`：判断是目录，且存在  
+`-f`：判断是普通文件，且存在  
+`-r`  `-w`  `-x`：判断是否有读、写、执行权限  
+```shell  
+if [ -e filename ] ;then   
+```  
+
+### 循环  
+####for  
+```shell  
+for var in item1 item2 ... itemN
+do
+	command1
+	command2
+done  
+```  
+
+####c风格的for  
+```shell  
+for (( EXP1; EXP2; EXP3 ))
+do
+	command1
+	command2
+done  
+```  
+
+####while  
+```shell  
+while condition
+do
+	command
+done  
+```  
+
+### 数学计算
+```shell    
+a=1
+b=2
+sum=$[$a+$b]    
+```  

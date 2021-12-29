@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>shell on </title>
+    <link>/tags/shell/</link>
+    <description>Recent content in shell on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 02 Apr 2017 17:57:54 +0800</lastBuildDate><atom:link href="/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>shell学习笔记（更新中）</title>
+      <link>/post/2017-03-29-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
+      <pubDate>Sun, 02 Apr 2017 17:57:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-29-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
+      <description>什么时候不使用shell  大量数据处理任务，尤其是当要求速度时（排序、哈希、递归）。 涉及重型数学运算（使用 C++ 或 FORTRAN 来替代）。 需要跨平台（使用 C 或 Java 替代）。 需要结构化编程的复杂应用程序（变量的类型检查，函数原型等）。 非常非常关键性的任务。 当需要确保安全性时。 项目由具有互锁依赖性的子组件组成。 需要大量文件操作（Bash仅限于串行文件访问，且它的逐行执行方式笨拙并低效）。 需支持多维数组。 需支持数据结构。 需生成/操纵图形或 GUI。 需要直接访问系统硬件或外部外围设备。 需要端口或 socket I/O。 需要使用库或历史代码生成的接口。 专有的封闭源代码应用程序。  一个简单的栗子：清理脚本 #!/bin/bash # Proper header for a Bash script. # Cleanup, version 2 # Run as root, of course. # Insert code here to print error message and exit if not root. LOG_DIR=/var/log # Variables are better than hard-coded values. cd $LOG_DIR # cat /dev/null &amp;gt; file 即把 file 放入垃圾箱，并给 file 赋空值 cat /dev/null &amp;gt; messages cat /dev/null &amp;gt; wtmp echo &amp;#34;Logs cleaned up.</description>
+    </item>
+    
+  </channel>
+</rss>

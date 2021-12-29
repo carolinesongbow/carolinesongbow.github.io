@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='什么时候不使用shell  大量数据处理任务，尤其是当要求速度时（排序、哈希、递归）。 涉及重型数学运算（使用 C&#43;&#43; 或 FORTRAN 来替代）。 需要跨平台（使用 C 或 Java 替代）。 需要结构化编程的复杂应用程序（变量的类型检查，函数原型等）。 非常非常关键性的任务。 当需要确保安全性时。 项目由具有互锁依赖性的子组件组成。 需要大量文件操作（Bash仅限于串行文件访问，且它的逐行执行方式笨拙并低效）。 需支持多维数组。 需支持数据结构。 需生成/操纵图形或 GUI。 需要直接访问系统硬件或外部外围设备。 需要端口或 socket I/O。 需要使用库或历史代码生成的接口。 专有的封闭源代码应用程序。  一个简单的栗子：清理脚本 #!/bin/bash # Proper header for a Bash script. # Cleanup, version 2 # Run as root, of course. # Insert code here to print error message and exit if not root. LOG_DIR=/var/log # Variables are better than hard-coded values. cd $LOG_DIR # cat /dev/null &amp;gt; file 即把 file 放入垃圾箱，并给 file 赋空值 cat /dev/null &amp;gt; messages cat /dev/null &amp;gt; wtmp echo &amp;#34;Logs cleaned up.'><title>shell学习笔记（更新中）</title>
+
+<link rel='canonical' href='/post/2017-03-29-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='shell学习笔记（更新中）'>
+<meta property='og:description' content='什么时候不使用shell  大量数据处理任务，尤其是当要求速度时（排序、哈希、递归）。 涉及重型数学运算（使用 C&#43;&#43; 或 FORTRAN 来替代）。 需要跨平台（使用 C 或 Java 替代）。 需要结构化编程的复杂应用程序（变量的类型检查，函数原型等）。 非常非常关键性的任务。 当需要确保安全性时。 项目由具有互锁依赖性的子组件组成。 需要大量文件操作（Bash仅限于串行文件访问，且它的逐行执行方式笨拙并低效）。 需支持多维数组。 需支持数据结构。 需生成/操纵图形或 GUI。 需要直接访问系统硬件或外部外围设备。 需要端口或 socket I/O。 需要使用库或历史代码生成的接口。 专有的封闭源代码应用程序。  一个简单的栗子：清理脚本 #!/bin/bash # Proper header for a Bash script. # Cleanup, version 2 # Run as root, of course. # Insert code here to print error message and exit if not root. LOG_DIR=/var/log # Variables are better than hard-coded values. cd $LOG_DIR # cat /dev/null &amp;gt; file 即把 file 放入垃圾箱，并给 file 赋空值 cat /dev/null &amp;gt; messages cat /dev/null &amp;gt; wtmp echo &amp;#34;Logs cleaned up.'>
+<meta property='og:url' content='/post/2017-03-29-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/'>
+<meta property='og:site_name' content=''>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='shell' /><meta property='article:tag' content='linux' /><meta property='article:published_time' content='2017-04-02T17:57:54&#43;08:00'/><meta property='article:modified_time' content='2017-04-02T17:57:54&#43;08:00'/>
+<meta name="twitter:title" content="shell学习笔记（更新中）">
+<meta name="twitter:description" content="什么时候不使用shell  大量数据处理任务，尤其是当要求速度时（排序、哈希、递归）。 涉及重型数学运算（使用 C&#43;&#43; 或 FORTRAN 来替代）。 需要跨平台（使用 C 或 Java 替代）。 需要结构化编程的复杂应用程序（变量的类型检查，函数原型等）。 非常非常关键性的任务。 当需要确保安全性时。 项目由具有互锁依赖性的子组件组成。 需要大量文件操作（Bash仅限于串行文件访问，且它的逐行执行方式笨拙并低效）。 需支持多维数组。 需支持数据结构。 需生成/操纵图形或 GUI。 需要直接访问系统硬件或外部外围设备。 需要端口或 socket I/O。 需要使用库或历史代码生成的接口。 专有的封闭源代码应用程序。  一个简单的栗子：清理脚本 #!/bin/bash # Proper header for a Bash script. # Cleanup, version 2 # Run as root, of course. # Insert code here to print error message and exit if not root. LOG_DIR=/var/log # Variables are better than hard-coded values. cd $LOG_DIR # cat /dev/null &amp;gt; file 即把 file 放入垃圾箱，并给 file 赋空值 cat /dev/null &amp;gt; messages cat /dev/null &amp;gt; wtmp echo &amp;#34;Logs cleaned up.">
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span></span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/post/2017-03-29-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/">shell学习笔记（更新中）</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 02, 2017</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="什么时候不使用shell">什么时候不使用shell</h2>
+<ul>
+<li>大量数据处理任务，尤其是当要求速度时（排序、哈希、递归）。</li>
+<li>涉及重型数学运算（使用 C++ 或 FORTRAN 来替代）。</li>
+<li>需要跨平台（使用 C 或 Java 替代）。</li>
+<li>需要结构化编程的复杂应用程序（变量的类型检查，函数原型等）。</li>
+<li>非常非常关键性的任务。</li>
+<li>当需要确保安全性时。</li>
+<li>项目由具有互锁依赖性的子组件组成。</li>
+<li>需要大量文件操作（Bash仅限于串行文件访问，且它的逐行执行方式笨拙并低效）。</li>
+<li>需支持多维数组。</li>
+<li>需支持数据结构。</li>
+<li>需生成/操纵图形或 GUI。</li>
+<li>需要直接访问系统硬件或外部外围设备。</li>
+<li>需要端口或 socket I/O。</li>
+<li>需要使用库或历史代码生成的接口。</li>
+<li>专有的封闭源代码应用程序。</li>
+</ul>
+<h2 id="一个简单的栗子清理脚本">一个简单的栗子：清理脚本</h2>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="c1"># Proper header for a Bash script.</span>
+
+<span class="c1"># Cleanup, version 2</span>
+
+<span class="c1"># Run as root, of course.</span>
+<span class="c1"># Insert code here to print error message and exit if not root.</span>
+
+<span class="nv">LOG_DIR</span><span class="o">=</span>/var/log
+<span class="c1"># Variables are better than hard-coded values.</span>
+<span class="nb">cd</span> <span class="nv">$LOG_DIR</span>
+
+<span class="c1"># cat /dev/null &gt; file 即把 file 放入垃圾箱，并给 file 赋空值</span>
+cat /dev/null &gt; messages
+cat /dev/null &gt; wtmp
+
+
+<span class="nb">echo</span> <span class="s2">&#34;Logs cleaned up.&#34;</span>
+
+<span class="nb">exit</span> <span class="c1">#  The right and proper method of &#34;exiting&#34; from a script.</span>
+     <span class="c1">#  A bare &#34;exit&#34; (no parameter) returns the exit status</span>
+     <span class="c1">#+ of the preceding command.   </span>
+</code></pre></div><h2 id="特殊字符">特殊字符</h2>
+<ul>
+<li># : 注释该字符至行尾</li>
+<li>; : 命令分隔符。允许将两个或多个命令放在同一行上。</li>
+<li>;; : 终止一个 case 的选项</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$variable</span><span class="s2">&#34;</span> in
+  abc<span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&#34;\$variable = abc&#34;</span> <span class="p">;;</span>
+  xyz<span class="o">)</span>  <span class="nb">echo</span> <span class="s2">&#34;\$variable = xyz&#34;</span> <span class="p">;;</span>
+<span class="k">esac</span>  
+</code></pre></div><ul>
+<li>
+<p>单引号 vs 双引号<br>
+单引号里的任何字符都会原样输出，变量无效；<br>
+双引号中可以有变量。<br>
+单引号字符串中不能出现单引号；<br>
+双引号字符串中可以出现转义字符。</p>
+</li>
+<li>
+<p>逗号<br>
+连接两个计算表达式，两个都执行，但只返回后一个。</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">let</span> <span class="s2">&#34;t = ((a = 9, 15 / 3))&#34;</span>
+<span class="nb">echo</span> <span class="nv">$t</span>
+<span class="nb">echo</span> <span class="nv">$a</span>
+<span class="c1"># 输出：5，9  </span>
+</code></pre></div><p>也可以连接字符串。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 输出 /bin/*calc 和 /usr/bin/*calc 文件</span>
+<span class="k">for</span> file in /<span class="o">{</span>,usr/<span class="o">}</span>bin/*calc
+<span class="c1">#             ^    Find all executable files ending in &#34;calc&#34;</span>
+<span class="c1">#+                 in /bin and /usr/bin directories.</span>
+<span class="k">do</span>
+        <span class="k">if</span> <span class="o">[</span> -x <span class="s2">&#34;</span><span class="nv">$file</span><span class="s2">&#34;</span> <span class="o">]</span>
+        <span class="k">then</span>
+          <span class="nb">echo</span> <span class="nv">$file</span>
+        <span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="c1"># /bin/ipcalc</span>
+<span class="c1"># /usr/bin/kcalc</span>
+<span class="c1"># /usr/bin/oidcalc</span>
+<span class="c1"># /usr/bin/oocalc  </span>
+
+</code></pre></div><p>插播一个 <a class="link" href="http://www.cnblogs.com/perfy/archive/2012/07/23/2605550.html"  target="_blank" rel="noopener"
+    >cat 的功能</a>：</p>
+<ul>
+<li>cat filename : 显示文件内容</li>
+<li>cat &gt; filename : 创建新文件</li>
+<li>cat file1 file2 &gt; file : 将几个文件合并为一个</li>
+<li>cat /dev/null &gt; file : 把 file 放入垃圾箱，并给 file 赋空值</li>
+</ul>
+<h3 id="字符串操作">字符串操作</h3>
+<h4 id="获取字符串长度">获取字符串长度</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">string</span><span class="o">=</span><span class="s2">&#34;abcd&#34;</span><span class="nb">echo</span>
+<span class="si">${#</span><span class="nv">string</span><span class="si">}</span>
+<span class="c1"># 输出：4  </span>
+</code></pre></div><h4 id="提取子字符串">提取子字符串</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">string</span><span class="o">=</span><span class="s2">&#34;google is a great company&#34;</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="nv">string</span><span class="p">:</span><span class="nv">1</span><span class="p">:</span><span class="nv">4</span><span class="si">}</span>
+<span class="c1"># 输出：oogl 包左且包右  </span>
+</code></pre></div><h4 id="查找子字符串">查找子字符串</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">string</span><span class="o">=</span><span class="s2">&#34;google is a great company&#34;</span>
+<span class="nb">echo</span> <span class="s1">&#39;expr index &#34;$string&#34; is&#39;</span>
+<span class="c1"># 输出：7 出现的位置角标  </span>
+</code></pre></div><h3 id="if语句">if语句</h3>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">if</span> <span class="o">[</span> condition1 <span class="o">]</span>
+<span class="k">then</span>
+	command1
+	conmand2
+<span class="k">elif</span> <span class="o">[</span> condition2 <span class="o">]</span>
+	command3
+<span class="k">else</span>
+	command4
+<span class="k">fi</span>  
+</code></pre></div><p>注意：方括号前后需加空格。<br>
+<a class="link" href="http://www.cnblogs.com/myitm/archive/2012/07/05/2577416.html"  target="_blank" rel="noopener"
+    >if 的条件表达式</a>：</p>
+<ul>
+<li>文件表达式<br>
+-f file : 如果文件存在<br>
+-d directory : 如果目录存在<br>
+-s file : 文件存在且非空<br>
+-r file : 文件存在且可读(-w -x 同理)</li>
+<li>整数变量表达式<br>
+a -eq b : 等于<br>
+a -ne b : 不等于<br>
+a -ge b : 大于等于<br>
+a -gt b : 大于<br>
+a -le b : 小于等于<br>
+a -lt b : 小于</li>
+<li>字符串变量表达式<br>
+$a = $b : 等于<br>
+$a != $b<br>
+-z $a : 为空<br>
+$a : 非空</li>
+<li>逻辑表达式<br>
+! : 非<br>
+-a : 与<br>
+-o : 或</li>
+</ul>
+<h3 id="case语句">case语句</h3>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">case</span> <span class="nv">$a</span> in
+value1<span class="o">)</span>
+	<span class="nb">command</span>
+<span class="p">;;</span>
+value2<span class="o">)</span>
+	<span class="nb">command</span>
+<span class="p">;;</span>
+<span class="k">esac</span>  
+</code></pre></div><h3 id="判断">判断</h3>
+<p><code>-e</code>：判断文件或目录是否存在<br>
+<code>-d</code>：判断是目录，且存在<br>
+<code>-f</code>：判断是普通文件，且存在<br>
+<code>-r</code>  <code>-w</code>  <code>-x</code>：判断是否有读、写、执行权限</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">if</span> <span class="o">[</span> -e filename <span class="o">]</span> <span class="p">;</span><span class="k">then</span>   
+</code></pre></div><h3 id="循环">循环</h3>
+<p>####for</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">for</span> var in item1 item2 ... itemN
+<span class="k">do</span>
+	command1
+	command2
+<span class="k">done</span>  
+</code></pre></div><p>####c风格的for</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">for</span> <span class="o">((</span> EXP1<span class="p">;</span> EXP2<span class="p">;</span> EXP3 <span class="o">))</span>
+<span class="k">do</span>
+	command1
+	command2
+<span class="k">done</span>  
+</code></pre></div><p>####while</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">while</span> condition
+<span class="k">do</span>
+	<span class="nb">command</span>
+<span class="k">done</span>  
+</code></pre></div><h3 id="数学计算">数学计算</h3>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">a</span><span class="o">=</span><span class="m">1</span>
+<span class="nv">b</span><span class="o">=</span><span class="m">2</span>
+<span class="nv">sum</span><span class="o">=</span>$<span class="o">[</span><span class="nv">$a</span>+<span class="nv">$b</span><span class="o">]</span>    
+</code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/shell/">shell</a>
+        
+            <a href="/tags/linux/">Linux</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2021 
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title"></h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#什么时候不使用shell">什么时候不使用shell</a></li>
+    <li><a href="#一个简单的栗子清理脚本">一个简单的栗子：清理脚本</a></li>
+    <li><a href="#特殊字符">特殊字符</a>
+      <ol>
+        <li><a href="#字符串操作">字符串操作</a>
+          <ol>
+            <li><a href="#获取字符串长度">获取字符串长度</a></li>
+            <li><a href="#提取子字符串">提取子字符串</a></li>
+            <li><a href="#查找子字符串">查找子字符串</a></li>
+          </ol>
+        </li>
+        <li><a href="#if语句">if语句</a></li>
+        <li><a href="#case语句">case语句</a></li>
+        <li><a href="#判断">判断</a></li>
+        <li><a href="#循环">循环</a></li>
+        <li><a href="#数学计算">数学计算</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

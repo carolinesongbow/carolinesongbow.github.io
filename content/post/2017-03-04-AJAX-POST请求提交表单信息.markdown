@@ -1,0 +1,39 @@
+---
+layout: post
+title:  "AJAX POST请求提交表单信息"
+date:   2017-03-04 13:42:54 +0800
+tags: [JS, AJAX, jQuery]
+---
+
+当前使用的 jQuery 版本不支持 serializeObject，因此引入该函数：  
+```js  
+$.prototype.serializeObject=function(){
+   var obj=new Object();
+   $.each(this.serializeArray(),function(index,param){
+      if(!(param.name in obj)){
+         obj[param.name]=param.value;
+      }
+   });
+   return obj;
+};
+```
+然后序列化该表单数据，并发送 AJAX 请求：  
+```js  
+var param = JSON.stringify($("#applicationForm").serializeObject());
+
+$.ajax({
+   url: "/app/saveUsers",
+   data: param,
+   type: "POST",
+   contentType: "application/json",
+   success: function(data){
+      if (data.head.retFlag=="00000"){
+         alert("注册成功！");
+         window.location.href='/app/ht/signContract.html';
+         return;
+      } else {
+         alert(data.head.retMsg);
+         return;
+      }
+   }});
+```

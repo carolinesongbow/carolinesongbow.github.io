@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes docker on </title>
+    <link>/tags/kubernetes-docker/</link>
+    <description>Recent content in kubernetes docker on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 09 Apr 2019 10:54:54 +0800</lastBuildDate><atom:link href="/tags/kubernetes-docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>kubernetes学习笔记</title>
+      <link>/post/2019-04-09-kubernetes%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 09 Apr 2019 10:54:54 +0800</pubDate>
+      
+      <guid>/post/2019-04-09-kubernetes%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>入门 Service 是分布式集群架构的核心，特征：
+ 拥有一个唯一指定的名字 拥有一个虚拟 IP 和端口号 能够提供某种远程服务能力 被映射到了提供这种服务能力的一组容器应用上  容器提供了强大的隔离功能，所以有必要把为 Service 提供服务的这组进程放入容器中隔离。为此，Kubernetes 设计了 Pod 对象，将每个服务进程包装到相应的 Pod 中，使其成为 Pod 中运行的一个 Container。
+为 Pod 贴上标签，为 Service 定义标签选择器 Label Selector，以此关联 Pod 和 Service。
+graph TD A[Node 虚拟机/物理机] --&amp;gt; B(Pod) A --&amp;gt; C(Pod) A --&amp;gt; D(Pod) C --&amp;gt; E((Pause)) C --&amp;gt; F(业务容器) C --&amp;gt; G(业务容器) C --&amp;gt; H(业务容器) E --&amp;gt;|共享| F E --&amp;gt;|共享| G E --&amp;gt;|共享| H </description>
+    </item>
+    
+  </channel>
+</rss>

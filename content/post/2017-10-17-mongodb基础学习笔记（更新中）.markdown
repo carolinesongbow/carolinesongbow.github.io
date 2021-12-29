@@ -1,0 +1,89 @@
+---
+layout: post
+title:  "mongodb基础学习笔记（更新中）"
+date:   2017-10-17 21:26:54 +0800
+tags: [mongodb, nosql]
+---
+# 基本概念
+* mongodb 中文网站：www.mongoing.com
+* mongodb 中文文档：docs.mongoing.com
+* nosql 数据库相比传统 sql 数据库少了：实时一致性；事务；多表联合查询。
+* 杀掉 MongoDB 的进程需使用`kill -15`或不带参数，不能使用`kill -9`
+## MongoDB 相比于其他 nosql 数据库的优点
+1. 相较于 redis 而言，可以提供复杂结构的数据存储，而 redis 只有简单的键值对存储；
+2. 相较于 hbase 的单索引，MongoDB 的索引更灵活，支持单键索引、多键索引、数组索引、全文索引。
+
+# 基础操作
+* 创建并使用一个库：`use test`
+* 展示所有库：`show dbs`
+* 插入一条数据（并新建一个集合--相当于表的概念）：`db.my_collection.insert({num:1})`
+* 展示所有集合：`show collections`
+* 查询集合所有内容：`db.my_collection.find()`
+* 条件查询：`db.my_collection.find({num:2})`
+* JS 语法循环插入：`for(i=1;i<=100;i++)db.my_collection.insert({num:i})`
+* 查询数量：`db.my_collection.find().count()`
+* 查询跳过：`.skip(2)`
+* 查询限制条数：`.limit(2)`
+* 查询排序：`.sort({num:1})` 1即asc，-1即desc
+* 全字段更新：`.update({num:1}, {num:999})`  
+第一个参数是查找属性，第二个参数修改后属性  
+当多条数据满足查找条件时，仅更新第一条
+* 部分字段更新：`.update({num:1}, {$set:{age:88}})`
+* 插入或更新：`.update({num:1}, {age:88}, true)` 当查询条件不存在时，就创建一条
+* 更新所有查到的数据：`.update({num:1}, {$set:{age:88}}, false, true)`  
+这种情况只允许部分字段更新，不允许更新或插入模式。
+* 删除数据：`.remove({num:1})`
+* 删除集合：`db.my_collection.drop()`
+
+* 查询索引：`.getIndexes()`
+* 创建索引：`.ensureIndex({num:1})` 1即asc，-1即desc
+
+# 常见索引
+## _id索引
+默认自动建立的索引
+## 单键索引
+创建：`.ensureIndex({num:1})`  
+重复创建时，MongoDB 会直接返回成功
+## 多键索引
+如果索引字段为一个数组，则为多键索引
+## 复合索引
+即联合索引  
+创建：`.ensureIndex({num:1, age:1})`
+## 过期索引
+一段时间后会过期的索引。  
+1. 索引过期后，**相应数据会被删除**。  
+2. 索引字段必须是 ISODate 或 ISODate 数组，不能使用时间戳，否则不能被自动删除。  
+3. 索引字段如果是 ISODate 数组，则按照最快到时的时间进行删除。  
+4. 过期索引不能是复合索引。  
+5. 删除时间不精确。由后台程序每 60s 跑一次。
+
+插入 ISODate 数据：`.insert({num:1, age:88, time:new Date()})`  
+创建：`.ensureIndex({time:1}, {expireAfterSeconds:10})`
+## 全文索引
+对字符串与字符串数组创建全文可搜索的索引  
+每个集合只能有一个全文索引  
+创建单个键的全文索引：`.ensureIndex({title:"text"})`  
+创建多个键的全文索引：`.ensureIndex({title:"text", article:"text"})`  
+对所有键创建全文索引：`.ensureIndex({"$**":"text"})`  
+使用全文索引查询：`.find({$text:{$search:"coffee"}})`  
+或查询：`.find({$text:{$search:"coffee cola tea"}})`  
+非查询，加`-`即为排除该字段：`.find({$text:{$search:"coffee cola -tea"}})`  
+与查询，加双引号表示一定得有它：`.find({$text:{$search:"\"coffee\" \"cola\" \"tea\""}})`  
+
+全文索引相似度：  
+`.find({$text:{$search:"coffee cola"}}, {my_score:{$meta:"textScore"}})`  
+全文索引相似度并排序：  
+`.find({$text:{$search:"coffee cola"}}, {my_score:{$meta:"textScore"}}).sort(my_score:{$meta:"textScore"}})`
+
+全文索引的限制：
+1. 每次查询，只能指定一个 $text 查询
+2. $text 查询不能出现在 $nor 查询中
+3. 查询中如果包含了 $text，那么 hint 不再起作用
+4. 不支持中文
+
+## 索引属性  
+索引命名：  
+MongoDB 有一套默认的索引命名方式，为了直观可以自行命名索引：  
+`.ensureIndex({num:1, age:1}, {name:"my_normal_index"})`    
+
+## 地理位置索引

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>text on </title>
+    <link>/tags/text/</link>
+    <description>Recent content in text on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 09 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/text/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Placeholder Text</title>
+      <link>/post/placeholder-text/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/placeholder-text/</guid>
+      <description>&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 150; 
+			flex-basis: 360px&#34;
+	&gt;
+	&lt;a href=&#34;/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg&#34; data-size=&#34;1500x1000&#34;&gt;
+		&lt;img src=&#34;/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg&#34;
+			width=&#34;1500&#34;
+			height=&#34;1000&#34;
+			srcset=&#34;/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash_hu958d513eeefe5556a31d065479ecc5ac_14205_480x0_resize_q75_box.jpg 480w, /post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash_hu958d513eeefe5556a31d065479ecc5ac_14205_1024x0_resize_q75_box.jpg 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;图片&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;图片&lt;/figcaption&gt;
+	
+&lt;/figure&gt;
+Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

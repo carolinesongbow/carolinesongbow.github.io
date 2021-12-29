@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mongodb on </title>
+    <link>/tags/mongodb/</link>
+    <description>Recent content in mongodb on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 17 Oct 2017 21:26:54 +0800</lastBuildDate><atom:link href="/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mongodb基础学习笔记（更新中）</title>
+      <link>/post/2017-10-17-mongodb%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
+      <pubDate>Tue, 17 Oct 2017 21:26:54 +0800</pubDate>
+      
+      <guid>/post/2017-10-17-mongodb%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
+      <description>基本概念  mongodb 中文网站：www.mongoing.com mongodb 中文文档：docs.mongoing.com nosql 数据库相比传统 sql 数据库少了：实时一致性；事务；多表联合查询。 杀掉 MongoDB 的进程需使用kill -15或不带参数，不能使用kill -9  MongoDB 相比于其他 nosql 数据库的优点  相较于 redis 而言，可以提供复杂结构的数据存储，而 redis 只有简单的键值对存储； 相较于 hbase 的单索引，MongoDB 的索引更灵活，支持单键索引、多键索引、数组索引、全文索引。  基础操作   创建并使用一个库：use test
+  展示所有库：show dbs
+  插入一条数据（并新建一个集合&amp;ndash;相当于表的概念）：db.my_collection.insert({num:1})
+  展示所有集合：show collections
+  查询集合所有内容：db.my_collection.find()
+  条件查询：db.my_collection.find({num:2})
+  JS 语法循环插入：for(i=1;i&amp;lt;=100;i++)db.my_collection.insert({num:i})
+  查询数量：db.my_collection.find().count()
+  查询跳过：.skip(2)
+  查询限制条数：.limit(2)
+  查询排序：.sort({num:1}) 1即asc，-1即desc</description>
+    </item>
+    
+  </channel>
+</rss>

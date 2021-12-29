@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "绿色版jdk安装执行命令"  
+date:   2017-07-14 17:41:54 +0800  
+tags: [jdk, linux]
+---  
+```shell  
+[root@fbgouhuaapp01 java]# alternatives --install /usr/bin/java java /usr/local/java/jdk1.8.0_121/bin/java 2
+[root@fbgouhuaapp01 java]# alternatives --config java
+
+There is 1 program that provides 'java'.
+
+  Selection    Command
+-----------------------------------------------
+*+ 1           /usr/local/java/jdk1.8.0_121/bin/java
+
+Enter to keep the current selection[+], or type selection number: 1
+[root@fbgouhuaapp01 java]# alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_121/bin/jar 2
+[root@fbgouhuaapp01 java]# alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_121/bin/javac 2
+[root@fbgouhuaapp01 java]# alternatives --set jar /opt/jdk1.8.0_121/bin/jar
+[root@fbgouhuaapp01 java]# alternatives --set javac /opt/jdk1.8.0_121/bin/javac
+[root@fbgouhuaapp01 java]# java --version  
+
+```  

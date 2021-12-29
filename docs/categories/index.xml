@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on 芝士饼干蛋挞</title>
+    <link>http://carolinesongbow.github.io/categories/</link>
+    <description>Recent content in Categories on 芝士饼干蛋挞</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Nov 2021 11:11:54 +0800</lastBuildDate><atom:link href="http://carolinesongbow.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>业余学习</title>
+      <link>http://carolinesongbow.github.io/categories/%E4%B8%9A%E4%BD%99%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Thu, 04 Nov 2021 11:11:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/categories/%E4%B8%9A%E4%BD%99%E5%AD%A6%E4%B9%A0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>无意义的记录</title>
+      <link>http://carolinesongbow.github.io/categories/%E6%97%A0%E6%84%8F%E4%B9%89%E7%9A%84%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/categories/%E6%97%A0%E6%84%8F%E4%B9%89%E7%9A%84%E8%AE%B0%E5%BD%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Test</title>
+      <link>http://carolinesongbow.github.io/categories/test/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://carolinesongbow.github.io/categories/test/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on </title>
+    <link>/post/</link>
+    <description>Recent content in Posts on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 04 Nov 2021 11:11:54 +0800</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Springboot读取配置的另外一种方法</title>
+      <link>/post/2021-11-04-springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Thu, 04 Nov 2021 11:11:54 +0800</pubDate>
+      
+      <guid>/post/2021-11-04-springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
+      <description>@Component @Configuration public class MyConfig { public MyConfig(AbstractEnvirionment environment) { for (PropertySource instanceof OriginTrackedMapPropertySource &amp;amp;&amp;amp; propertySource.getName().contains(&amp;#34;.properties&amp;#34;)) { OriginTrackedMapPropertySource source = (OriginTrackedMapPropertySource) propertySource; for (Map.Entry&amp;lt;String, Object&amp;gt; entry : source.getSource().entrySet()) { System.out.println(entry.getKey() + &amp;#34;:&amp;#34; + entry.getValue()); } } } } 记录一下，之后研究。</description>
+    </item>
+    
+    <item>
+      <title>JDBC数据库连接MariaDB版本冲突问题</title>
+      <link>/post/2021-06-11-jdbc%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5mariadb%E7%89%88%E6%9C%AC%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
+      
+      <guid>/post/2021-06-11-jdbc%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5mariadb%E7%89%88%E6%9C%AC%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</guid>
+      <description>背景 项目中提供数据源连接服务，使用了相当多 JDBC 驱动插件，其中包含 MySQL 5.1.44 版本驱动和 MariaDB 2.2.3 版本驱动。
+问题 有一个用户使用了较低版本的 Mycat，在连接数据源时，长时间连接不上。
+排查 JDBC 的 DriverManager 在连接时，会自动尝试所有的驱动的连接（是的，没错，没法指定驱动连接，狗日的）。在本例中，当遍历至 MariaDB 的驱动时，在接收包的时候遇到版本不兼容问题（低版本 Mycat 数据库和高版本 MariaDB 驱动），DEBUG 调试发现，在读取数据库服务器返回的一个流时卡死。卡死原因不明。大致是数据库与驱动版本不兼容问题导致。
+解决 一开始想尝试用注销再注册的方式把 MariaDB 的驱动放在 DriverManager 静态驱动列表的最尾，防止这一类 MySQL 数据源尝试用 MariaDB 驱动去连接以避免卡死问题。
+尝试过程中追踪 MariaDB 驱动源码发现：
+public static boolean acceptsUrl(String url) { return (url != null) &amp;amp;&amp;amp; (url.startsWith(&amp;#34;jdbc:mariadb:&amp;#34;) || (url.startsWith(&amp;#34;jdbc:mysql:&amp;#34;) &amp;amp;&amp;amp; !url.contains(DISABLE_MYSQL_URL))); } private static final String DISABLE_MYSQL_URL = &amp;#34;disableMariaDbDriver&amp;#34;; 即，不符合这个acceptsUrl方法条件的，则不会尝试使用 MariaDB 进行连接。
+最终解决方式是在 JDBC 连接字符串上增加了 ?disableMariaDbDriver。
+Like jdbc:mysql://localhost:3306/test?</description>
+    </item>
+    
+    <item>
+      <title>发现华点</title>
+      <link>/post/2021-08-23-%E5%8F%91%E7%8E%B0%E5%8D%8E%E7%82%B9/</link>
+      <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
+      
+      <guid>/post/2021-08-23-%E5%8F%91%E7%8E%B0%E5%8D%8E%E7%82%B9/</guid>
+      <description>刚才在测数据的时候发现一件事：「60分及格」这个约定似乎与正态分布的规律不谋而合了。
+把一组数做正态分布曲线，如果把正好落在平均数那个点的数的 score 计为 100，那么正好落在平均数+-平均偏离值的那个点的数的 score 则正好是 60 左右。
+神奇！
+final GaussianDistributionUtil test = new GaussianDistributionUtil(100d, 30d); for (double i = 100d; i &amp;lt; 10000; i+=10) { final double score = test.calculateScore(i)*100; System.out.println(i + &amp;#34;\t&amp;#34; + score); if (score == 0) { break; } }    值 分数     100.0 100.0   110.0 94.59594689067654   120.0 80.0737402916808   130.0 60.653065971263345   140.</description>
+    </item>
+    
+    <item>
+      <title>mybatis查询返回对象为null验证</title>
+      <link>/post/2020-07-08-mybatis%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E4%B8%BAnull%E9%AA%8C%E8%AF%81/</link>
+      <pubDate>Wed, 08 Jul 2020 09:06:54 +0800</pubDate>
+      
+      <guid>/post/2020-07-08-mybatis%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E4%B8%BAnull%E9%AA%8C%E8%AF%81/</guid>
+      <description>昨天浏览项目代码的时候，发现代码中有如下判断：
+List&amp;lt;User&amp;gt; users = userDao.selectUsers(age); for(User user : users) { if (user != null) { // 这里的null判断是我疑惑的点  mqQueue.push(user); } } 感觉如果返回对象属性都是 null 的情况下，Mybatis 应该会返回一个空的 User 对象才对，猜测应该不用进行 null 判断，故做了如下代码修改进行验证：
+  数据库数据准备
+User表：
+   id age remark1 remark2     1 11     2 11     3 11        User 类
+@Data public class User { private Integer id; private Integer age; private String remark1; private String remark2; }   XML 查询语句</description>
+    </item>
+    
+    <item>
+      <title>如何在ssm项目中优雅地使用Converter</title>
+      <link>/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/</link>
+      <pubDate>Wed, 08 Apr 2020 16:01:54 +0800</pubDate>
+      
+      <guid>/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/</guid>
+      <description>读取springboot的配置文件时使用Converter 因为项目中引入了公司自己编写的一个支持 BaseMapper 的 Mybatis 包，但这个自编 Mybatis 包有个问题，没有默认方言配置，不配置方言会报 NPE。
+而 Mybatis 的默认 yaml 文件配置中，没有关于方言的配置，之前项目中使用了丑陋麻烦的注入方案：
+@Configuration @EnableTransactionManagement @AutoConfigureAfter({SpringBootConfiguration.class}) public class MybatisConfig implements TransactionManagementConfigurer { private String dialect = &amp;#34;org.apache.ibatis.dialect.MysqlDialect&amp;#34;; @Autowired private DataSource dataSource; @Bean(name = &amp;#34;sqlSessionFactory&amp;#34;) public SqlSessionFactory sqlSessionFactoryBean() { SqlSessionFactory sqlSessionFactoryBean = new SqlSessionFactoryBean(); sqlSessionFactoryBean.setDataSource(dataSource); sqlSessionFactoryBean.setTypeAliasesPackage(&amp;#34;com.xxxx.xxx&amp;#34;); sqlSessionFactoryBean.setDialect(dialect); ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(); try { sqlSessionFactoryBean.setMapperLocations(resolver.getResources(&amp;#34;classpath*:com/xxx/xxx/*.xml&amp;#34;)); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCaseForMap(true); return sqlSessionFacotryBean.getObject(); } catch (Exception e) { throw new RuntimeException(e); } } @Bean @Override public PlatformTransactionManager annotationDrivenTransactionManager() { return new DataSourceTransactionManager(dataSource); } @Configuration @AutoConfigureAfter(MybatisConfig.</description>
+    </item>
+    
+    <item>
+      <title>leetcode刷题笔记</title>
+      <link>/post/2020-02-10-leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 10 Feb 2020 23:19:54 +0800</pubDate>
+      
+      <guid>/post/2020-02-10-leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</guid>
+      <description>[231]2的幂 我一开始解题的时候，思路是：为2的幂的数字有一个共同点——2进制的时候最高位为1，后面都为0。所以该数-1，二进制数的所有数都为1。
+初版代码：
+class Solution { public boolean isPowerOfTwo(int n) { if (n == 1) { return true; } if (n &amp;lt;= 0) { return false; } String s = Integer.toBinaryString(n - 1); return !s.contains(&amp;#34;0&amp;#34;); } } 解题结果：
+ 23:01	info ​	解答成功: ​	执行耗时:2 ms,击败了26.88% 的Java用户 ​	内存消耗:39.1 MB,击败了5.23% 的Java用户
+ 不管是耗时还是内存都比较差。
+故寻求答案发现，其实我在上面解答的时候就已经意识到了这个问题，追深一层：
+   32 1 0 0 0 0     31 0 1 1 1 1   &amp;amp; 0 0 0 0 0    可推导2的幂的另一个共同点：x &amp;amp; (x-1) = 0</description>
+    </item>
+    
+    <item>
+      <title>kubernetes学习笔记</title>
+      <link>/post/2019-04-09-kubernetes%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 09 Apr 2019 10:54:54 +0800</pubDate>
+      
+      <guid>/post/2019-04-09-kubernetes%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>入门 Service 是分布式集群架构的核心，特征：
+ 拥有一个唯一指定的名字 拥有一个虚拟 IP 和端口号 能够提供某种远程服务能力 被映射到了提供这种服务能力的一组容器应用上  容器提供了强大的隔离功能，所以有必要把为 Service 提供服务的这组进程放入容器中隔离。为此，Kubernetes 设计了 Pod 对象，将每个服务进程包装到相应的 Pod 中，使其成为 Pod 中运行的一个 Container。
+为 Pod 贴上标签，为 Service 定义标签选择器 Label Selector，以此关联 Pod 和 Service。
+graph TD A[Node 虚拟机/物理机] --&amp;gt; B(Pod) A --&amp;gt; C(Pod) A --&amp;gt; D(Pod) C --&amp;gt; E((Pause)) C --&amp;gt; F(业务容器) C --&amp;gt; G(业务容器) C --&amp;gt; H(业务容器) E --&amp;gt;|共享| F E --&amp;gt;|共享| G E --&amp;gt;|共享| H </description>
+    </item>
+    
+    <item>
+      <title>Placeholder Text</title>
+      <link>/post/placeholder-text/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/placeholder-text/</guid>
+      <description>&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 150; 
+			flex-basis: 360px&#34;
+	&gt;
+	&lt;a href=&#34;/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg&#34; data-size=&#34;1500x1000&#34;&gt;
+		&lt;img src=&#34;/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg&#34;
+			width=&#34;1500&#34;
+			height=&#34;1000&#34;
+			srcset=&#34;/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash_hu958d513eeefe5556a31d065479ecc5ac_14205_480x0_resize_q75_box.jpg 480w, /post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash_hu958d513eeefe5556a31d065479ecc5ac_14205_1024x0_resize_q75_box.jpg 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;图片&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;图片&lt;/figcaption&gt;
+	
+&lt;/figure&gt;
+Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud Contract契约测试实践</title>
+      <link>/post/2018-11-21-spring-cloud-contract%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Wed, 21 Nov 2018 16:33:54 +0800</pubDate>
+      
+      <guid>/post/2018-11-21-spring-cloud-contract%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/</guid>
+      <description>背景 今年公司在申请 ISO-9000，因此多了很多质量上的管理要求。之前听到测试部提出需要做大覆盖量的集成测试，感到非常不妥。因为目前我们使用的技术是微服务技术，且有相当一部分数据依赖于外部系统（如银联接口等），如果做集成测试，由于服务很多，因此第一，很难保证数据的一致性；第二，很难保证其他服务的稳定程度。后果就是出现错误的概率高、维护成本高、排查问题的成本高。
+因此我在网上搜索微服务适用的测试框架，发现现在有些新的测试框架是基于契约的测试，这样对微服务来说会更友好。
+由于目前项目使用的就是 spring cloud，因此选择了目前已经较成熟的契约测试框架 spring cloud contract 进行实践调研。
+spring cloud contract 官方文档地址
+代码实践 本地场景 由于一个项目组几乎都维护着多个服务，某个开发任务可能需要同时修改多个系统。因此在开发自测时，需要用本地的契约测试。
+服务端  导入 gradle 配置：  buildscript { ext { //...  springCloudContractVersion = &amp;#39;2.0.1.RELEASE&amp;#39; } dependencies { //...  classpath(&amp;#39;org.springframework.cloud:spring-cloud-contract-gradle-plugin:${springCloudContractVersion}&amp;#39;) } } //... apply plugin: &amp;#39;spring-cloud-contract&amp;#39; apply plugin: &amp;#39;maven-publish&amp;#39; dependencyManagement { imports { //...  mavenBom &amp;#39;org.springframework.cloud:spring-cloud-contract-dependencies:&amp;#39; + springCloudContractVersion } } dependencies { //...  testCompile(&amp;#39;org.springframeword.cloud:spring-cloud-starter-contract-verifier&amp;#39;) } contracts { // 基类所在的包  packageWithBaseClasses &amp;#39;com.</description>
+    </item>
+    
+    <item>
+      <title>「Docker核心技术原理及其应用学习笔记」</title>
+      <link>/post/2018-10-28-docker%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sun, 28 Oct 2018 16:17:54 +0800</pubDate>
+      
+      <guid>/post/2018-10-28-docker%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>Docker概览 Docker 容器的概念约等于虚拟机。
+Docker 底层   Namespaces 命名空间
+为 Docker 容器提供操作系统层面的隔离
+  Control Groups 控制组
+为 Docker 容器提供硬件层面的隔离
+  Union File System 联合文件系统
+利用分层 layer 思想管理镜像和容器
+  镜像 镜像是一个 Docker 的可执行文件，通过镜像可以创建一个或多个容器。
+ docker镜像常用操作 
+镜像搜索   命令格式： ​	docker search [OPTIONS] TERM
+  命令参数(OPTIONS)：
+   -f, --filter filter 根据提供的格式筛选结果 --format string 利用Go语言的format格式化输出结果 --limit int 展示最大的结果数，默认25个 --no-trunc 内容全部显示 本地镜像 docker pull 作用： ​	下载远程仓库（如Docker Hub）中的镜像 命令格式： ​	docker pull [OPTIONS] NAME[:TAG|@DIGEST] 命令参数(OPTIONS)： ​	-a, &amp;ndash;all-tags 下载所有符合给定tag的镜像</description>
+    </item>
+    
+    <item>
+      <title>Docker学习</title>
+      <link>/post/2018-08-17-docker%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Fri, 17 Aug 2018 11:25:54 +0800</pubDate>
+      
+      <guid>/post/2018-08-17-docker%E5%AD%A6%E4%B9%A0/</guid>
+      <description>镜像 获取镜像 docker pull [选项] [Docker Registry 地]</description>
+    </item>
+    
+    <item>
+      <title>python3.5学习</title>
+      <link>/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Tue, 17 Jul 2018 21:23:54 +0800</pubDate>
+      
+      <guid>/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</guid>
+      <description>基础 数据类型 Python 3 中有 6 种标准的数据类型：Number, String, List, Tuple, Sets, Dictionary。
+其中 Number 类型有 3 种：整型 int，浮点型 float，复数 complex。
+整型 int 整型没有限制大小，可以当作 long 类型使用。
+在整数除法中，/的结果是浮点型，//的结果才是整型，相当于 Java 中的除，在 Python 中叫「地板除」。
+浮点型 float 浮点型参与的任何计算结果都是浮点型，包括除、余、地板除。
+复数 complex 复数由实数部分和虚数部分构成，可以用 a+bj 或 complex(a,b) 表示，复数的实部 a 和虚部 b 都是浮点型。
+数据类型转换   int(x) 将 x 转换为整型
+如果 x 为浮点，则简单粗暴地削去其小数部分
+  float(x) 将 x 转换为浮点型
+  complex(x) 将 x 转换为复数，虚数部分为 0。
+  complex(x, y) 将 x 和 y 转换为复数。</description>
+    </item>
+    
+    <item>
+      <title>Redis 内存模型深入</title>
+      <link>/post/2018-04-28-redis-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B7%B1%E5%85%A5/</link>
+      <pubDate>Sat, 28 Apr 2018 17:49:00 +0800</pubDate>
+      
+      <guid>/post/2018-04-28-redis-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B7%B1%E5%85%A5/</guid>
+      <description>Redis 内存模型深入
+Redis 内存统计  使用redis-cli -h {hostname} -p {port}连接 redis 连接成功，使用info memory查看内存信息  used_memory:9451784 #分配器分配的内存总量 used_memory_human:9.01M #上一行的人类看得懂的方式 used_memory_rss:12984320 #Redis进程占据操作系统的内存 used_memory_rss_human:12.38M used_memory_peak:19658408 used_memory_peak_human:18.75M used_memory_peak_perc:48.08% used_memory_overhead:7657748 used_memory_startup&amp;quot;1424544 used_memory_dataset:1794036 used_memory_dataset_perc:22.35% total_system_memory:16862044160 total_system_memory_human:15.70G used_memory_lua:37888 used_memory_lua_human:37.00K maxmemory:0 maxmemory_human:0B maxmemory_policy:noeviction mem_fragmentation_ratio:1.37 #内存碎片比率 mem_allocator:jemalloc-4.0.3 # 内存分配器 active_defrag_running:0 lazyfree_pending_objects:0  used_memory: Redis 分配的内存总量（包括使用的虚拟内存）； used_memory_rss: Redis 进程占据操作系统的内存，和 top 以及 ps 命令看到的是一样的； 即：used_memory + 进程运行内存 + 内存碎片 - 虚拟内存； mem_fragmentation_ratio: 内存碎片比，即 used_memory_rss/used_memory 。 小于1时说明内存不够用了，使用了虚拟内存； 越大说明内存碎片比越大，内存分配器是 jemalloc 的时候1.03是个较健康的状态。 mem_allocator: 内存分配器。包括jemalloc(default)、libc、tcmalloc。  内存划分  数据 值包括5种对外提供的类型：字符串、哈希、列表、集合、有序集合。</description>
+    </item>
+    
+    <item>
+      <title>mongodb基础学习笔记（更新中）</title>
+      <link>/post/2017-10-17-mongodb%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
+      <pubDate>Tue, 17 Oct 2017 21:26:54 +0800</pubDate>
+      
+      <guid>/post/2017-10-17-mongodb%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
+      <description>基本概念  mongodb 中文网站：www.mongoing.com mongodb 中文文档：docs.mongoing.com nosql 数据库相比传统 sql 数据库少了：实时一致性；事务；多表联合查询。 杀掉 MongoDB 的进程需使用kill -15或不带参数，不能使用kill -9  MongoDB 相比于其他 nosql 数据库的优点  相较于 redis 而言，可以提供复杂结构的数据存储，而 redis 只有简单的键值对存储； 相较于 hbase 的单索引，MongoDB 的索引更灵活，支持单键索引、多键索引、数组索引、全文索引。  基础操作   创建并使用一个库：use test
+  展示所有库：show dbs
+  插入一条数据（并新建一个集合&amp;ndash;相当于表的概念）：db.my_collection.insert({num:1})
+  展示所有集合：show collections
+  查询集合所有内容：db.my_collection.find()
+  条件查询：db.my_collection.find({num:2})
+  JS 语法循环插入：for(i=1;i&amp;lt;=100;i++)db.my_collection.insert({num:i})
+  查询数量：db.my_collection.find().count()
+  查询跳过：.skip(2)
+  查询限制条数：.limit(2)
+  查询排序：.sort({num:1}) 1即asc，-1即desc</description>
+    </item>
+    
+    <item>
+      <title>喵</title>
+      <link>/post/2017-09-21-%E5%96%B5/</link>
+      <pubDate>Thu, 21 Sep 2017 15:33:54 +0800</pubDate>
+      
+      <guid>/post/2017-09-21-%E5%96%B5/</guid>
+      <description>其实非常不喜欢被称作是“程序媛”，仿佛是被独立在“程序员”之外的一个物种，就像女博士和女司机一样。
+女性程序员根本就没有传说中那么稀有。但人们说起程序员，仿佛就默认他是个男人，这令人十分不愉快。
+下周就要去迪士尼了，脐带。</description>
+    </item>
+    
+    <item>
+      <title>python学习笔记（更新中）</title>
+      <link>/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
+      <pubDate>Sat, 22 Jul 2017 00:09:54 +0800</pubDate>
+      
+      <guid>/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
+      <description>基础知识 字符串  单引号和双引号是一个意思，三个引号被用于长短的文字或者说明 字符串+数字 会报错 字符串*数字 表示显示几遍的意思  # 字符串 乘以 数字 word = &amp;#34;words&amp;#34; * 3 print(word) # wordswordswords words = &amp;#39;a loooooong word&amp;#39; num = 12 string = &amp;#39;bang!&amp;#39; total = string * (len(words) - num) print(total) # bang!bang!bang!bang!  字符串分片 字符串的分片实际上可以看作是把字符串的一部分截取出来，复制储存在另一个地方（相当于是个副本），不会对原字符串做改动。
+分片时的字符串index，正数是从0开始从前往后数，负数是从-1开始从后往前数
+截取的时候与java的substring一样——包左不包右
+# 字符串分片 birthDay = &amp;#39;happy birth day to you&amp;#39; print(birthDay[0]) # h print(birthDay[-3]) # y print(birthDay[11:14]) # da print(birthDay[5:]) # birth day to you print(birthDay[:5]) # happy print(birthDay[-5:5]) # 啥都不输出，也不报错  基本运算    ： 加。有一个元素为浮点，结果为浮点；     ： 减。同上     ： 乘。同上   / ： 除以。有一个元素为浮点，结果为浮点；除不尽的情况下，即使两个都是整，结果也是浮点；有浮点的精度问题； ** ： 幂。有一个元素为浮点，结果为浮点； % ： 模。有一个元素为浮点，结果为浮点；有浮点的精度问题； //： 整除。有一个元素为浮点，结果为浮点。  math_calc(19.</description>
+    </item>
+    
+    <item>
+      <title>绿色版jdk安装执行命令</title>
+      <link>/post/2017-07-14-%E7%BB%BF%E8%89%B2%E7%89%88jdk%E5%AE%89%E8%A3%85%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Fri, 14 Jul 2017 17:41:54 +0800</pubDate>
+      
+      <guid>/post/2017-07-14-%E7%BB%BF%E8%89%B2%E7%89%88jdk%E5%AE%89%E8%A3%85%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4/</guid>
+      <description>[root@fbgouhuaapp01 java]# alternatives --install /usr/bin/java java /usr/local/java/jdk1.8.0_121/bin/java 2 [root@fbgouhuaapp01 java]# alternatives --config java There is 1 program that provides &amp;#39;java&amp;#39;. Selection Command ----------------------------------------------- *+ 1 /usr/local/java/jdk1.8.0_121/bin/java Enter to keep the current selection[+], or type selection number: 1 [root@fbgouhuaapp01 java]# alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_121/bin/jar 2 [root@fbgouhuaapp01 java]# alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_121/bin/javac 2 [root@fbgouhuaapp01 java]# alternatives --set jar /opt/jdk1.8.0_121/bin/jar [root@fbgouhuaapp01 java]# alternatives --set javac /opt/jdk1.8.0_121/bin/javac [root@fbgouhuaapp01 java]# java --version  </description>
+    </item>
+    
+    <item>
+      <title>shell学习笔记（更新中）</title>
+      <link>/post/2017-03-29-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
+      <pubDate>Sun, 02 Apr 2017 17:57:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-29-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
+      <description>什么时候不使用shell  大量数据处理任务，尤其是当要求速度时（排序、哈希、递归）。 涉及重型数学运算（使用 C++ 或 FORTRAN 来替代）。 需要跨平台（使用 C 或 Java 替代）。 需要结构化编程的复杂应用程序（变量的类型检查，函数原型等）。 非常非常关键性的任务。 当需要确保安全性时。 项目由具有互锁依赖性的子组件组成。 需要大量文件操作（Bash仅限于串行文件访问，且它的逐行执行方式笨拙并低效）。 需支持多维数组。 需支持数据结构。 需生成/操纵图形或 GUI。 需要直接访问系统硬件或外部外围设备。 需要端口或 socket I/O。 需要使用库或历史代码生成的接口。 专有的封闭源代码应用程序。  一个简单的栗子：清理脚本 #!/bin/bash # Proper header for a Bash script. # Cleanup, version 2 # Run as root, of course. # Insert code here to print error message and exit if not root. LOG_DIR=/var/log # Variables are better than hard-coded values. cd $LOG_DIR # cat /dev/null &amp;gt; file 即把 file 放入垃圾箱，并给 file 赋空值 cat /dev/null &amp;gt; messages cat /dev/null &amp;gt; wtmp echo &amp;#34;Logs cleaned up.</description>
+    </item>
+    
+    <item>
+      <title>Springboot下拦截器实现</title>
+      <link>/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</guid>
+      <description>新建一个注释类  @Target(ElementType.METHOD) @Retention(RetentionPolicy.RUNTIME) @Documented public @interface RequestCheck { boolean value() default true; } 新建一个拦截器类  @Aspect @Component public class RequestInterceptor { public Log logger = LogFactory.getLog(this.getClass()); // 拦截开关  @Value(&amp;#34;${common.app.checkAuth}&amp;#34;) private Boolean checkAuth; private static final byte[] userStore = RedisUtil.serialize(&amp;#34;__token_app_userStore&amp;#34;); @Pointcut(&amp;#34;execution(* com.mytest..*.*(..)) &amp;amp;&amp;amp; @annotation(com.mytest.app.util.annotation.RequestCheck)&amp;#34;) private void requestNeedCheck() { } @Before(&amp;#34;requestNeedCheck()&amp;#34;) public void before(JoinPoint joinPoint) throws Throwable { if (!checkAuth) { return; } HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()) .getRequest(); String userId = request.</description>
+    </item>
+    
+    <item>
+      <title>终于理解流星花园中嫌弃速溶咖啡的富家女了</title>
+      <link>/post/2017-03-20-%E7%BB%88%E4%BA%8E%E7%90%86%E8%A7%A3%E6%B5%81%E6%98%9F%E8%8A%B1%E5%9B%AD%E4%B8%AD%E5%AB%8C%E5%BC%83%E9%80%9F%E6%BA%B6%E5%92%96%E5%95%A1%E7%9A%84%E5%AF%8C%E5%AE%B6%E5%A5%B3%E4%BA%86/</link>
+      <pubDate>Mon, 20 Mar 2017 13:55:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-20-%E7%BB%88%E4%BA%8E%E7%90%86%E8%A7%A3%E6%B5%81%E6%98%9F%E8%8A%B1%E5%9B%AD%E4%B8%AD%E5%AB%8C%E5%BC%83%E9%80%9F%E6%BA%B6%E5%92%96%E5%95%A1%E7%9A%84%E5%AF%8C%E5%AE%B6%E5%A5%B3%E4%BA%86/</guid>
+      <description>被公司的意式咖啡机惯得，回家喝速溶咖啡，难喝到想吐。
+啊！可是我一个月前刚屯了整整三瓶速溶咖啡啊！
+忧伤脸。
+这个教训说明：因为便宜而屯东西，常常得不偿失。
+以后如果不能常常喝到现磨咖啡，应该会在家里备一个胶囊咖啡机吧！</description>
+    </item>
+    
+    <item>
+      <title>Alibaba: Java 代码规范（部分）</title>
+      <link>/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</link>
+      <pubDate>Sat, 18 Mar 2017 11:10:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</guid>
+      <description>Java 代码规范 编程规约 命名规则   【强制】抽象类命名使用 Abstract 或 Base 开头；异常类命名使用 Exception 结尾；测试类 命名以它要测试的类的名称开始，以 Test 结尾。
+  【强制】POJO 类中布尔类型的变量，都不要加 is，否则部分框架解析会引起序列化错误。
+反例：定义为基本数据类型 boolean isSuccess；的属性，它的方法也是 isSuccess()，RPC 框架在反向解析的时候，“以为”对应的属性名称是 success，导致属性获取不到，进而抛出异 常。
+  【强制】包名统一使用小写，点分隔符之间有且仅有一个自然语义的英语单词。包名统一使用单数形式，但是类名如果有复数含义，类名可以使用复数形式。
+正例： 应用工具类包名为 com.alibaba.open.util、类名为 MessageUtils（此规则参考 spring 的框架结构）
+  【推荐】接口类中的方法和属性不要加任何修饰符号（public 也不要加），保持代码的简洁 性，并加上有效的 Javadoc 注释。尽量不要在接口里定义变量，如果一定要定义变量，肯定是 与接口方法相关，并且是整个应用的基础常量。
+正例：接口方法签名：void f(); 接口基础常量表示：String COMPANY = &amp;ldquo;alibaba&amp;rdquo;;
+反例：接口方法定义：public abstract void f();
+说明：JDK8 中接口允许有默认实现，那么这个 default 方法，是对所有实现类都有价值的默 认实现。
+  【参考】各层命名规约：
+A) Service/DAO 层方法命名规约
+&amp;ndash;1） 获取单个对象的方法用 get 做前缀。</description>
+    </item>
+    
+    <item>
+      <title>Eureka 的 RestTemplate 问题</title>
+      <link>/post/2017-03-04-eureka%E7%9A%84resttemplate%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sat, 04 Mar 2017 14:53:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-04-eureka%E7%9A%84resttemplate%E9%97%AE%E9%A2%98/</guid>
+      <description>环境中配置了 Eureka ，在发起 HttpClient 请求时，遇到「eureka No instances available for &amp;hellip;」的问题。这是由于发起请求的目标域名在 Eureka 服务器中没有实例。
+查 资料 ，有两种解决办法：
+ 不要使用 netflix 这套路由服务（这居然也是一种办法么= =）； 不要使用默认的 RestTemplate 来发起请求，应 new 一个新的 RestTemplate 来操作。  具体实现代码如下：
+JSONObject json = new JSONObject(sendParam); HttpHeaders headers = new HttpHeaders(); MediaType type = MediaType.parseMediaType(&amp;#34;application/json; charset=UTF-8&amp;#34;); headers.setContentType(type); HttpEntity&amp;lt;String&amp;gt; reqE = new HttpEntity&amp;lt;String&amp;gt;(json.toString(), headers); RestTemplate restTemplate = new RestTemplate(); ResponseEntity&amp;lt;Map&amp;gt; result = restTemplate.exchange(url, HttpMethod.POST, reqE, Map.class); </description>
+    </item>
+    
+    <item>
+      <title>AJAX 给 JS 全局变量赋值的问题</title>
+      <link>/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <description>在执行下面这段代码时遇到问题：
+var applseq = &amp;#34;&amp;#34;; $.ajax({ type: &amp;#34;GET&amp;#34;, url: &amp;#34;/app/appserver/ca/hdjrforward&amp;#34;, data: { &amp;#34;code&amp;#34;: code }, dataType: &amp;#34;json&amp;#34;, success: function (data) { applseq = data.body.applseq; alert(&amp;#34;1：&amp;#34;+applseq); } alert(&amp;#34;2：&amp;#34;+applseq); }); 运行结果是，先弹「2：」，接着弹「1：422133」。
+且结果是必然如是发生的。
+笔者一开始猜想这会不会是浏览器在遇到异步请求时使用了多线程的方式来处理，才导致了这样的结果。查询资料发现，JS 运行在浏览器中是单线程的。
+引用如下：
+ 因为JS运行在浏览器中，是单线程的，每个window一个JS线程，既然是单线程的，在某个特定的时刻只有特定的代码能够被执行，并阻塞其它的代码。而浏览器是事件驱动的（Event driven），浏览器中很多行为是异步（Asynchronized）的，会创建事件并放入执行队列中。javascript引擎是单线程处理它的任务队列，你可以理解成就是普通函数和回调函数构成的队列。当异步事件发生时，如mouse click, a timer firing, or an XMLHttpRequest completing（鼠标点击事件发生、定时器触发事件发生、XMLHttpRequest完成回调触发等），将他们放入执行队列，等待当前代码执行完成。
+  前面已经提到浏览器是事件驱动的（Event driven），浏览器中很多行为是异步（Asynchronized）的，例如：鼠标点击事件、窗口大小拖拉事件、定时器触发事件、 XMLHttpRequest完成回调等。当一个异步事件发生的时候，它就进入事件队列。浏览器有一个内部大消息循环，Event Loop（事件循环），会轮询大的事件队列并处理事件。例如，浏览器当前正在忙于处理onclick事件，这时另外一个事件发生了（如：window onSize），这个异步事件就被放入事件队列等待处理，只有前面的处理完毕了，空闲了才会执行这个事件。setTimeout也是一样，当调用的时 候，js引擎会启动定时器timer，大约xxms以后执行xxx，当定时器时间到，就把该事件放到主事件队列等待处理（浏览器不忙的时候才会真正执行）。
+ ——出自 http://www.cnblogs.com/yasmi/articles/5064588.html
+解决办法：
+在 Ajax 请求中设置非异步：
+async: false, </description>
+    </item>
+    
+    <item>
+      <title>AJAX POST请求提交表单信息</title>
+      <link>/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</link>
+      <pubDate>Sat, 04 Mar 2017 13:42:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</guid>
+      <description>当前使用的 jQuery 版本不支持 serializeObject，因此引入该函数：
+$.prototype.serializeObject=function(){ var obj=new Object(); $.each(this.serializeArray(),function(index,param){ if(!(param.name in obj)){ obj[param.name]=param.value; } }); return obj; }; 然后序列化该表单数据，并发送 AJAX 请求：
+var param = JSON.stringify($(&amp;#34;#applicationForm&amp;#34;).serializeObject()); $.ajax({ url: &amp;#34;/app/saveUsers&amp;#34;, data: param, type: &amp;#34;POST&amp;#34;, contentType: &amp;#34;application/json&amp;#34;, success: function(data){ if (data.head.retFlag==&amp;#34;00000&amp;#34;){ alert(&amp;#34;注册成功！&amp;#34;); window.location.href=&amp;#39;/app/ht/signContract.html&amp;#39;; return; } else { alert(data.head.retMsg); return; } }}); </description>
+    </item>
+    
+    <item>
+      <title>win10 搭建 linux 虚拟机局域网，安装 MySQL</title>
+      <link>/post/2017-03-04-win10%E6%90%AD%E5%BB%BAlinux%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%80%E5%9F%9F%E7%BD%91-%E5%AE%89%E8%A3%85mysql/</link>
+      <pubDate>Sat, 04 Mar 2017 13:29:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-04-win10%E6%90%AD%E5%BB%BAlinux%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%80%E5%9F%9F%E7%BD%91-%E5%AE%89%E8%A3%85mysql/</guid>
+      <description>为了完成搭建 MySQL 主从数据库的任务，在自己电脑上从头搭建环境。遇到的问题和解决方法在这里做一一记录。
+ 问题1：  使用 VMware 安装虚拟机时，出现「not enough free space on disks」的提示。
+ 解决方法：在配置虚拟机硬盘大小时，应大于等于4GB，否则就会报这个错误。
+安装 JDK 记录：  使用su root命令切换至 root 用户。 使用rpm -qa | grep java查看本机是否已安装 Java。 使用yum -y list java*查看可以下载安装的 Java 包。 使用yum -y install java-1.8.0-openjdk*安装1.8.0版本的 JDK。    问题2：  安装 JDK 时，出现「Disk Requirements: At least 821MB more space needed on the / filesystem.」的错误提示。
+ 解决方法：在 VMware 上扩展磁盘后，还需在 linux 上执行硬盘空间的挂载。中间遇到较多问题难以解决，笔者对于 linux 硬盘挂载的原理也不甚了解，目前 linux 虚拟机上没有什么重要的东西，基于时间原因决定放弃，重新安装虚拟机。</description>
+    </item>
+    
+    <item>
+      <title>Hi!!</title>
+      <link>/post/2017-03-02-hi/</link>
+      <pubDate>Thu, 02 Mar 2017 23:39:54 +0800</pubDate>
+      
+      <guid>/post/2017-03-02-hi/</guid>
+      <description>first blog
+终于把blog搭起来了，累！
+等等就把在简书的东西都挪过来！
+饿~~</description>
+    </item>
+    
+    <item>
+      <title>MySQL 搭建主从数据库</title>
+      <link>/post/2017-01-02-mysql%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Mon, 02 Jan 2017 23:39:54 +0800</pubDate>
+      
+      <guid>/post/2017-01-02-mysql%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>使用 MySQL 版本：5.7 系统环境：CentOS 6.5  修改主服务器（master）配置： $ vim /etc/my.cnf # 启用二进制日志 log-bin=mysql-bin # 服务器唯一ID server-id=111 修改从服务器（slave）配置： $ vim /etc/my.cnf # 启用二进制日志，可不配 log-bin=mysql-bin # 服务器唯一ID server-id=112 重启两个 MySQL 服务 service mysqld restart; 在主库建一个专用来备份的 MySQL 账户 mysql&amp;gt; grant replication slave,reload,super on *.* &amp;gt; to &#39;backup&#39;@&#39;192.168.1.50&#39; identified by &#39;password&#39;; Query OK, 0 rows affected, 1 warning (0.01 sec) mysql&amp;gt; flush privileges; Query OK, 0 rows affected (0.00 sec) backup：账号名
+password：密码
+192.168.1.50：从库IP地址</description>
+    </item>
+    
+    <item>
+      <title>Rich Content</title>
+      <link>/post/rich-content/</link>
+      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/post/rich-content/</guid>
+      <description>&lt;p&gt;Hugo ships with several &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Built-in Shortcodes&lt;/a&gt; for rich content, along with a &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/about/hugo-and-gdpr/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Privacy Config&lt;/a&gt; and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Java 1.8 学习笔记——Lambda</title>
+      <link>/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/</guid>
+      <description>java中重要的函数接口    接口 参数 返回类型 示例     Predicate&amp;lt; T &amp;gt; T boolean 这张唱片已经发行了吗   Consumer&amp;lt; T &amp;gt; T void 输出一个值   Function&amp;lt; T,R &amp;gt; T R 获得Artist对象的名字   Supplier&amp;lt; T &amp;gt; None T 工厂方法   UnaryOperator&amp;lt; T &amp;gt; T T 逻辑非   BinaryOperator&amp;lt; T &amp;gt; (T,T) T 求两个数的乘积    stream 中的 filter 方法和 count 方法 filter 方法并未做什么实际性的工作，只刻画出了stream，但没有产生新的集合，这类方法叫惰性求值；
+count 方法最终会从 stream 产生值，这类方法叫及早求值方法。</description>
+    </item>
+    
+  </channel>
+</rss>

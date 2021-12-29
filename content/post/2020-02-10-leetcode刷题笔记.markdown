@@ -1,0 +1,67 @@
+---
+layout: post
+title:  "leetcode刷题笔记"
+date:   2020-02-10 23:19:54 +0800
+tags: [leetcode]
+---
+
+
+## [231]2的幂
+
+我一开始解题的时候，思路是：为2的幂的数字有一个共同点——2进制的时候最高位为1，后面都为0。所以该数-1，二进制数的所有数都为1。  
+
+初版代码：
+
+```java
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if (n == 1) {
+            return true;
+        }
+        if (n <= 0) {
+            return false;
+        }
+        String s = Integer.toBinaryString(n - 1);
+        return !s.contains("0");
+    }
+}
+```
+
+解题结果：
+
+> 23:01	info
+> ​			解答成功:
+> ​			执行耗时:2 ms,击败了26.88% 的Java用户
+> ​			内存消耗:39.1 MB,击败了5.23% 的Java用户
+
+不管是耗时还是内存都比较差。
+
+
+
+故寻求答案发现，其实我在上面解答的时候就已经意识到了这个问题，追深一层：
+
+| 32   | 1    | 0    | 0    | 0    | 0    |
+| ---- | ---- | ---- | ---- | ---- | ---- |
+| 31   | 0    | 1    | 1    | 1    | 1    |
+| &    | 0    | 0    | 0    | 0    | 0    |
+
+可推导2的幂的另一个共同点：`x & (x-1) = 0`
+
+故代码修改为：
+
+```java
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if (n == 1) {
+            return true;
+        }
+        if (n <= 0) {
+            return false;
+        }
+        return (n & (n - 1)) == 0;
+    }
+}
+```
+
+
+

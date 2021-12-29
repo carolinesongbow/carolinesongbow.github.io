@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>redis on </title>
+    <link>/tags/redis/</link>
+    <description>Recent content in redis on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 28 Apr 2018 17:49:00 +0800</lastBuildDate><atom:link href="/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis 内存模型深入</title>
+      <link>/post/2018-04-28-redis-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B7%B1%E5%85%A5/</link>
+      <pubDate>Sat, 28 Apr 2018 17:49:00 +0800</pubDate>
+      
+      <guid>/post/2018-04-28-redis-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B7%B1%E5%85%A5/</guid>
+      <description>Redis 内存模型深入
+Redis 内存统计  使用redis-cli -h {hostname} -p {port}连接 redis 连接成功，使用info memory查看内存信息  used_memory:9451784 #分配器分配的内存总量 used_memory_human:9.01M #上一行的人类看得懂的方式 used_memory_rss:12984320 #Redis进程占据操作系统的内存 used_memory_rss_human:12.38M used_memory_peak:19658408 used_memory_peak_human:18.75M used_memory_peak_perc:48.08% used_memory_overhead:7657748 used_memory_startup&amp;quot;1424544 used_memory_dataset:1794036 used_memory_dataset_perc:22.35% total_system_memory:16862044160 total_system_memory_human:15.70G used_memory_lua:37888 used_memory_lua_human:37.00K maxmemory:0 maxmemory_human:0B maxmemory_policy:noeviction mem_fragmentation_ratio:1.37 #内存碎片比率 mem_allocator:jemalloc-4.0.3 # 内存分配器 active_defrag_running:0 lazyfree_pending_objects:0  used_memory: Redis 分配的内存总量（包括使用的虚拟内存）； used_memory_rss: Redis 进程占据操作系统的内存，和 top 以及 ps 命令看到的是一样的； 即：used_memory + 进程运行内存 + 内存碎片 - 虚拟内存； mem_fragmentation_ratio: 内存碎片比，即 used_memory_rss/used_memory 。 小于1时说明内存不够用了，使用了虚拟内存； 越大说明内存碎片比越大，内存分配器是 jemalloc 的时候1.03是个较健康的状态。 mem_allocator: 内存分配器。包括jemalloc(default)、libc、tcmalloc。  内存划分  数据 值包括5种对外提供的类型：字符串、哈希、列表、集合、有序集合。</description>
+    </item>
+    
+  </channel>
+</rss>

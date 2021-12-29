@@ -1,0 +1,2548 @@
+---
+layout: post
+title:  "python3.5学习"  
+date:   2018-07-17 21:23:54 +0800
+tags: [python]
+---
+
+
+# 基础
+
+## 数据类型
+
+Python 3 中有 6 种标准的数据类型：Number, String, List, Tuple, Sets, Dictionary。
+
+其中 Number 类型有 3 种：整型 int，浮点型 float，复数 complex。
+
+### 整型 int
+
+整型没有限制大小，可以当作 long 类型使用。  
+
+在整数除法中，`/`的结果是浮点型，`//`的结果才是整型，相当于 Java 中的除，在 Python 中叫「地板除」。  
+
+### 浮点型 float
+
+浮点型参与的任何计算结果都是浮点型，包括除、余、地板除。  
+
+### 复数 complex
+
+复数由实数部分和虚数部分构成，可以用 a+bj 或 complex(a,b) 表示，复数的实部 a 和虚部 b 都是浮点型。
+
+### 数据类型转换
+
+* `int(x)` 将 x 转换为整型
+
+  如果 x 为浮点，则简单粗暴地削去其小数部分
+
+* `float(x)` 将 x 转换为浮点型
+
+* `complex(x)` 将 x 转换为复数，虚数部分为 0。
+
+* `complex(x, y)` 将 x 和 y 转换为复数。
+
+### 常量
+
+* PI:圆周率
+* E:自然对数
+
+## 变量和关键字
+
+### 变量
+
+命名变量：  
+
+```python
+# 命名无需定义类型
+name = 'SunXiaoHong'
+# 可以给同一个变量赋不同类型的值
+name = 14
+name = 2.14
+# 获取变量的类型
+type(name)
+# 输出<class 'float'>
+```
+
+当将一个变量赋给另一个变量时，事实上是将它所指的值的地址给了这个变量。  
+
+```python
+a = 'ABC'
+b = a
+a = 'EFG'
+print(b)
+# 输出：ABC
+```
+
+
+
+### 变量名称
+
+变量名称必须以字母开头，建议使用小写字母开头。  
+
+Python 使用下划线式命名。  
+
+不能使用关键字命名。  
+
+> False	None	True	and		as	assert
+break	class	continue	def	del
+elif	else	except	finally	for	from
+global	if	import	in	nonlocal
+lambda	is	not	or	pass	raise
+return	try	while	with	yield	
+
+
+
+## 运算符和操作对象  
+
+### 运算符
+
+Python 支持以下 7 种运算符：
+
+1. 算术运算符
+2. 比较运算符
+3. 赋值运算符
+4. 逻辑运算符
+5. 位运算符
+6. 成员运算符
+7. 身份运算符
+
+#### 算术运算符
+
+| 运算符 | 描述   | 实例                 |
+| ------ | ------ | -------------------- |
+| +      | 加     | a+b=15               |
+| -      | 减     | a-b=5                |
+| *      | 乘     | a*b=50               |
+| /      | 除     | a/b=2.0              |
+| %      | 模     | a%b=0                |
+| **     | 幂     | a**b=100000          |
+| //     | 地板除 | 9//2=4  9.0//2.0=4.0 |
+
+#### 比较运算符
+
+| 运算符 | 描述     | 实例            |
+| ------ | -------- | --------------- |
+| ==     | 等于     | a==b 返回 False |
+| !=     | 不等于   | a!=b 返回 True  |
+| >      | 大于     |                 |
+| <      | 小于     |                 |
+| \>=    | 大于等于 |                 |
+| <=     | 小于等于 |                 |
+
+#### 赋值运算符
+
+
+
+| 运算符 | 实例       |
+| ------ | ---------- |
+| =      |            |
+| +=     | c = c + a  |
+| -=     | c = c - a  |
+| *=     | c = c * a  |
+| /=     | c = c / a  |
+| %=     | c = c % a  |
+| \**=    | c = c \** a |
+| //=    | c = c // a |
+
+
+
+#### 位运算符
+
+* & 按位与：
+
+  1001 & 1100 得 1000  
+
+* | 按位或：
+
+  1001 | 1100 得 1101
+
+* ^ 按位异或（相异取 1）：
+
+  1001 ^ 1100 得 0101
+
+* ~ 按位取反：
+
+  ~1001 得 0110
+
+* << 左移（高位丢弃，低位补 0）：
+
+  1001 << 2 得 0100
+
+* \>> 右移（低位丢弃，高位补0）：
+
+  1001 >> 2 得 0010
+
+#### 逻辑运算符  
+
+在python中，任何对象都可以用```bool(对象)```的方式来进行判断，只有以下情况结果为false:
+0，None，空字符串，空集合，false布尔值。  
+
+| 运算符 | 逻辑表达式 | 描述                                     | 实例（a = 10, b = 20） |
+| ------ | ---------- | ---------------------------------------- | ---------------------- |
+| and    | x and y    | x 为 False 则返回 False; 否则返回 y 的值 | a and b 得 20          |
+| or     | x or y     | x 为 True 则返回 x 的值；否则返回 y 的值 | a or b 得 10           |
+| not    | not x      | 即 ! ，只返回 True 和 False              | not(a and b) 得 False  |
+
+#### 成员运算符
+
+| 运算符 | 描述                          |
+| ------ | ----------------------------- |
+| in     | 即 Java 的 List 中的 contains |
+| not in | in 取反                       |
+
+#### 身份运算符
+
+| 运算符 | 描述                 |
+| ------ | -------------------- |
+| is     | 是否引用自同一个对象 |
+| is not | is 取反              |
+
+```python
+a = 10
+b = 10
+print(a is b)
+# True
+```
+
+#### 运算符优先级
+
+从高到低：  
+
+`**`
+
+`~`  `+`(位运算)  `-`（位运算）    
+
+`*`  `/`   `%`   `//`  
+
+`+`  `-`  
+
+`>>`  `<<`  
+
+`&`  
+
+`^`  `|`  
+
+`<=`  `<`  `>`  `>=`  
+
+`<>`  `==`  `!=`  
+
+`=`  `%=`  `/=`  `//=`  `-=`  `+=`  `*=`  `**=`  
+
+`is`  `is not`  
+
+`in`  `not in`  
+
+`not`  `or`  `and`  
+
+## 字符串操作
+
+字符串不能进行除法和减法；  
+
+乘法只可以乘以数字；
+
+```python
+print('world'*3)
+# 输出:worldworldworld
+```
+
+# 列表和元组  
+
+## 通用序列操作
+
+Python 中所有序列都可以进行一些特定操作，包括索引、分片、序列相加、乘法、成员资格、长度、最小值和最大值。    
+
+Python 中的序列包括字符串、元组和列表。
+
+### 索引
+
+可以通过中括号的方式来获取相应索引对应的值。  
+
+字符串即是用字符组成的序列。  
+
+使用负值索引可以从右向左获取，最右的索引为-1。  
+
+```python
+test = 'abcdefg'
+print(test[0]) #a
+print(test[2]) #c
+print(test[-1]) #g
+print(test[-5]) #c
+print(test[7])  #IndexError
+```
+
+### 分片
+
+使用分片对一定范围内的元素进行访问。  
+
+```python
+test = 'abcdefg'
+print(test[1:3]) #bc
+print(test[-3:-1]) #ef
+print(test[-3:3]) #不会报错，得到一个空字符串
+print(test[-1:-3]) #空串
+print(test[1:]) #bcdefg
+print(test[-2:]) #fg
+print(test[:3]) #abc
+number = [0,1,2,3,4,5,6,7,8,9]
+print(number[:]) #[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+* 包左不包右
+* 左留空则从第一个元素开始输出，右留空则输出至最后一个元素
+
+分片中有一个隐式参数即步长，默认为1
+
+```python
+print(number[1:8:1]) #[1, 2, 3, 4, 5, 6, 7]
+print(number[1:8:2]) #[1, 3, 5, 7]
+print(number[::3]) #[0, 3, 6, 9]
+print(number[3:1]) #[]
+print(number[3:1:-1]) #[3, 2]
+```
+
+* 步长 > 0 时，只能从左边的元素向右边的元素输出；
+* 步长 < 0 时，只能从右边的元素向左边的元素输出；
+* 步长 = 0 则会报错。
+
+### 序列相加
+
+同类型的序列可以用加号组合成一个序列。
+
+```python
+print([5,3,7] + [4,5,8]) #[5, 3, 7, 4, 5, 8]
+print("aaa" + "bbb") #aaabbb
+print([1,2] + '12') #报错
+```
+
+### 乘法
+
+复制 N 份原序列的元素，放入一个大的序列中。
+
+```python
+print('a' * 5) #aaaaa
+print([1, 2] * 5) #[1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
+print([None] * 5) #[None, None, None, None, None] 用于初始化序列
+print([1] * 0) #[]
+```
+
+### 成员资格
+
+相当于 contains。  
+
+```python
+greeting = 'hello, world3'
+print('w' in greeting) #True
+print(',' in greeting) #True
+print(" " in greeting) #True
+users = ['Jim', 'Lily', 'John']
+print('Jim' in users) #True
+print('J' in users) #False
+numbers = [1, 5, 7, 10]
+print(1 in numbers) #True
+print('1' in numbers) #False
+print(3 in users) #False
+print(3 in greeting) #报错
+```
+
+| in 操作 | 字符串 | 列表 |
+| ------- | ------ | ---- |
+| 数字    | 报错   | OK   |
+| 字符    | OK     | OK   |
+
+### 长度、最小值、最大值
+
+```python
+print(len(greeting)) #13
+print(max(greeting)) #w
+print(min(greeting)) #（空格）
+print(len(users)) #3
+print(max(users)) # Lily
+print(min(users)) # Jim
+numbers = [1, 5, 7, 10, 'aa']
+print(max(numbers)) #报错
+print(min(numbers)) #报错
+```
+
+字符串的大小比较方法：先比较两个对象的第0个元素，大小关系即为对象的大小关系，如果相等则继续比较后续元素，先终止迭代的认为是小的。 
+
+## 列表
+
+### 更新列表
+
+#### 元素赋值
+
+numbers[2] = 28  
+
+不可越界赋值。  
+
+#### 增加元素
+
+numbers.append(28)  
+
+添加到列表末尾。  
+
+#### 删除元素
+
+del numbers[2]  
+
+会导致列表长度缩短。该角标后还有元素的话，会向前缩进。  
+
+#### 分片赋值
+
+`list()`函数可将字符串转为字符列表。  
+
+用前面说到的分片的语法，可将对应的分片进行赋值。但无法使用步长。  
+
+```python
+letters = list('Shitbow is a SB')
+letters[-2:] = list('lovely boy')
+print(letters) #['S', 'h', 'i', 't', 'b', 'o', 'w', ' ', 'i', 's', ' ', 'a', ' ', 'l', 'o', 'v', 'e', 'l', 'y', ' ', 'b', 'o', 'y']
+aaa = list('abcd')
+aaa[-2:] = []
+print(aaa) #['a', 'b'] 相当于分片删除
+```
+
+### 嵌套列表
+
+列表中的元素本身也可以是个列表。  
+
+### 列表方法
+
+* append
+
+  list.append(元素)
+
+  追加
+
+* count
+
+  list.count(元素)
+
+  统计某元素出现次数
+
+* extend
+
+  a_list.extend(b_list)
+
+  扩展列表。
+
+  与 + 的区别：改变了 a_list 本身
+
+* index
+
+  list.index(元素)
+
+  获取列表中的第一个匹配该元素的索引。若该元素不存在，则会报错。  
+
+* insert
+
+  list.insert(索引, 元素)
+
+  在列表中对应的索引位置插入元素
+
+* pop
+
+  list.pop([索引])
+
+  移除列表中对应索引（默认为最后一个）的元素，并返回改元素
+
+* remove
+
+  list.remove(元素)
+
+  移除列表中某个值的第一个匹配项。没有返回值。若该元素不存在，则报错。
+
+* reverse
+
+  list.reverse()
+
+  反转，改变原列表
+
+* reversed
+
+  reversed(list)
+
+  反转，不改变原列表，返回一个新的迭代器对象。  
+
+  ```python
+  list1 = [1,2,3]
+  list2 = reversed(list1)
+  print(list1) #[1, 2, 3]
+  print(list(list2)) #[3, 2, 1]
+  ```
+
+* sort
+
+  list.sort([func])
+
+  排序。可选择默认排序或指定排序。会改变原列表。  
+
+  ```python
+  words = ['study','python','is','happy']
+  words_copy = words.copy()
+  words.sort()
+  print(words) # ['happy', 'is', 'python', 'study']
+  words_copy.sort(key=len, reverse=False)
+  print(words_copy) # ['is', 'study', 'happy', 'python']
+  ```
+
+* sorted
+
+  sorted(list, [func])
+
+  排序。可指定排序方式。不改变原列表，并返回一个新的列表。  
+
+  ```python
+  words = ['study','python','is','happy']
+  words_sort = sorted(words, key=len)
+  print(words) #['study', 'python', 'is', 'happy']
+  print(words_sort) #['is', 'study', 'happy', 'python']
+  ```
+
+* clear
+
+  list.clear()
+
+  清空列表，长度变为0。  
+
+* copy
+
+  list.copy()
+
+  复制一个新的列表。
+
+## 元组
+
+元组与列表类似，不同之处在于元组的元素不能被修改。用逗号分隔的元素自动被创建为元组。  
+
+```python
+name = 'aa', 'bb', 1
+print(type(name)) #<class 'tuple'>
+empty = (1)
+print(type(empty)) #<class 'int'>
+print(empty) #1
+empty = (1,)
+print(type(empty)) #<class 'tuple'>
+print(empty) #(1,)
+```
+
+### tuple 函数
+
+将序列转成元组。  
+
+tuple = tuple(list)  
+
+### 元组的基本操作
+
+#### 访问元组
+
+`tuple[index]` 可访问该角标的元组元素。  
+
+并可以使用分片的语法，与 list 相同。
+
+#### 修改元组
+
+元素值不允许被修改，但可以进行元组连接组合操作。  
+
+```python
+name = 'aa', 'bb', 1
+single = (1,)
+print(name + single) #('aa', 'bb', 1, 1)
+```
+
+#### 删除元组
+
+元组中的元素值不允许被删除，但可以删除整个元组。
+
+```python
+del single
+print(single) #NameError: name 'single' is not defined
+```
+
+### 元组内置函数
+
+* len(tuple)
+* max(tuple)
+* min(tuple)
+* tuple(list)
+
+## 列表与元组的区别
+
+列表可变，元组不可变。因此能使用元组的时候尽量使用元组。  
+
+如果一个元组中包含一个列表，则列表的变化是可以的，因为指向列表的地址未变。
+
+# 字符串
+
+## 字符串的基本操作
+
+由于字符串是不可变的，因此无法分片赋值。  
+
+## 字符串格式化
+
+### 字符串格式化符号
+
+| 符号 | 描述                                                         |
+| ---- | ------------------------------------------------------------ |
+| %c   | 格式化字符及其 ASCII 码                                      |
+| %s   | 格式化字符串                                                 |
+| %d   | 格式化整数                                                   |
+| %u   | 格式化无符号整形                                             |
+| %o   | 格式化无符号八进制数                                         |
+| %x   | 格式化无符号十六进制数                                       |
+| %X   | 格式化无符号十六进制数（大写）                               |
+| %f   | 格式化浮点数字，可指定精度值，默认 6 位                      |
+| %e   | 用科学计数法格式化浮点数                                     |
+| %E   | 作用同%e                                                     |
+| %g   | 在保证六位有效数字的前提下，使用小数方式，否则使用科学计数法。 |
+| %G   | 作用同%g                                                     |
+| %p   | 用十六进制数格式化变量的地址                                 |
+
+```python
+print('小智今年%s岁了'% 10) #小智今年10岁了
+print('小智今年%d岁了'% 10) #小智今年10岁了
+print('小智今年%f岁了'% 10) #小智今年10.000000岁了
+print('小智今年%u岁了'% 10) #小智今年10岁了
+print('小智今年%e岁了'% 10) #小智今年1.000000e+01岁了
+print('小智今年%E岁了'% 10) #小智今年1.000000E+01岁了
+print('小智今年%g岁了'% 10) #小智今年10岁了
+print('小智今年%G岁了'% 10) #小智今年10岁了
+```
+
+说明（优先级按顺序）：
+
+1. %
+
+   标记转换说明符的开始
+
+2. 转换标志（可选）
+
+   `-`表示对齐；
+
+   `+` 表示加上正负号；
+
+   ` `表示正数之前保留空格；
+
+   `0`表示转换值位数不够时用 0 填充。
+
+3. 最小字段宽度（可选）
+
+   转换后的字符串至少应该具有该宽度。如果是 *，宽度会从值元组中读出。
+
+4. 精度值（可选）
+
+   `.精度值`
+
+   如果转换的是实数，精度值表示出现在小数点后的位数
+
+   如果转换的是字符串，该数字就表示最大字段宽度
+
+   如果是 *,精度从元组中读出
+
+5. 转换类型，见上表。
+
+```python
+print('第一名是%-s，得分%+d；第二名是%s，得分% d；第三名是%s，得分%0f'%('甲', 91, '乙', 37, '丙', 21.1))
+#第一名是甲，得分+91；第二名是乙，得分 37；第三名是丙，得分21.100000
+print('第一名是%-5s，得分%+*d；第二名是%s，得分% 10.3f；第三名是%s，得分%0.*f'%('甲',5, 91, '乙', 37, '丙',2, 21.1))
+#第一名是甲    ，得分  +91；第二名是乙，得分    37.000；第三名是丙，得分21.10
+```
+
+
+
+
+
+当既要格式化字符串，又要输出百分号时，要在需输出的百分号前再加一个百分号。  
+
+```python
+print('法国的控球时间占了%.2f %%'% 54.7897) #法国的控球时间占了54.79 %
+```
+
+### 字符串格式化元组
+
+当原字符串中有多个参数需要被格式化时，右参数得是个元组，且元组中得有足够的参数填入字符串，否则会报错。  
+
+```python
+sentence = '第一名是%s，得分%d；第二名是%s，得分%d。'
+print(sentence%('甲', 91, '乙', 37)) #第一名是甲，得分91；第二名是乙，得分37。
+print(sentence%'甲', 91, '乙', 37) #TypeError: not enough arguments for format string
+print(sentence%('甲', 91, '乙')) #TypeError: not enough arguments for format string
+```
+
+## 字符串方法
+
+### find()
+
+用于检测字符串中是否包含某子字符串。  
+
+`index = original_str.find(child_str, beg=开始角标,end=结束角标)`
+
+没有找到则返回 -1。查找角标包左不包右
+
+```python
+str = '012345'
+print(str.find('4', 0, 4)) #-1
+```
+
+### join()
+
+将字符串序列中的元素以指定字符连接成一个新的字符串。  
+
+`str.join(sequence)`  
+
+```python
+str = '012345'
+print(str.join(',')) #,
+print(','.join(str)) #0,1,2,3,4,5
+dirs = '','home','data','hdfs'
+print('路径为：', '/'.join(dirs)) #路径为： /home/data/hdfs
+```
+
+join 操作的调用和被调用对象都应是字符串或字符序列。  
+
+### lower()
+
+把字符串中所有大写字母转成小写。不改变原对象。  
+
+`str.lower()`
+
+### upper()
+
+同上，转成大写。
+
+### swapcase()
+
+大小写互转。
+
+### replace()
+
+把字符串中的 old 替换成 new，如果指定 max，则替换次数不超过 max。不改变原对象。   
+
+`str.replace(old, new[, max])`
+
+### split()
+
+通过指定分隔符对字符串进行切片，如果指定 num，则最多只分隔成 num 个子字符串，返回一个 list。  
+
+`str.split(st=' ', num=string.count(str))`
+
+默认用空格分隔，能分隔几个就分隔几个。  
+
+### strip()
+
+移除字符串头尾指定字符，默认是空格。  
+
+`str.strip([chars])`  
+
+### translate()
+
+用指定的表转换字符串的字符。  
+
+`str.translate(table)`  
+
+```python
+intab = 'abcde'
+outtab = 'ABCDE'
+trantab = str.maketrans(intab,outtab)
+print(type(trantab)) #<class 'dict'>
+original = 'hello world'
+print(original.translate(trantab), ',', original) #hEllo worlD , hello world
+```
+
+
+
+# 字典
+
+字典是 Python 中唯一内建的映射类型，字典指定值没有特殊顺序，都存储在一个特殊的键里，键可以是**数字、字符串、元组**。  
+
+## 创建和使用字典
+
+创建：  
+
+```python
+d = {key1:value1,key2:value2}
+# 空字典
+d = {}
+```
+
+键必须是唯一的。  
+
+键必须是不可变的——数字、字符串、元组。  
+
+None 可以为键。  
+
+### dict
+
+可以用 dict 函数，通过其他映射 （如其他字典）或键值序列对建立字典。  
+
+```python
+student = [['name','甲'],['score', 68]]
+detail = dict(student)
+print(detail) #{'name': '甲', 'score': 68}
+print(detail['name']) #甲
+
+detail = dict(name = '乙', score = 55)
+print(detail) #{'name': '乙', 'score': 55}
+print(detail['score']) #55
+```
+
+### 字典的基本操作
+
+#### 修改字典
+
+`dict[key] = value`  相当于 Java 的 put 操作
+
+```python
+letters = {'a': 1, 'b': 2, 'c': 3}
+letters['d'] = 4 #添加
+letters['a'] = 0 #修改
+print(letters) # {'a': 0, 'b': 2, 'c': 3, 'd': 4}
+```
+
+#### 删除字典
+
+`del dict[key]`  删除字典的一个 key   
+
+`del dict`  删除整个字典  
+
+#### len()
+
+`len(dict)`  得到字典的键的总数。  
+
+### 字典的格式化字符串
+
+```python
+print('a的值是：%(a)s' % letters) #a的值是：0
+```
+
+### 字典和列表的区别
+
+dict 的特点是：
+
+1. 查找和插入快，不会随着 key  增加而变慢；
+2. 需要占用大量内存。
+
+list 的特点是：
+
+1. 查找和插入的时间随着元素的增加而增加；
+2. 占用空间小。
+
+## 字典方法
+
+### clear()
+
+`dict.clear()`  
+
+删除字典内的所有项。删除的是原字典的项而不是指向一个新的字典。  
+
+  ```python
+x = {}
+y = x
+x['key'] = 1
+print(y) #{'key': 1}
+x.clear()
+# y所指向的字典的值被清空
+print(y) #{}
+x['key'] = 2
+x = {}
+# x指向了一个新的字典对象
+print(y) #{'key': 2}
+  ```
+
+### copy()
+
+`dict.copy()`  
+
+返回一个具有相同键值对的新字典。  
+
+这是一个浅复制，即值对象原地修改，复制出来的字典也会受影响。  
+
+### fromkeys()
+
+`dict.fromkeys(seq[,value])`  
+
+创建一个新字典，以 seq 的值为字典的键，value 的值为字典所有键的初始值。默认字典的 value 都是 None。  
+
+```python
+student = ['a', 'b', 'c']
+print(dict.fromkeys(student)) #{'a': None, 'b': None, 'c': None}
+print(dict.fromkeys(student, 'default')) #{'a': 'default', 'b': 'default', 'c': 'default'}
+```
+
+### get()
+
+`dict.get(key[, default=None])`  
+
+返回指定键的值，如果值不在字典中，返回 default 值。default 值默认为 None。  
+
+### in
+
+`key in dict`  
+
+返回一个 boolean 值，表示该字典中有没有这个 key。  
+
+### items()
+
+`dict.items()`  
+
+以列表返回可遍历的（键, 值）元组数组。  
+
+相当于 Java 中的 map.entrySet()。  
+
+```python
+letters = {'a': 1, 'b': 2, 'c': 3}
+print(letters.items()) #dict_items([('a', 1), ('b', 2), ('c', 3)])
+```
+
+### keys()
+
+`dict.keys()`  
+
+以列表的形式返回一个字典里的所有键。  
+
+相当于 Java 中的 map.keySet()。  
+
+### setdefault()
+
+`dict.setdefault(key[, default = None])`  
+
+与 get() 相似，返回 key 的值，若不存在则以返回 default 的值，default 默认为 None；  
+
+与 get() 不同的是，若字典中不存在这个键，则将 default 的值赋给它。
+
+```python
+letters = {'a': 1, 'b': 2, 'c': 3}
+print(letters.get('d', 5)) #5
+print(letters) #{'a': 1, 'b': 2, 'c': 3}
+print(letters.setdefault('d', 5)) #5
+print(letters) #{'a': 1, 'b': 2, 'c': 3, 'd': 5}
+```
+
+### update()
+
+`dict1.update(dict2)`  
+
+把字典 dict2 中的键值对放至 dict1 中。  
+
+dict1 改变，dict2 不变。  
+
+```python
+letters = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+updateletters = {'d': 5, 'e': 6}
+letters.update(updateletters)
+print(updateletters) #{'d': 5, 'e': 6}
+print(letters) #{'a': 1, 'b': 2, 'c': 3, 'd': 5, 'e': 6}
+```
+
+### values()
+
+`dict.values()`  
+
+以列表的形式返回字典中所有值。  
+
+相当于 Java 中的 map.values()。  
+
+# 条件、循环和其他语句
+
+## import 的使用
+
+### import 语句
+
+一个 import 可导入多个模块，模块间用逗号分隔。  
+
+`from math import pi`  从模块中导入指定部分到当前命名空间中，不会将 math 整个模块导入。这样可以直接使用变量 pi，而不用按传统的方法写作 math.pi。  
+
+这个写法还可以导入多个变量及方法：`from math import pi,sin`，并支持通配符 `from math import *`  
+
+另外可以为模块取别名：`import math as m`，可以使用`m.pi`来使用模块的变量和方法。  
+
+或者对单个变量取别名：`from math import pi as p`，可以使用`p`来使用该变量。  
+
+### 使用逗号输出  
+
+使用逗号输出会自动格式化。  
+
+```python
+print('aa', 1, ['aa', 'bb'], 'cc') 
+#aa 1 ['aa', 'bb'] cc
+```
+
+## 别样的赋值
+
+### 序列解包
+
+等号左右两边均有多个以逗号分隔的值/变量 或是序列，则会序列解包分别进行赋值，且没有先后。  
+
+```python
+x, y, z = 1, 2, 3
+print(x, y, z) #1 2 3
+x, y = y, x
+print(x, y, z) #2 1 3
+nums = 1, 2, 3
+x, y, z = nums
+print(x, y, z) # 1 2 3
+info = {'name': '甲', 'mobile': '13232312333'}
+a, b = info.popitem()
+print(a, b) #mobile 13232312333
+```
+
+### 链式赋值
+
+```python
+x = y = z = 10
+# 相当于
+z = 10
+y = z
+x = y
+```
+
+## 语句块
+
+同一段语句块中每行语句都要保持相同的缩进。  
+
+在 python 中，`:`用来标识语句块的开始。  
+
+注意：python 中的语句块和 java 中的不一样，即使语句块外未定义某一个变量，语句块中的变量值语句块外可以直接获取到。  
+
+## 条件语句
+
+以下值在作为布尔表达值时，会被作为是 false：  
+
+> False	None	0	''	""	()	[]	{} 
+
+`bool(value)`返回 True 和 False。value 可为任何类型。
+
+### if 语句
+
+```python
+if 1 == True:
+    print('1==True')
+print('if end')
+# 1==True
+# if end
+
+if 1:
+    print('1==True')
+print('if end')
+# 1==True
+# if end
+```
+
+### else 子句
+
+```python
+if 0:
+    print('0==True')
+else:
+    print('0!=True')
+print('if end')
+# 0!=True
+# if end
+```
+
+### elif 子句
+
+```python
+score = 61
+if score >= 80:
+    print('优秀')
+elif score >= 60:
+    print('及格')
+else:
+    print('不及格')
+#及格
+```
+
+### 更多操作
+
+* is
+
+  在 Python 中，`==`相当于 Java 中的 `equals()`，判断的是值的相等性；
+
+  `is`相当于 Java 中的`==`，判断的是是否是同一个对象。
+
+* 比较字符串和序列
+
+  可以对序列进行比较，也能比较嵌套列表。
+
+  ```python
+  print((1,2) < (2,1)) #True
+  print((1,2) < (1,2,3)) #True
+  print([1,2,[3,4]] > [1,[2,3,4]]) #TypeError: '>' not supported between instances of 'int' and 'list'
+  print([1,2,[4]] < [1,2,[3,4]]) #False
+  ```
+
+* 布尔运算符
+
+  ```python
+  score = 61
+  if score >= 80:
+      print('优秀')
+  if score >= 60 and score < 80:
+      print('及格')
+  if score < 60:
+      print('不及格')
+  #及格
+  ```
+
+### 断言
+
+```python
+score = 61
+assert score > 80, '分数小于80，程序出错' #AssertionError: 分数小于80，程序出错
+```
+
+## 循环
+
+### while 循环
+
+```python
+i = 1
+result = ''
+while i < 10:
+    result += str(i)
+    i += 1
+print(result)
+#123456789
+```
+
+### for 循环
+
+`for iterating_var in sequence:`  
+
+相当于 Java 中的 foreach。  
+
+可以遍历字符串、列表，也可以遍历字典。默认遍历字典的 key。  
+
+```python
+for letter in 'shit':
+    print(letter)
+#s
+#h
+#i
+#t
+for num in [1, 2, 3]:
+    print(num)
+#1
+#2
+#3
+for key in {'name': 'Lily', 'age': 64}:
+    print(key)
+#name
+#age
+for key, value in {'name': 'Lily', 'age': 64}.items():
+    print(key, "-", value)
+#name - Lily
+#age - 64
+```
+
+items() 将键值对作为元组返回。  
+
+### 迭代工具
+
+#### 并行迭代
+
+```python
+letters = ('a', 'b', 'c')
+nums = (1, 2, 3)
+
+for i in range(len(letters)):
+    print(letters[i], nums[i])
+#等效于
+for letter, num in zip(letters, nums):
+    print(letter, num)
+```
+
+`zip()`可以组合两个序列，并且以短序列为准。当短序列遍历结束时，for 循环遍历就会结束。  
+
+```python
+print(type(zip(letters, nums))) #<class 'zip'>
+print(zip(letters, nums)) #<zip object at 0x0000016177F3EAC8>
+```
+
+### 跳出循环
+
+#### break
+
+```python
+num = 10
+while num > 0:
+    if num % 7 == 0:
+        break
+    print(num)
+    num -= 1
+#10
+#9
+#8
+```
+
+#### continue
+
+```python
+num = 10
+while num:
+    if num % 3:
+        num -= 1
+        continue
+    print(num)
+    num -= 1
+#9
+#6
+#3
+```
+
+
+
+### 循环中的 else 子句
+
+#### while 中的 else
+
+当 while 的条件为 false 时，执行 else。前提是循环不是因为 break 而终止的  
+
+```python
+num = 1
+while num:
+    num -= 1
+else:
+    print('一句只要不break就会打印的话')
+print('end')
+# 一句只要不break就会打印的话
+# end
+```
+
+#### for 中的 else
+
+基本同上。  
+
+## pass 语句
+
+是空语句，作用是保持程序结构的完整性。  
+
+```python
+count = 10
+if count > 30 :
+    print(">30")
+elif count >= 10 :
+else:
+    print("<10")
+# IndentationError: expected an indented block
+# 语法校验错误
+
+
+count = 10
+if count > 30 :
+    print(">30")
+elif count >= 10 :
+    pass
+else:
+    print("<10")
+print("end")
+#end
+```
+
+## 练习：猜数游戏
+
+```python
+import random
+
+result = random.randint(1, 100)
+count = 0
+guess = 0
+while count < 10:
+    print('还剩%s次猜测机会' % (10 - count))
+    guess = input("请输入您的猜测数字：")
+    if not guess.isdigit():
+        print('请输入数字')
+        continue
+    guess = int(guess)
+    count += 1
+    if guess == result:
+        print("猜对了！正确答案是%s，您用了%s次猜到了正确答案" % (result, count))
+        break
+    elif guess < result:
+        print("您猜低了一点点哦！")
+    else:
+        print("您猜高了一点点哦！")
+else:
+    print('机会用完了，请下次再来')
+```
+
+# 函数
+
+## 调用函数
+
+[Python官方API]: https://docs.python.org/3/library/functions.html
+
+
+
+给函数起别名：  
+
+```python
+abs_copy = abs
+print(abs_copy(-1)) #1
+```
+
+## 定义函数
+
+* 函数代码块以 def 关键词开关，后接函数标识名称和圆括号。
+* 所有传入的参数和自变量都必须放在圆括号中，可以在圆括号中定义参数。
+* 函数的第一行语句可以选择性使用文档字符串，用于存放文档说明。
+* 函数内容以冒号开始，并且要缩进。
+* return 结束函数，选择性返回一个值给调用方。不带表达式的 return 相当于返回 None。所以 return None 可以简写为 return。
+* 函数名必须以字母开头，可以包括下划线。  
+
+```python
+def add_num(a, b):
+    print(a + b)
+    return
+add_num(1, 2) #3
+```
+
+## 函数的参数
+
+调用函数时可以使用以下的参数类型：  
+
+* 必须参数
+* 关键字参数
+* 默认参数
+* 可变参数
+* 组合参数
+
+### 必须参数
+
+必须参数必须以正确的顺序传入函数。调用时数量必须和声明时一样。  
+
+### 关键字参数
+
+使用关键字参数允许调用函数时参数的顺序与声明时不一致。  
+
+```python
+def person_info(name, mobile):
+    print('name =', name)
+    print('mobile =', mobile)
+    return
+person_info(mobile=123, name='Jim')
+# name = Jim
+# mobile = 123
+```
+
+### 默认参数
+
+调用函数时，如果 没有传递参数，就会使用默认参数。  
+
+```python
+def printmobile(mobile = 123):
+    print(mobile)
+    return
+printmobile(321) #321
+printmobile() #123
+```
+
+调用注意：  
+
+* 默认参数必须放在非默认参数之后。
+* 若要更改某个默认参数值，又不想传入其他参数，且该默认参数的位置不是第一个，则可以通过传入关键字参数的方式修改默认值。
+* 若有一个默认参数以关键字参数的方式修改默认值，则其他要修改的默认值也得以关键字参数的方式传入。
+
+### 可变参数
+
+参数前带 * 的参数就是可变参数，可以传入不定数量个参数。  
+
+`*` 的参数当作元组来处理，`**` 当作字典来处理。  
+
+不传就是个空元组/字典。  
+
+```python
+def group(group_name, *person_names):
+    print(type(person_names))
+    for name in person_names:
+        group_name += (' %s' % name)
+    print(group_name)
+    return
+
+group('SHD')
+# <class 'tuple'>
+# SHD
+group('SHD', 'Geguri', 'Ado', 'Fearless', 'Sky', 'Diya', 130, ['freefeel', '#'])
+# <class 'tuple'>
+# SHD Geguri Ado Fearless Sky Diya 130 ['freefeel', '#']
+
+
+# 双*示范
+def group(person, **person_info):
+    print(type(person_info))
+    for key,value in person_info.items():
+        person += (' %s=%s' % (key,value))
+    print(person)
+    return
+
+persons = {'Geguri':'D.Va', 'Fearless':'Winston'}
+group('Geguri', character=persons['Geguri']) 
+#Geguri character=D.Va
+```
+
+### 组合参数
+
+自动按序匹配参数类型。  
+
+不能定义两个同类型的可变参数。传入不同的参数类型时，不可穿插，要按顺序来。  
+
+```python
+def exp(p1, p2, df=0, *vart, **kw):
+    print('p1=', p1, 'p2=', p2, 'df=', df, 'vart=', vart, 'kw=', kw)
+
+exp(1,2)
+#p1= 1 p2= 2 df= 0 vart= () kw= {}
+exp(1,2,c=3)
+#p1= 1 p2= 2 df= 0 vart= () kw= {'c':3}
+exp(1,2,3,'a','b')
+#p1= 1 p2= 2 df= 3 vart= ('a','b') kw= {}
+exp(1,2,3,'abc',x=9)
+#p1= 1 p2= 2 df= 3 vart= ('abc') kw= {'x':9}
+
+def exp(*tupleparam, **dictparam):
+    print('tuple', tupleparam)
+    print('dict', dictparam)
+    return
+exp('a', b=3, 7, c=6)
+#SyntaxError: positional argument follows keyword argument
+
+def exp2(*tupleparam1, *tupleparam2):
+    pass
+#SyntaxError: invalid syntax
+```
+
+## 变量作用域
+
+### 全局变量
+
+如果我们定义了一个名为 num 的全局变量，在函数体中也定义了一个名为 num 的局部变量，函数中默认使用局部变量。  
+
+如果需要在函数中把某个变量定义为全局变量，则需要在被定义的变量前加关键字 global。  
+
+```python
+num = 1
+def test_global1():
+    num = 2
+    return
+def test_global2():
+    global num
+    num = 2
+    # 不可以写成 global num = 2，需先定义全局变量
+    return
+
+test_global1()
+print(num) #1
+test_global2()
+print(num) #2
+```
+
+ ## 返回函数
+
+一个函数的返回值可以是一个函数。  
+
+```python
+def outer(is_plus):
+    def plus(a, b):
+        return a + b
+    def reduce(a, b):
+        return a - b
+    if is_plus:
+        return plus
+    return reduce
+
+plus_function = outer(True)
+print(plus_function) #<function outer.<locals>.plus at 0x00000206260C9EA0>
+print(plus_function(3, 1)) #4
+
+reduce_function = outer(False)
+print(reduce_function) #<function outer.<locals>.reduce at 0x00000206260EF048>
+print(reduce_function(3, 1)) #2
+```
+
+**闭包（Closure）：如果在一个内部函数里对外部函数（非全局作用域）的变量进行引用，内部函数就被认为是闭包。**  
+
+个人理解：一个函数把另一个函数作为一个工具包返回给了调用方。  
+
+同样的函数，每次返回的闭包都是一个新的函数对象（即使函数入参一样）。
+
+
+
+讲个鬼故事：  
+
+```python
+def count():
+    fs = []
+    for i in range(1, 4):
+        def square():
+            return i*i
+        fs.append(square)
+    return fs
+
+f1,f2,f3 = count()
+print(f1(), f2(), f3()) #9 9 9
+```
+
+执行顺序：for 循环中先挨个把工具函数放到了列表中，放完以后才执行计算，此时 i = 3。  
+
+## 匿名函数 
+
+lambda 的语法：  
+
+`lambda 参数[, 参数2] : 表达式` 
+
+```python
+#=====方法1=======
+def custom(in_list):
+    return_list = []
+    for param in in_list:
+        if param > 3:
+            return_list.append(param)
+    return return_list
+print(custom([1, 2, 3, 4, 5]))
+
+#=====方法2=======
+def bigger_than3(x):
+    return x > 3
+result_list = filter(bigger_than3, [1, 2, 3, 4, 5])
+print([item for item in result_list])
+
+#=====方法3=======
+result_list = filter(lambda x: x > 3, [1, 2, 3, 4, 5])
+print([item for item in result_list])
+
+#=====方法4=======
+print([item for item in filter(lambda x: x > 3, [1, 2, 3, 4, 5])])
+```
+
+`item for item in filter` 是 filter 类的取值方式。filter 函数返回一个 filter 对象——一个迭代器。filter 函数的参数：一个返回值为 bool 的函数对象，以及一个可迭代对象。  
+
+```python
+# 无参数 lambda
+t = lambda : 1
+print(t()) #1
+
+# 多参数 lambda
+plus = lambda a,b : a + b
+print(plus(1,2)) #3
+
+# 默认参数 lambda
+default_value = lambda a, b = 1 : a + b
+print(default_value(2, 2), default_value(2)) #4 3
+```
+
+## 偏函数
+
+`带有第一个参数默认值的新函数 = partial(原函数, 函数的第一个参数)`  
+
+```python
+import functools
+
+def result_score(total_score, minus_score):
+    return total_score - minus_score
+
+remain_score_of_100 = functools.partial(result_score, 100)
+print(remain_score_of_100(30))
+remain_score_of_1000 = functools.partial(result_score, 1000)
+print(remain_score_of_1000(700))
+
+# 以上等价于↓↓↓↓
+
+def result_score(minus_score, total_score = 100):
+    return total_score - minus_score
+print(result_score(30))
+def result_score2(minus_score, total_score = 1000):
+    return total_score - minus_score
+print(result_score(700))
+```
+
+其实就是给函数了一个默认值，只不过变化起默认值来更简单方便。  
+
+# 面向对象编程
+
+## 类的定义与使用
+
+### 类的定义
+
+```python
+class MyClass(object):
+    i = 123
+    def func(self):
+        return 'hello world', self.i
+
+```
+
+* 类名驼峰，首字母大写；
+* 类名后的括号表示继承哪个类，不写默认为 object
+
+### 类的使用
+
+```python
+class MyClass():
+    i = 123
+    def func(self):
+        return 'hello world', self.i
+
+my_class = MyClass()
+my_class.i = 10
+print(my_class.func())
+# ('hello world', 10)
+```
+
+## 深入类
+
+### 类的构造方法
+
+`__init__([param])` 是一个类的构造函数，默认构造函数规则与 Java 相同。  
+
+与 Java 不同的是，当一个类中重载多个构造方法时，Python 只使用最后那个构造方法，实际上无法「重载」。  
+
+### 类的访问权限
+
+在 Python 中，类的成员变量可以不做声明，调用方想怎么用就怎么用。  
+
+```python
+class MyClass():
+    def __init__(self, i):
+        self.i = i
+        print('带i参数的init')
+
+    def func(self):
+        return 'hello world', self.i
+
+my_class = MyClass(1)
+my_class.i = 10
+print(my_class.func())
+```
+
+当实例的变量名以`__`开头时，则它是一个私有变量，只有内部可以访问。  
+
+讲个鬼故事：  
+
+```python
+class MyClass():
+    def __init__(self, i):
+        self.__i = i
+        print('带i参数的init')
+
+    def func(self):
+        return 'hello world', self.__i
+
+my_class = MyClass(1) #带i参数的init
+print(my_class.__i) #报错
+my_class.__i = 10
+print(my_class.__i) #10
+print(my_class.func()) #('hello world', 1)
+```
+
+关于这个问题，个人的理解是这样的：  
+
+* 对象中有个私有变量 __i，在构造对象时初始化为1；
+* 直接调用该对象的私有变量，报错；
+* 将 10 赋个一个名叫「my_class.__i」的变量，该变量与 my_class 对象及其成员变量无关；
+* 最后，这个「my_class.__i」的变量的值为 10，但对象中的 \_\_i 的值仍是 1。
+
+Python 中的 getter 和 setter:  
+
+```python
+class MyClass():
+    def __init__(self, i):
+        self.__i = i
+        print('带i参数的init')
+
+    def get_i(self):
+        return self.__i
+
+    def set_i(self, i):
+        self.__i = i
+
+my_class = MyClass(1)
+print('原i', my_class.get_i()) #原i 1
+my_class.set_i(2)
+print('新i', my_class.get_i()) #新i 2
+
+```
+
+私有方法：  
+
+```python
+class MyClass():
+    def __init__(self, i):
+        self.__i = i
+        print('带i参数的init')
+
+    def __func(self):
+        return 'hello world', self.__i
+
+my_class = MyClass(1)
+my_class.__func() 
+#AttributeError: 'MyClass' object has no attribute '__func'
+```
+
+## 继承
+
+Python 的继承有以下特点：  
+
+* 基类的构造方法不会被自动调用，需要在子类的构造方法中专门调用；
+* 调用基类方法时需要加上基类的类名前缀，并带上 self 参数变量；
+* 在子类中找不到对应的方法，才到基类中逐个查找。
+
+```python
+class Animal():
+    def __init__(self):
+        print('animal init')
+
+    def running(self):
+        print('animal is running')
+
+class Cat(Animal):
+    def __init__(self, name):
+        self.name = name
+        print('cat init')
+
+    def running(self):
+        print('cat is running')
+
+
+cat = Cat('Chee')
+# 只打印了 cat init，印证基类构造方法不会被自动调用
+cat.running()
+# cat is running
+Animal.running(cat)
+# animal is running，重写方法的父类方法的调用方式
+```
+
+另外，需要的时候，基类方法会用到子类对象属性：  
+
+```python
+class Animal():
+    def __init__(self):
+        print('animal init')
+
+    def running(self):
+        print('animal %s is running' % self.name)
+
+class Cat(Animal):
+    def __init__(self, name):
+        self.name = name
+        print('cat init')
+
+    def running(self):
+        print('cat is running')
+
+
+cat = Cat('Chee')
+#cat init
+Animal.running(cat)
+#animal Chee is running
+```
+
+个人理解，这里面用到的父类的方法，相当于一个打包好的方法，然后用子类的对象去提供方法中需要用到的参数。  
+
+## 多态
+
+```python
+class Animal():
+    def running(self):
+        print('animal %s is running' % self.name)
+
+class Cat(Animal):
+    def __init__(self, name):
+        self.name = name
+        print('cat init')
+
+    def running(self):
+        print('cat is running')
+
+
+def let_animal_run(animal):
+    animal.running()
+
+cat = Cat('Chee')
+let_animal_run(cat)
+# cat is running
+```
+
+特别说明一下`isinstance`方法，isinstance(子类对象, 父类) ==> true，instance(父类对象, 子类) ==> false。
+
+## 多重继承
+
+Python 可以继承多个类，当父类方法冲突时，以类声明的第一个父类去找，并且找第一个父类的父类……直到找到为止。若第一个父类的所有父类都没有该方法，则找第二个父类。  
+
+```python
+class Animal():
+    def drink(self):
+        print('animal drink')
+
+class Wolf(Animal):
+    pass
+
+class Person():
+    def drink(self):
+        print('person drink')
+
+class WolfPerson(Wolf, Person):
+    pass
+
+wolf_person = WolfPerson()
+wolf_person.drink()
+# animal drink
+```
+
+## 获取对象信息
+
+#### type()
+
+```python
+import types
+
+def func():
+    pass
+
+type(func) == types.FunctionType # True
+type(abs) == types.BuiltinFunctionType # True
+type(lambda x: x) == types.LambdaType # True
+type((x for x in range(10))) == types.GeneratorType #True
+```
+
+#### dir()
+
+dir(对象) 返回一个字符串的 list，内容是这个对象的所有属性和方法。  
+
+
+
+## 类的专有方法
+
+### \_\_str\_\_()
+
+即 Java 中的 toString()。  
+
+只有在命令行中，对象的显示默认调用 \_\_repr\_\_()。
+
+### \_\_iter\_\_()
+
+即 Java 中的 iterator()。返回一个迭代对象。  
+
+如果想将一个类用于 for...in 循环，就必须实现该方法。该方法返回一个迭代对象， for 循环时，会先调用 `__inter__()`方法得到一个迭代器，然后会不断调用该迭代对象的 `__next__()`方法，直到遇到 StopIteration 错误时退出循环。  
+
+```python
+#斐波那契数列输出
+class Fib():
+    def __init__(self):
+        self.a, self.b = 0, 1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.a, self.b = self.b, self.a + self.b
+        if self.a > 100:
+            raise StopIteration()
+        return self.a
+
+fib = Fib()
+for f in fib:
+    print(f)
+```
+
+### \_\_getitem\_\_()
+
+像 list 一样按照下标取出元素，需要实现`__getitem__()`方法。
+
+```python
+class Fib():
+    def __getitem__(self, item):
+        a, b = 0, 1
+        for i in range(item + 1):
+            a, b = b, a + b
+        return a
+
+fib = Fib()
+print(fib[2])
+```
+
+### \_\_getattr\_\_()
+
+若实现了该方法，则当外部获取对象不存在的属性时不会报错，而会按该方法的定义返回。  
+
+```python
+class Cat():
+    def __getattr__(self, attr):
+        if attr == 'name':
+            return 'chee'
+        return 'abc'
+
+cat = Cat()
+print(cat.name) #chee
+print(cat.age) #abc
+```
+
+### \_\_call\_\_()
+
+类如果实现了该方法，就直接可以对实例进行方法调用，`对象名()`这样写就是调用 call 方法了。  
+
+```python
+class Cat():
+    def __init__(self, name):
+        self.name = name
+
+    def __call__(self):
+        if self.name == 'chee':
+            print('麻~~~~')
+        else:
+            print('喵~~~~')
+
+chee = Cat('chee')
+chee() #麻~~~~
+```
+
+`callable(对象)`返回对象类是否实现了`__call__()`方法。  
+
+
+
+# 异常
+
+## 异常处理
+
+```python
+def exp_exception(a, b):
+    try:
+        return a/b
+    except Exception:
+        print('catch exception')
+        return 0
+
+print(exp_exception(1, 0))
+# catch exception
+# 0
+```
+
+## 抛出异常
+
+Python 使用 raise 语句抛出一个指定异常（即 throw）。  
+
+Python 中的重要内建异常类
+
+| 异常名称       | 描述                          |
+| -------------- | ----------------------------- |
+| Exception      | 常规错误的基类                |
+| AttributeError | 对象没有这个属性              |
+| IOError        | 输入/输出流操作失败           |
+| IndexError     | 序列中没有此索引              |
+| KeyError       | 映射中没有这个键              |
+| NameError      | 未声明/初始化对象（没有属性） |
+| SyntaxError    | Python 语法错误               |
+| ValueError     | 传入无效参数                  |
+| SystemError    | 一般解释器系统错误            |
+
+
+
+```python
+def param_validate(a):
+    if a < 0 or a == 0:
+        raise ValueError('a must be larger than 0')
+    print('function do sth')
+
+param_validate(-1)
+#ValueError: a must be larger than 0
+```
+
+## 捕捉多个异常
+
+```python
+def param_validate(a, b):
+    try:
+        if a < 0 or a == 0:
+            raise ValueError('a must be larger than 0')
+        print(a/b)
+    except ValueError:
+        print('ValueError')
+    except ZeroDivisionError:
+        print('ZeroDivisionError')
+
+
+param_validate(-1, 0)
+#ValueError
+param_validate(1, 0)
+#ZeroDivisionError
+```
+
+## 使用一个块捕捉多个异常
+
+```python
+def param_validate(a, b):
+    try:
+        if a < 0 or a == 0:
+            raise ValueError('a must be larger than 0')
+        print(a/b)
+    except (ValueError, ZeroDivisionError):
+        print('ValueError or ZeroDivisionError')
+    except ZeroDivisionError:
+        print('ZeroDivisionError')
+
+
+param_validate(-1, 0)
+#ValueError or ZeroDivisionError
+param_validate(1, 0)
+#ValueError or ZeroDivisionError
+```
+
+## 捕捉对象
+
+```python
+def param_validate(a, b):
+    try:
+        if a < 0 or a == 0:
+            raise ValueError('a must be larger than 0')
+        print(a/b)
+    except (ValueError, ZeroDivisionError) as e:
+        print(e)
+
+param_validate(-1, 0)
+#a must be larger than 0
+param_validate(1, 0)
+#division by zero
+```
+
+## 全捕捉
+
+```python
+def param_validate(a, b):
+    try:
+        if a < 0 or a == 0:
+            raise ValueError('a must be larger than 0')
+        print(a/b)
+    except:
+        print('some error happend')
+
+param_validate(-1, 0)
+#some error happend
+param_validate(1, 0)
+#some error happend
+```
+
+## 异常中的 else
+
+```python
+try:
+    do_sth()
+except Exception:
+    do_sth()
+else:
+    若 try 块没有发生异常则执行
+```
+
+
+
+## 自定义异常
+
+```python
+class MyError(Exception):
+    def __init__(self, error_msg):
+        self.error_msg = error_msg
+    def __str__(self):
+        return 'MyError:%s' % self.error_msg
+
+def try_to_raise_my_error():
+    try:
+        raise MyError('test my error')
+    except MyError as e:
+        print(e)
+
+try_to_raise_my_error()
+#MyError:test my error
+```
+
+## finally 子句
+
+与 Java 中的使用方式一致。
+
+# 日期和时间
+
+## 日期和时间
+
+### 时间戳
+
+时间戳是一个经加密后形成的凭证文档，包括 3 部分：  
+
+1. 需加时间戳的文件的摘要 digest；
+2. DTS 收到文件的日期和时间；
+3. DTS 的数字签名。
+
+### struct_time 元组
+
+struct_time 元组一共有 9 个元素：年、月、日、时、分、秒、一年中第几周、一年中第几天、是否为夏令时。  
+
+| 序号 | 属性     | 字段         | 值                   |
+| ---- | -------- | ------------ | -------------------- |
+| 0    | tm_year  | 4位数年      | 2018                 |
+| 1    | tm_mon   | 月           | 1~12                 |
+| 2    | tm_mday  | 日           | 1~31                 |
+| 3    | tm_hour  | 小时         | 0~23                 |
+| 4    | tm_min   | 分钟         | 0~59                 |
+| 5    | tm_sec   | 秒           | 0~61（60或61是闰秒） |
+| 6    | tm_wday  | 一周的第几日 | 0~6                  |
+| 7    | tm_yday  | 一年的第几日 | 1~366                |
+| 8    | tm_isdst | 是否为夏令时 | -1/0/1               |
+
+
+
+## time 模块
+
+### time()
+
+返回一个当前时间的时间戳。  
+
+time.time()，第一个 time 表示  time 模块。  
+
+```python
+import time
+
+print(time.time())
+# 1534055376.9822946
+```
+
+### localtime([secs])
+
+格式化时间戳为本地时间。不传参则以当前时间为标准。  
+
+```python
+now = time.localtime()
+print(type(now)) #<class 'time.struct_time'>
+print(now[0]) #2018
+```
+
+### gmtime([secs])
+
+将一个时间戳转换为 UTC 时区（0 时区）的 struct_time。默认当前时间。  
+
+### mktime(t)
+
+接收 struct_time 对象作为参数，返回用秒数表示时间的浮点数。  
+
+```python
+t = (2018, 8, 12, 16, 4, 5, 6, 224, 0)
+print(time.mktime(t)) #1534061045.0
+```
+
+### asctime([t])
+
+接收时间元组并返回一个可读形式的 24 个字符的字符串。  
+
+```python
+print(time.asctime()) #Sun Aug 12 16:07:27 2018
+```
+
+### ctime([secs])
+
+把时间戳转化为一个可读形式的 24 个字节的字符串
+
+```python
+print(time.ctime()) #Sun Aug 12 16:11:04 2018
+```
+
+### sleep(secs)
+
+挂起线程运行的时间。  
+
+```python
+print('start:', time.localtime()[5])
+time.sleep(3)
+print('end', time.localtime()[5])
+# start: 50
+# end 53
+```
+
+### clock()
+
+以浮点数计算的秒数返回当前 CPU 时间，用来衡量不同程序的耗时。精度高。  
+
+> time.clock has been deprecated in Python 3.3 and will be removed from Python 3.8: use time.perf_counter or time.process_time instead
+
+使用 perf_counter 来计算执行时间：  
+
+```python
+def sleep_time(secs):
+    start_time = time.perf_counter()
+    time.sleep(secs)
+    print(time.perf_counter() - start_time)
+
+sleep_time(2)
+sleep_time(2)
+#2.0002070240000003
+#2.000590122
+```
+
+### strftime(format[,t])
+
+接收时间元组，并返回以可读字符串表示的当地时间，格式由参数 format 决定。  
+
+```python
+def str_format_time(t):
+    return time.strftime('%Y-%m-%d %H:%M:%S', t)
+
+print(str_format_time(time.localtime()))
+#2018-08-12 16:34:52
+```
+
+### strptime(string[, format])
+
+把一个指定格式的时间字符串解析为时间元组。  
+
+```python
+print(time.strptime('2018-08-12 16:34:52', '%Y-%m-%d %H:%M:%S'))
+#time.struct_time(tm_year=2018, tm_mon=8, tm_mday=12, tm_hour=16, tm_min=34, tm_sec=52, tm_wday=6, tm_yday=224, tm_isdst=-1)
+```
+
+### 三种时间格式转化
+
+```mermaid
+graph TB
+	C1(struct_time)
+	C2(Format string)
+	C3(Timestamp)
+	C1--strftime-->C2
+	C2--strptime-->C1
+	C1--mktime-->C3
+	C3--localtime/gmtime-->C1
+	
+	C4(%a %b %d %H %M:%S %Y 串)
+	
+	C1--asctime-->C4
+	C3--ctime-->C4
+```
+
+## datetime 模块
+
+datetime 支持 0001 年（datetime.MINYEAR）到 9999 年（datetime.MAXYEAR）。  
+
+此模块定义了以下 5 个类：
+
+* datetime.date： 表示日期的类。常用属性：year、month、day。
+* datetime.time：表示时间的类。常用属性：hour、minute、second、microsecond。
+* datetime.datetime：表示日期时间。
+* datetime.timedelta：表示时间间隔。
+* datetime.tzinfo：与时区有关的相关信息。
+
+### datetime.datetime
+
+
+
+#### today()
+
+返回一个表示当前本地时间的 datetime 对象。  
+
+#### now([tz])
+
+可选入参 timezone 时区，如果不输入参数，则 now() 和 today() 没什么区别。  
+
+#### utcnow()
+
+返回一个当前 UTC 时间的 datetime对象。
+
+#### fromtimestamp(timestamp[, tz])
+
+根据时间戳创建一个 datetime 对象。
+
+#### utcfromtimstamp(timestamp)
+
+根据当前 UTC 时间和时间戳创建一个 datetime 对象。  
+
+#### strptime(date_string, format)
+
+将格式字符串转换为 datetime 对象。  
+
+#### strftime(format)
+
+将 datetime 对象转换为格式化的 str。  
+
+## 日历模块
+
+*  calendar.calendar(year, w=2, l=1, c=6)
+
+  该函数返回一个多行字符串格式的 year 年历，3 个月一行。  
+
+  w-每日间隔宽度  
+
+  l-星期间隔行数
+
+  c-月间隔宽度  
+
+* calendar.firstweekday()
+
+  返回当前每周起始日期的设置，默认为 0（周一）。可使用 setfirstweekday() 修改，之后使用 calendar 的 api 都为修改后的设置。  
+
+* calendar.isleap(year)
+
+  是否是闰年
+
+* calendar.leapdays(y1,y2)
+
+  y1 和 y2 两年之间的闰年的总数
+
+* calendar.month(year,month,w=2,l=1)
+
+  返回一个多选字符串格式的 year 年 month 月日历。  
+
+* calendar.monthcalendar(year,month)
+
+  返回一个整数的单层嵌套列表。  
+
+  ```python
+  print(calendar.monthcalendar(2018,8))
+  # [[0, 0, 0, 1, 2, 3, 4], [5, 6, 7, 8, 9, 10, 11], [12, 13, 14, 15, 16, 17, 18], [19, 20, 21, 22, 23, 24, 25], [26, 27, 28, 29, 30, 31, 0]]
+  
+  ```
+
+* calendar.monthrange(year,month)
+
+  返回一个元组，内有两个值。
+
+  第一个是这个月是从周几开始的，第二个是这个月共有几天。  
+
+* calendar.timegm(tupletime)
+
+  和 time.gmtime 相反，接收一个时间元组形式，返回该时刻的时间戳。
+
+* calendar.weekday(year,month,day)
+
+  返回这一天是周几。
+
+# 文件操作
+
+## 打开文件
+
+`open(file_name[, access_mode][, buffering])`
+
+file_name:文件名；  
+
+access_mode:打开模式，只读/写入/追加 等。默认为只读(r)；  
+
+buffering:寄存区缓冲大小。  
+
+file_name 可为绝对路径也可为相对路径，绝对路径写全地址，相对路径用`.`代替当前路径值，`..`代替父路径。    
+
+access_mode 值说明：  
+
+```
+'r'       open for reading (default)
+'w'       open for writing, truncating the file first
+'x'       create a new file and open it for writing
+'a'       open for writing, appending to the end of the file if it exists
+'b'       binary mode
+'t'       text mode (default)
+'+'       open a disk file for updating (reading and writing)
+```
+
+## 基本文件方法
+
+### 读和写  
+
+读：`file_content = fileObject.read([count])`  count 参数表示读多少。默认读所有。  
+
+写：`write_length = fileObject.write(string)`   
+
+### 读写行  
+
+#### readline
+
+`file.readline([count])` count 表示读多少字符。默认读指针开始这一行的所有内容。  
+
+```python
+# 文件内容如下：
+# 123
+# 456
+# 789
+file = open('test.txt')
+print(file.readline(1)) # 1
+print(file.readline(5)) # 123
+```
+
+个人推测 readline() 的 count 参数的算法为：    
+
+* count 小于等于 0 时，不生效；
+* 前面若没有换行符，则截至当前位置。  
+* 其余情况，均只读一行
+
+#### readlines
+
+`list = file.readlines([hint])` hint 表示读取长度。值小于等于 0 或不传则读所有。    
+
+```python
+# 文件内容如下：
+# 123
+# 456
+# 789
+file = open('test.txt')
+print(file.readlines(1)) # ['123\n']
+print(file.readline(5)) # ['123\n', '456\n']
+```
+
+#### writelines
+
+即 readlines 的反向。换行符不能省。  
+
+### 关闭文件  
+
+fileObject.close()
+
+
+
+### 文件重命名
+
+引入 os 包，如果在重命名操作前对 file 进行了 open 操作并且未 close，则会报错 PermissionError。  
+
+```python
+import os
+os.rename('e:/code/python/test01.txt', 'e:/code/python/test02.txt')
+```
+
+### 删除文件
+
+```python
+if os.path.exists('e:/code/python/test01.txt'):
+    # if 判断，避免抛错
+    print('file exist')
+    os.remove('e:/code/python/test01.txt')
+else:
+    print('file not exist')
+```
+
+## 文件迭代
+
+```python
+# 文件内容如下：
+# 123
+# 456
+# 789
+
+# 方法一：fileinput 不用手动开关文件
+import fileinput
+count = 0
+for line in fileinput.input('e:/code/python/test01.txt'):
+    count += 1
+    print('line', count)
+    print(line)
+# 结果
+# line 1
+# 123
+#
+# line 2
+# 456
+#
+# line 3
+# 789
+# 存在的空行个人认为是原文本最后的'\n'换行字符在控制台解析后的结果
+
+# 方法二：文件迭代器 文件本身就可迭代，方便
+file = open('e:/code/python/test01.txt')
+count = 0
+for line in file:
+    count += 1
+    print('line', count)
+    print(line)
+file.close()
+# 结果同上
+```
+
+
+
+两种方法是完全等价的。
+
+
+
+## StringIO 函数
+
+用途：操作 String 的另一种方法。  
+
+```python
+from io import StringIO
+# 写入值
+# 1.new 对象时写入
+io_object = StringIO('aa')
+# 2.通用的 IO 写入
+io_object.write('bb')
+io_object.writelines(['\nbb\ncc', 'dd'])
+# 输出
+# 1.获取这个流种的所有的值，指针不会动
+io_object.getvalue()
+# 2.通用的 IO 读取
+list = io_object.readlines()
+```
+
+##  序列化和反序列化
+
+### 一般序列化和反序列化
+
+引入 pickle 模块。  
+
+序列化：  
+
+pickle.dump(obj, file[, protocol])  
+
+```python
+import pickle
+
+# dumps 的应用
+dumps_obj = pickle.dumps('123')
+print(dumps_obj) #b'\x80\x03X\x03\x00\x00\x00123q\x00.'
+print(type(dumps_obj)) #<class 'bytes'>
+
+# dump 的应用
+# 1. 打开这个待写的文件
+student_file = open('student.txt', 'wb')
+# 2. 生成待写的对象
+xiao_ming = dict(name='xiaoming', age=12)
+students = []
+students.append(xiao_ming)
+# 3. 序列化输出到文件
+pickle.dump(students, student_file)
+# 4. 关闭文件
+student_file.close()
+```
+
+反序列化：  
+
+```python
+student_file = open('student.txt', 'rb')
+students = pickle.load(student_file)
+print(students) #[{'name': 'xiaoming', 'age': 12}]
+student_file.close()
+```
+
+### JSON 序列化和反序列化
+
+* json.dumps() 序列化
+* json.loads() 反序列化
+
+```python
+# 关于 dumps
+students_dumps = json.dumps(students)
+print(students_dumps) #[{"name": "xiaoming", "age": 12}]
+print(type(students_dumps)) #<class 'str'>
+
+# 序列化
+file_object = open('student.txt', 'w')
+json.dump(students, file_object)
+file_object.close()
+
+# 反序列化
+file_object = open('student.txt')
+json_object = json.load(file_object)
+file_object.close()
+print(json_object) #[{'name': 'xiaoming', 'age': 12}]
+print(type(json_object)) #<class 'list'>
+```
+
+
+
+## with
+
+自己加的，书里没写到（这么好用的东西竟然不写，真的是。。。）  
+
+```python
+with open('student.txt') as file_object:
+    aa = json.load(file_object)
+print(aa) #[{'name': 'xiaoming', 'age': 12}]
+print(type(aa)) #<class 'list'>
+```
+

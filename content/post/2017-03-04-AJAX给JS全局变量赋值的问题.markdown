@@ -1,0 +1,40 @@
+---
+layout: post
+title:  "AJAX 给 JS 全局变量赋值的问题"
+date:   2017-03-04 13:45:54 +0800
+tags: [JS, AJAX, jQuery]
+---
+
+在执行下面这段代码时遇到问题：  
+```js
+var applseq = "";
+$.ajax({
+    type: "GET",
+    url: "/app/appserver/ca/hdjrforward",
+    data: {
+        "code": code
+    },
+    dataType: "json",
+    success: function (data) {
+        applseq = data.body.applseq;
+        alert("1："+applseq);
+    }
+    alert("2："+applseq);
+});  
+```
+运行结果是，先弹「2：」，接着弹「1：422133」。  
+且结果是必然如是发生的。  
+
+笔者一开始猜想这会不会是浏览器在遇到异步请求时使用了多线程的方式来处理，才导致了这样的结果。查询资料发现，JS 运行在浏览器中是单线程的。  
+引用如下：  
+> 因为JS运行在浏览器中，是单线程的，每个window一个JS线程，既然是单线程的，在某个特定的时刻只有特定的代码能够被执行，并阻塞其它的代码。而浏览器是事件驱动的（Event driven），浏览器中很多行为是异步（Asynchronized）的，会创建事件并放入执行队列中。javascript引擎是单线程处理它的任务队列，你可以理解成就是普通函数和回调函数构成的队列。当异步事件发生时，如mouse click, a timer firing, or an XMLHttpRequest completing（鼠标点击事件发生、定时器触发事件发生、XMLHttpRequest完成回调触发等），将他们放入执行队列，等待当前代码执行完成。  
+
+> 前面已经提到浏览器是事件驱动的（Event driven），浏览器中很多行为是异步（Asynchronized）的，例如：鼠标点击事件、窗口大小拖拉事件、定时器触发事件、 XMLHttpRequest完成回调等。当一个异步事件发生的时候，它就进入事件队列。浏览器有一个内部大消息循环，Event Loop（事件循环），会轮询大的事件队列并处理事件。例如，浏览器当前正在忙于处理onclick事件，这时另外一个事件发生了（如：window onSize），这个异步事件就被放入事件队列等待处理，只有前面的处理完毕了，空闲了才会执行这个事件。setTimeout也是一样，当调用的时 候，js引擎会启动定时器timer，大约xxms以后执行xxx，当定时器时间到，就把该事件放到主事件队列等待处理（浏览器不忙的时候才会真正执行）。
+
+——出自 http://www.cnblogs.com/yasmi/articles/5064588.html
+
+解决办法：  
+在 Ajax 请求中设置非异步：  
+```js
+async: false,
+```

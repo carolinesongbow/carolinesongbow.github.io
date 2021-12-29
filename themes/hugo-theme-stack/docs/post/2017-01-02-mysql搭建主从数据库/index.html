@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='使用 MySQL 版本：5.7 系统环境：CentOS 6.5  修改主服务器（master）配置： $ vim /etc/my.cnf # 启用二进制日志 log-bin=mysql-bin # 服务器唯一ID server-id=111 修改从服务器（slave）配置： $ vim /etc/my.cnf # 启用二进制日志，可不配 log-bin=mysql-bin # 服务器唯一ID server-id=112 重启两个 MySQL 服务 service mysqld restart; 在主库建一个专用来备份的 MySQL 账户 mysql&amp;gt; grant replication slave,reload,super on *.* &amp;gt; to &#39;backup&#39;@&#39;192.168.1.50&#39; identified by &#39;password&#39;; Query OK, 0 rows affected, 1 warning (0.01 sec) mysql&amp;gt; flush privileges; Query OK, 0 rows affected (0.00 sec) backup：账号名
+password：密码
+192.168.1.50：从库IP地址'><title>MySQL 搭建主从数据库</title>
+
+<link rel='canonical' href='/post/2017-01-02-mysql%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='MySQL 搭建主从数据库'>
+<meta property='og:description' content='使用 MySQL 版本：5.7 系统环境：CentOS 6.5  修改主服务器（master）配置： $ vim /etc/my.cnf # 启用二进制日志 log-bin=mysql-bin # 服务器唯一ID server-id=111 修改从服务器（slave）配置： $ vim /etc/my.cnf # 启用二进制日志，可不配 log-bin=mysql-bin # 服务器唯一ID server-id=112 重启两个 MySQL 服务 service mysqld restart; 在主库建一个专用来备份的 MySQL 账户 mysql&amp;gt; grant replication slave,reload,super on *.* &amp;gt; to &#39;backup&#39;@&#39;192.168.1.50&#39; identified by &#39;password&#39;; Query OK, 0 rows affected, 1 warning (0.01 sec) mysql&amp;gt; flush privileges; Query OK, 0 rows affected (0.00 sec) backup：账号名
+password：密码
+192.168.1.50：从库IP地址'>
+<meta property='og:url' content='/post/2017-01-02-mysql%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93/'>
+<meta property='og:site_name' content=''>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='MySQL' /><meta property='article:tag' content='Linux' /><meta property='article:published_time' content='2017-01-02T23:39:54&#43;08:00'/><meta property='article:modified_time' content='2017-01-02T23:39:54&#43;08:00'/><meta property='og:image' content='/3953273590_704e3899d5_m.jpg' />
+<meta name="twitter:title" content="MySQL 搭建主从数据库">
+<meta name="twitter:description" content="使用 MySQL 版本：5.7 系统环境：CentOS 6.5  修改主服务器（master）配置： $ vim /etc/my.cnf # 启用二进制日志 log-bin=mysql-bin # 服务器唯一ID server-id=111 修改从服务器（slave）配置： $ vim /etc/my.cnf # 启用二进制日志，可不配 log-bin=mysql-bin # 服务器唯一ID server-id=112 重启两个 MySQL 服务 service mysqld restart; 在主库建一个专用来备份的 MySQL 账户 mysql&amp;gt; grant replication slave,reload,super on *.* &amp;gt; to &#39;backup&#39;@&#39;192.168.1.50&#39; identified by &#39;password&#39;; Query OK, 0 rows affected, 1 warning (0.01 sec) mysql&amp;gt; flush privileges; Query OK, 0 rows affected (0.00 sec) backup：账号名
+password：密码
+192.168.1.50：从库IP地址"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='/3953273590_704e3899d5_m.jpg' />
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span></span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/2017-01-02-mysql%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                
+                    <img src="/3953273590_704e3899d5_m.jpg" loading="lazy" alt="Featured image of post MySQL 搭建主从数据库" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E4%B8%9A%E4%BD%99%E5%AD%A6%E4%B9%A0/" >
+                业余学习
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/post/2017-01-02-mysql%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93/">MySQL 搭建主从数据库</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 02, 2017</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <ul>
+<li>使用 MySQL 版本：5.7</li>
+<li>系统环境：CentOS 6.5</li>
+</ul>
+<h4 id="修改主服务器master配置">修改主服务器（master）配置：</h4>
+<pre><code>$ vim /etc/my.cnf
+
+# 启用二进制日志
+log-bin=mysql-bin
+# 服务器唯一ID
+server-id=111
+</code></pre><h4 id="修改从服务器slave配置">修改从服务器（slave）配置：</h4>
+<pre><code>$ vim /etc/my.cnf
+
+# 启用二进制日志，可不配
+log-bin=mysql-bin
+# 服务器唯一ID
+server-id=112
+</code></pre><h4 id="重启两个-mysql-服务">重启两个 MySQL 服务</h4>
+<pre><code>service mysqld restart;
+</code></pre><h4 id="在主库建一个专用来备份的-mysql-账户">在主库建一个专用来备份的 MySQL 账户</h4>
+<pre><code>mysql&gt; grant replication slave,reload,super on *.* 
+     &gt; to 'backup'@'192.168.1.50' identified by 'password';
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+mysql&gt; flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+</code></pre><p>backup：账号名<br>
+password：密码<br>
+192.168.1.50：从库IP地址</p>
+<h4 id="记录主库状态">记录主库状态</h4>
+<pre><code>mysql&gt; show master status;
++------------------+----------+--------------+------------------+-------------------+
+| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
++------------------+----------+--------------+------------------+-------------------+
+| mysql-bin.000001 |      622 |              |                  |                   |
++------------------+----------+--------------+------------------+-------------------+
+1 row in set (0.00 sec)
+</code></pre><h4 id="修改从库配置">修改从库配置</h4>
+<pre><code>mysql&gt; change master to master_host='192.168.1.111',master_user='backup',
+    -&gt; master_password='1029384756',master_log_file='mysql-bin.000001',
+    -&gt; master_log_pos=622;
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql&gt; start slave;
+Query OK, 0 rows affected (0.01 sec)
+</code></pre><p>主库状态中的 File 对应 master_log_file；<br>
+主库状态中的 Position 对应 master_log_pos。</p>
+<h4 id="问题">问题</h4>
+<p>在从库执行<code>show slave status\G;</code>得出结果如下：</p>
+<pre><code>mysql&gt; show slave status\G;
+*************************** 1. row ***************************
+               Slave_IO_State: Connecting to master
+                  Master_Host: 192.168.1.111
+                  Master_User: backup
+                  Master_Port: 3306
+                Connect_Retry: 60
+              Master_Log_File: mysql-bin.000001
+          Read_Master_Log_Pos: 622
+               Relay_Log_File: localhost-relay-bin.000001
+                Relay_Log_Pos: 4
+        Relay_Master_Log_File: mysql-bin.000001
+             Slave_IO_Running: Connecting
+            Slave_SQL_Running: Yes
+              Replicate_Do_DB: 
+          Replicate_Ignore_DB: 
+           Replicate_Do_Table: 
+       Replicate_Ignore_Table: 
+      Replicate_Wild_Do_Table: 
+  Replicate_Wild_Ignore_Table: 
+                   Last_Errno: 0
+                   Last_Error: 
+                 Skip_Counter: 0
+          Exec_Master_Log_Pos: 622
+              Relay_Log_Space: 154
+              Until_Condition: None
+               Until_Log_File: 
+                Until_Log_Pos: 0
+           Master_SSL_Allowed: No
+           Master_SSL_CA_File: 
+           Master_SSL_CA_Path: 
+              Master_SSL_Cert: 
+            Master_SSL_Cipher: 
+               Master_SSL_Key: 
+        Seconds_Behind_Master: NULL
+Master_SSL_Verify_Server_Cert: No
+                Last_IO_Errno: 1045
+                Last_IO_Error: error connecting to master 'backup@192.168.1.111:3306' - retry-time: 60  retries: 1
+               Last_SQL_Errno: 0
+               Last_SQL_Error: 
+  Replicate_Ignore_Server_Ids: 
+             Master_Server_Id: 0
+                  Master_UUID: 
+             Master_Info_File: /var/lib/mysql/master.info
+                    SQL_Delay: 0
+          SQL_Remaining_Delay: NULL
+      Slave_SQL_Running_State: Slave has read all relay log; waiting for more updates
+           Master_Retry_Count: 86400
+                  Master_Bind: 
+      Last_IO_Error_Timestamp: 161221 22:56:48
+     Last_SQL_Error_Timestamp: 
+               Master_SSL_Crl: 
+           Master_SSL_Crlpath: 
+           Retrieved_Gtid_Set: 
+            Executed_Gtid_Set: 
+                Auto_Position: 0
+         Replicate_Rewrite_DB: 
+                 Channel_Name: 
+           Master_TLS_Version: 
+1 row in set (0.00 sec)
+</code></pre><p>后检查发现原因是之前在主库中设置从库IP地址时设错了。</p>
+<p>于是去主库修改备份账户的IP地址：</p>
+<pre><code>mysql&gt; update user set host='192.168.1.112' where user='backup';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql&gt; flush privileges;
+Query OK, 0 rows affected (0.01 sec)
+</code></pre><p>再次查询从库状态：</p>
+<pre><code>*************************** 1. row ***************************
+               Slave_IO_State: Waiting for master to send event
+                  Master_Host: 192.168.1.111
+                  Master_User: backup
+                  Master_Port: 3306
+                Connect_Retry: 60
+              Master_Log_File: mysql-bin.000001
+          Read_Master_Log_Pos: 1508
+               Relay_Log_File: localhost-relay-bin.000002
+                Relay_Log_Pos: 320
+        Relay_Master_Log_File: mysql-bin.000001
+             Slave_IO_Running: Yes
+            Slave_SQL_Running: No
+              Replicate_Do_DB: 
+          Replicate_Ignore_DB: 
+           Replicate_Do_Table: 
+       Replicate_Ignore_Table: 
+      Replicate_Wild_Do_Table: 
+  Replicate_Wild_Ignore_Table: 
+                   Last_Errno: 1032
+                   Last_Error: Could not execute Update_rows event on table mysql.user; Can't find record in 'user', Error_code: 1032; handler error HA_ERR_KEY_NOT_FOUND; the event's master log mysql-bin.000001, end_log_pos 1277
+                 Skip_Counter: 0
+          Exec_Master_Log_Pos: 622
+              Relay_Log_Space: 1417
+              Until_Condition: None
+               Until_Log_File: 
+                Until_Log_Pos: 0
+           Master_SSL_Allowed: No
+           Master_SSL_CA_File: 
+           Master_SSL_CA_Path: 
+              Master_SSL_Cert: 
+            Master_SSL_Cipher: 
+               Master_SSL_Key: 
+        Seconds_Behind_Master: NULL
+Master_SSL_Verify_Server_Cert: No
+                Last_IO_Errno: 0
+                Last_IO_Error: 
+               Last_SQL_Errno: 1032
+               Last_SQL_Error: Could not execute Update_rows event on table mysql.user; Can't find record in 'user', Error_code: 1032; handler error HA_ERR_KEY_NOT_FOUND; the event's master log mysql-bin.000001, end_log_pos 1277
+  Replicate_Ignore_Server_Ids: 
+             Master_Server_Id: 111
+                  Master_UUID: 37503273-c521-11e6-90f8-000c29012e9f
+             Master_Info_File: /var/lib/mysql/master.info
+                    SQL_Delay: 0
+          SQL_Remaining_Delay: NULL
+      Slave_SQL_Running_State: 
+           Master_Retry_Count: 86400
+                  Master_Bind: 
+      Last_IO_Error_Timestamp: 
+     Last_SQL_Error_Timestamp: 161221 23:00:48
+               Master_SSL_Crl: 
+           Master_SSL_Crlpath: 
+           Retrieved_Gtid_Set: 
+            Executed_Gtid_Set: 
+                Auto_Position: 0
+         Replicate_Rewrite_DB: 
+                 Channel_Name: 
+           Master_TLS_Version: 
+</code></pre><p>初步判断问题是由于之前在主库执行的 update 语句，导致主从库数据不一致，使得数据无法同步。<br>
+因此在从库中执行了同样的 update 语句，依然报错。<br>
+分析可能是由于 update 语句的执行，主库的日志偏移点发生了变化，使得从库无法同步数据。因此笔者做了如下操作：</p>
+<pre><code># 主库：
+mysql&gt; show master status;
++------------------+----------+--------------+------------------+-------------------+
+| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
++------------------+----------+--------------+------------------+-------------------+
+| mysql-bin.000001 |     1508 |              |                  |                   |
++------------------+----------+--------------+------------------+-------------------+
+1 row in set (0.00 sec)
+
+# 从库：
+mysql&gt; stop slave IO_THREAD;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; change master to master_host='192.168.1.111',master_user='backup',
+    -&gt; master_password='123',master_log_file='mysql-bin.000001', master_log_pos=1508;
+Query OK, 0 rows affected, 2 warnings (0.01 sec)
+
+mysql&gt; start slave io_thread;
+Query OK, 0 rows affected (0.01 sec)
+
+# 重启从库的 MySQL 服务
+$ service mysqld restart
+</code></pre><p>然后查询从库状态：</p>
+<pre><code>*************************** 1. row ***************************
+               Slave_IO_State: Waiting for master to send event
+                  Master_Host: 192.168.1.111
+                  Master_User: backup
+                  Master_Port: 3306
+                Connect_Retry: 60
+              Master_Log_File: mysql-bin.000001
+          Read_Master_Log_Pos: 1508
+               Relay_Log_File: localhost-relay-bin.000004
+                Relay_Log_Pos: 320
+        Relay_Master_Log_File: mysql-bin.000001
+             Slave_IO_Running: Yes
+            Slave_SQL_Running: Yes
+              Replicate_Do_DB: 
+          Replicate_Ignore_DB: 
+           Replicate_Do_Table: 
+       Replicate_Ignore_Table: 
+      Replicate_Wild_Do_Table: 
+  Replicate_Wild_Ignore_Table: 
+                   Last_Errno: 0
+                   Last_Error: 
+                 Skip_Counter: 0
+          Exec_Master_Log_Pos: 1508
+              Relay_Log_Space: 531
+              Until_Condition: None
+               Until_Log_File: 
+                Until_Log_Pos: 0
+           Master_SSL_Allowed: No
+           Master_SSL_CA_File: 
+           Master_SSL_CA_Path: 
+              Master_SSL_Cert: 
+            Master_SSL_Cipher: 
+               Master_SSL_Key: 
+        Seconds_Behind_Master: 0
+Master_SSL_Verify_Server_Cert: No
+                Last_IO_Errno: 0
+                Last_IO_Error: 
+               Last_SQL_Errno: 0
+               Last_SQL_Error: 
+  Replicate_Ignore_Server_Ids: 
+             Master_Server_Id: 111
+                  Master_UUID: 37503273-c521-11e6-90f8-000c29012e9f
+             Master_Info_File: /var/lib/mysql/master.info
+                    SQL_Delay: 0
+          SQL_Remaining_Delay: NULL
+      Slave_SQL_Running_State: Slave has read all relay log; waiting for more updates
+           Master_Retry_Count: 86400
+                  Master_Bind: 
+      Last_IO_Error_Timestamp: 
+     Last_SQL_Error_Timestamp: 
+               Master_SSL_Crl: 
+           Master_SSL_Crlpath: 
+           Retrieved_Gtid_Set: 
+            Executed_Gtid_Set: 
+                Auto_Position: 0
+         Replicate_Rewrite_DB: 
+                 Channel_Name: 
+           Master_TLS_Version:
+</code></pre><p><strong>Slave_IO_Running: Yes<br>
+Slave_SQL_Running: Yes</strong><br>
+成功！</p>
+<p>测试一下效果：</p>
+<pre><code># 在主库新增一个 database
+mysql&gt; create database mytest1221;
+Query OK, 1 row affected (0.02 sec)
+
+# 在从库查询 database
+mysql&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| mytest1221         |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;hello world&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mysql/">MySQL</a>
+        
+            <a href="/tags/linux/">Linux</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2021 
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title"></h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#修改主服务器master配置">修改主服务器（master）配置：</a></li>
+            <li><a href="#修改从服务器slave配置">修改从服务器（slave）配置：</a></li>
+            <li><a href="#重启两个-mysql-服务">重启两个 MySQL 服务</a></li>
+            <li><a href="#在主库建一个专用来备份的-mysql-账户">在主库建一个专用来备份的 MySQL 账户</a></li>
+            <li><a href="#记录主库状态">记录主库状态</a></li>
+            <li><a href="#修改从库配置">修改从库配置</a></li>
+            <li><a href="#问题">问题</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='读取springboot的配置文件时使用Converter 因为项目中引入了公司自己编写的一个支持 BaseMapper 的 Mybatis 包，但这个自编 Mybatis 包有个问题，没有默认方言配置，不配置方言会报 NPE。
+而 Mybatis 的默认 yaml 文件配置中，没有关于方言的配置，之前项目中使用了丑陋麻烦的注入方案：
+@Configuration @EnableTransactionManagement @AutoConfigureAfter({SpringBootConfiguration.class}) public class MybatisConfig implements TransactionManagementConfigurer { private String dialect = &amp;#34;org.apache.ibatis.dialect.MysqlDialect&amp;#34;; @Autowired private DataSource dataSource; @Bean(name = &amp;#34;sqlSessionFactory&amp;#34;) public SqlSessionFactory sqlSessionFactoryBean() { SqlSessionFactory sqlSessionFactoryBean = new SqlSessionFactoryBean(); sqlSessionFactoryBean.setDataSource(dataSource); sqlSessionFactoryBean.setTypeAliasesPackage(&amp;#34;com.xxxx.xxx&amp;#34;); sqlSessionFactoryBean.setDialect(dialect); ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(); try { sqlSessionFactoryBean.setMapperLocations(resolver.getResources(&amp;#34;classpath*:com/xxx/xxx/*.xml&amp;#34;)); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCaseForMap(true); return sqlSessionFacotryBean.getObject(); } catch (Exception e) { throw new RuntimeException(e); } } @Bean @Override public PlatformTransactionManager annotationDrivenTransactionManager() { return new DataSourceTransactionManager(dataSource); } @Configuration @AutoConfigureAfter(MybatisConfig.'><title>如何在ssm项目中优雅地使用Converter</title>
+
+<link rel='canonical' href='/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='如何在ssm项目中优雅地使用Converter'>
+<meta property='og:description' content='读取springboot的配置文件时使用Converter 因为项目中引入了公司自己编写的一个支持 BaseMapper 的 Mybatis 包，但这个自编 Mybatis 包有个问题，没有默认方言配置，不配置方言会报 NPE。
+而 Mybatis 的默认 yaml 文件配置中，没有关于方言的配置，之前项目中使用了丑陋麻烦的注入方案：
+@Configuration @EnableTransactionManagement @AutoConfigureAfter({SpringBootConfiguration.class}) public class MybatisConfig implements TransactionManagementConfigurer { private String dialect = &amp;#34;org.apache.ibatis.dialect.MysqlDialect&amp;#34;; @Autowired private DataSource dataSource; @Bean(name = &amp;#34;sqlSessionFactory&amp;#34;) public SqlSessionFactory sqlSessionFactoryBean() { SqlSessionFactory sqlSessionFactoryBean = new SqlSessionFactoryBean(); sqlSessionFactoryBean.setDataSource(dataSource); sqlSessionFactoryBean.setTypeAliasesPackage(&amp;#34;com.xxxx.xxx&amp;#34;); sqlSessionFactoryBean.setDialect(dialect); ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(); try { sqlSessionFactoryBean.setMapperLocations(resolver.getResources(&amp;#34;classpath*:com/xxx/xxx/*.xml&amp;#34;)); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCaseForMap(true); return sqlSessionFacotryBean.getObject(); } catch (Exception e) { throw new RuntimeException(e); } } @Bean @Override public PlatformTransactionManager annotationDrivenTransactionManager() { return new DataSourceTransactionManager(dataSource); } @Configuration @AutoConfigureAfter(MybatisConfig.'>
+<meta property='og:url' content='/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/'>
+<meta property='og:site_name' content=''>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='springboot' /><meta property='article:tag' content='mybatis' /><meta property='article:tag' content='converter' /><meta property='article:published_time' content='2020-04-08T16:01:54&#43;08:00'/><meta property='article:modified_time' content='2020-04-08T16:01:54&#43;08:00'/>
+<meta name="twitter:title" content="如何在ssm项目中优雅地使用Converter">
+<meta name="twitter:description" content="读取springboot的配置文件时使用Converter 因为项目中引入了公司自己编写的一个支持 BaseMapper 的 Mybatis 包，但这个自编 Mybatis 包有个问题，没有默认方言配置，不配置方言会报 NPE。
+而 Mybatis 的默认 yaml 文件配置中，没有关于方言的配置，之前项目中使用了丑陋麻烦的注入方案：
+@Configuration @EnableTransactionManagement @AutoConfigureAfter({SpringBootConfiguration.class}) public class MybatisConfig implements TransactionManagementConfigurer { private String dialect = &amp;#34;org.apache.ibatis.dialect.MysqlDialect&amp;#34;; @Autowired private DataSource dataSource; @Bean(name = &amp;#34;sqlSessionFactory&amp;#34;) public SqlSessionFactory sqlSessionFactoryBean() { SqlSessionFactory sqlSessionFactoryBean = new SqlSessionFactoryBean(); sqlSessionFactoryBean.setDataSource(dataSource); sqlSessionFactoryBean.setTypeAliasesPackage(&amp;#34;com.xxxx.xxx&amp;#34;); sqlSessionFactoryBean.setDialect(dialect); ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(); try { sqlSessionFactoryBean.setMapperLocations(resolver.getResources(&amp;#34;classpath*:com/xxx/xxx/*.xml&amp;#34;)); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true); sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCaseForMap(true); return sqlSessionFacotryBean.getObject(); } catch (Exception e) { throw new RuntimeException(e); } } @Bean @Override public PlatformTransactionManager annotationDrivenTransactionManager() { return new DataSourceTransactionManager(dataSource); } @Configuration @AutoConfigureAfter(MybatisConfig.">
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span></span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/">如何在ssm项目中优雅地使用Converter</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 08, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="读取springboot的配置文件时使用converter">读取springboot的配置文件时使用Converter</h2>
+<p>因为项目中引入了公司自己编写的一个支持 BaseMapper 的 Mybatis 包，但这个自编 Mybatis 包有个问题，没有默认方言配置，不配置方言会报 NPE。</p>
+<p>而 Mybatis 的默认 yaml 文件配置中，没有关于方言的配置，之前项目中使用了丑陋麻烦的注入方案：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="nd">@EnableTransactionManagement</span>
+<span class="nd">@AutoConfigureAfter</span><span class="o">({</span><span class="n">SpringBootConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MybatisConfig</span> <span class="kd">implements</span> <span class="n">TransactionManagementConfigurer</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">dialect</span> <span class="o">=</span> <span class="s">&#34;org.apache.ibatis.dialect.MysqlDialect&#34;</span><span class="o">;</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">;</span>
+    
+    <span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;sqlSessionFactory&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">SqlSessionFactory</span> <span class="nf">sqlSessionFactoryBean</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">SqlSessionFactory</span> <span class="n">sqlSessionFactoryBean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SqlSessionFactoryBean</span><span class="o">();</span>
+        <span class="n">sqlSessionFactoryBean</span><span class="o">.</span><span class="na">setDataSource</span><span class="o">(</span><span class="n">dataSource</span><span class="o">);</span>
+        <span class="n">sqlSessionFactoryBean</span><span class="o">.</span><span class="na">setTypeAliasesPackage</span><span class="o">(</span><span class="s">&#34;com.xxxx.xxx&#34;</span><span class="o">);</span>
+        <span class="n">sqlSessionFactoryBean</span><span class="o">.</span><span class="na">setDialect</span><span class="o">(</span><span class="n">dialect</span><span class="o">);</span>
+       
+        <span class="n">ResourcePatternResolver</span> <span class="n">resolver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PathMatchingResourcePatternResolver</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">sqlSessionFactoryBean</span><span class="o">.</span><span class="na">setMapperLocations</span><span class="o">(</span><span class="n">resolver</span><span class="o">.</span><span class="na">getResources</span><span class="o">(</span><span class="s">&#34;classpath*:com/xxx/xxx/*.xml&#34;</span><span class="o">));</span>
+            <span class="n">sqlSessionFactoryBean</span><span class="o">.</span><span class="na">getObject</span><span class="o">().</span><span class="na">getConfiguration</span><span class="o">().</span><span class="na">setMapUnderscoreToCamelCase</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="n">sqlSessionFactoryBean</span><span class="o">.</span><span class="na">getObject</span><span class="o">().</span><span class="na">getConfiguration</span><span class="o">().</span><span class="na">setMapUnderscoreToCamelCaseForMap</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">sqlSessionFacotryBean</span><span class="o">.</span><span class="na">getObject</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Bean</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">PlatformTransactionManager</span> <span class="nf">annotationDrivenTransactionManager</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">DataSourceTransactionManager</span><span class="o">(</span><span class="n">dataSource</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Configuration</span>
+    <span class="nd">@AutoConfigureAfter</span><span class="o">(</span><span class="n">MybatisConfig</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyBatisMapperScannerConfig</span> <span class="o">{</span>
+        <span class="nd">@Bean</span>
+        <span class="kd">public</span> <span class="n">MapperScannerConfigurer</span> <span class="nf">mapperScannerConfigurer</span><span class="o">()</span> <span class="o">{</span>
+            <span class="n">MapperScannerConfigurer</span> <span class="n">mapperScannerConfigurer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MapperScannerConfigurer</span><span class="o">();</span>
+            <span class="n">mapperScannerConfigurer</span><span class="o">.</span><span class="na">setCamelhumpToUnderline</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="n">mapperScannerConfigurer</span><span class="o">.</span><span class="na">setBasePackage</span><span class="o">(</span><span class="s">&#34;com.xxx.xxx.**.dao&#34;</span><span class="o">);</span>
+            <span class="n">mapperScannerConfigurer</span><span class="o">.</span><span class="na">setSqlSessionFactoryBeanName</span><span class="o">(</span><span class="s">&#34;sqlSessionFactory&#34;</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">mapperScannerConfigurer</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>如果已经有 Mybatis 的配置类，加入一行方言配置倒是比较方便的做法。</p>
+<p>但我想试试有没有别的办法。</p>
+<p>对代码进行分析，发现在自写的 Configuration 类中，有属性定义<code>protected Dialect dialect;</code></p>
+<p>问题来了，Configuration 类中的属性，又是什么时候设置的？只要我干涉这个设置方法，就有可能可使配置生效。</p>
+<p>查看 MybatisProperties 类，重点代码缩略如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">MybatisProperties</span><span class="o">.</span><span class="na">MYBATIS_PREFIX</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MybatisProperties</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">MYBATIS_PREFIX</span> <span class="o">=</span> <span class="s">&#34;mybatis&#34;</span><span class="o">;</span>
+    
+  <span class="cm">/**
+</span><span class="cm">   * A Configuration object for customize default settings. If {@link #configLocation} is specified, this property is
+</span><span class="cm">   * not used.
+</span><span class="cm">   */</span>
+  <span class="nd">@NestedConfigurationProperty</span>
+  <span class="kd">private</span> <span class="n">Configuration</span> <span class="n">configuration</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>也就是说，配置文件中以<code>mybatis.configuration</code>为开头的配置都读取了进来，理论上，我配置上以<code>mybatis.configuration.dialect</code>为键的配置，该配置应该就能生效。</p>
+<p>故我做了如下配置：</p>
+<ol>
+<li>
+<p>yaml 文件配置：</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">mybatis.configuration.dialect</span><span class="p">:</span><span class="w"> </span><span class="l">org.apache.ibatis.dialect.MysqlDialect</span><span class="w">
+</span></code></pre></div></li>
+</ol>
+<p>这样配置以后，启动的时候报异常：无法把一个配置 String 转为一个 Dialect 对象。</p>
+<p>配置中的所有键值，实质上是通过转换器转换为代码中定义的对象类型的，而一些基本的转换器都已经被定义好了，如 String 转 Integer，String 转 Enum 等等，我们现在要做的，就是自己写一个转换器，把<code>org.apache.ibatis.dialect.MysqlDialect</code>转成一个 Dialect 对象，并把这个转换器，注册到框架的转换器的集合中去。</p>
+<p>中间寻找方案的过程就不赘述了，最后转换器的定义：</p>
+<ol start="2">
+<li>
+<p>增加将类型转换 Converter</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Component</span>
+<span class="nd">@ConfigurationPropertiesBinding</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DialectConverter</span> <span class="kd">implements</span> <span class="n">Converter</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Dialect</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="nd">@SneakyThrows</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Dialect</span> <span class="nf">convert</span><span class="o">(</span><span class="n">String</span> <span class="n">clazz</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">Dialect</span><span class="o">)</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">clazz</span><span class="o">).</span><span class="na">getDeclaredConstructor</span><span class="o">().</span><span class="na">newInstance</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ol>
+<p>如上配置后，就可以将方言做正确的配置啦！</p>
+<h2 id="使用-mybatis-时自动将枚举和字符串之间进行转换">使用 Mybatis 时，自动将枚举和字符串之间进行转换</h2>
+<p>在定义实体类时，将其中一个岗位定义为了枚举。</p>
+<p>在使用中发现，虽然查询条件中的枚举正常转为了字符串，但查询出来的结果在转为实体类时，该枚举字段值为 null。</p>
+<p>实体类定义：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;applicant&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Applicant</span> <span class="o">{</span>
+    <span class="nd">@Id</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">applicantId</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">applicantName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">PositionEnum</span> <span class="n">applicantPosition</span><span class="o">;</span>
+    <span class="c1">//...
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>枚举定义：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> * 职位枚举
+</span><span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="n">PositionEnum</span> <span class="o">{</span>
+    <span class="n">JAVA</span><span class="o">,</span>
+    <span class="n">H5</span><span class="o">,</span>
+    <span class="n">ANDROID</span><span class="o">,</span>
+    <span class="n">IOS</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>Dao方法定义：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Applicant</span><span class="o">&gt;</span> <span class="nf">selectByPositionAndIsWorking</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;position&#34;</span><span class="o">)</span><span class="n">PositionEnum</span> <span class="n">applicantPosition</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;isWorking&#34;</span><span class="o">)</span><span class="n">Integer</span> <span class="n">isWorking</span><span class="o">);</span>
+</code></pre></div><p>Mapper定义：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selectByPositionAndIsWorking&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Applicant&#34;</span><span class="nt">&gt;</span>
+        select * from applicant
+        <span class="nt">&lt;where&gt;</span>
+            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;isWorking!=null&#34;</span><span class="nt">&gt;</span>
+                is_working = #{isWorking}
+            <span class="nt">&lt;/if&gt;</span>
+            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;position!=null&#34;</span><span class="nt">&gt;</span>
+                and applicant_position = #{position}
+            <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;/where&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>如上，</p>
+<p>运行时翻译得到的 SQL 语句是正常的：</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span><span class="w"> </span><span class="n">applicant_id</span><span class="p">,</span><span class="n">applicant_name</span><span class="p">,</span><span class="n">applicant_position</span><span class="p">,</span><span class="n">is_working</span><span class="w"> 
+</span><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">applicant</span><span class="w"> 
+</span><span class="w"></span><span class="k">where</span><span class="w"> </span><span class="n">is_working</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">applicant_position</span><span class="o">=</span><span class="s1">&#39;JAVA&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>但是查出来的结果，Applicant 对象中的 applicantPosition 结果却为 null。</p>
+<p>分析认为需要配置一个转换器。</p>
+<p>修改 yaml 文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">mybatis.configuration.default-enum-type-handler</span><span class="p">:</span><span class="w"> </span><span class="l">org.apache.ibatis.type.EnumTypeHandler</span><span class="w">
+</span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/springboot/">Springboot</a>
+        
+            <a href="/tags/mybatis/">mybatis</a>
+        
+            <a href="/tags/converter/">converter</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2021 
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title"></h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#读取springboot的配置文件时使用converter">读取springboot的配置文件时使用Converter</a></li>
+    <li><a href="#使用-mybatis-时自动将枚举和字符串之间进行转换">使用 Mybatis 时，自动将枚举和字符串之间进行转换</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
