@@ -6,7 +6,16 @@
         <description>Recent content on 芝士饼干蛋挞</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 04 Nov 2021 11:11:54 +0800</lastBuildDate><atom:link href="http://carolinesongbow.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 24 Dec 2021 17:44:08 +0800</lastBuildDate><atom:link href="http://carolinesongbow.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Test</title>
+        <link>http://carolinesongbow.github.io/post/test/</link>
+        <pubDate>Fri, 24 Dec 2021 17:44:08 +0800</pubDate>
+        
+        <guid>http://carolinesongbow.github.io/post/test/</guid>
+        <description>&lt;p&gt;test&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Springboot读取配置的另外一种方法</title>
         <link>http://carolinesongbow.github.io/post/2021-11-04-springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
         <pubDate>Thu, 04 Nov 2021 11:11:54 +0800</pubDate>
