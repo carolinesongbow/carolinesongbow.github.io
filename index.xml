@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>芝士饼干蛋挞</title>
-        <link>http://example.org/</link>
+        <link>http://carolinesongbow.github.io/</link>
         <description>Recent content on 芝士饼干蛋挞</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 04 Nov 2021 11:11:54 +0800</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 04 Nov 2021 11:11:54 +0800</lastBuildDate><atom:link href="http://carolinesongbow.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Springboot读取配置的另外一种方法</title>
-        <link>http://example.org/post/2021-11-04-springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
+        <link>http://carolinesongbow.github.io/post/2021-11-04-springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
         <pubDate>Thu, 04 Nov 2021 11:11:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2021-11-04-springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
-        <description>&lt;img src="http://example.org/images/myphoto/IMG_9616.jpg" alt="Featured image of post Springboot读取配置的另外一种方法" /&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@Component&lt;/span&gt;
+        <guid>http://carolinesongbow.github.io/post/2021-11-04-springboot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E7%9A%84%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
+        <description>&lt;img src="http://carolinesongbow.github.io/images/myphoto/IMG_9616.jpg" alt="Featured image of post Springboot读取配置的另外一种方法" /&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@Component&lt;/span&gt;
 &lt;span style=&#34;color:#a6e22e&#34;&gt;@Configuration&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MyConfig&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
   &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;MyConfig&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;AbstractEnvirionment environment&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
@@ -30,10 +30,10 @@
         </item>
         <item>
         <title>JDBC数据库连接MariaDB版本冲突问题</title>
-        <link>http://example.org/post/2021-06-11-jdbc%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5mariadb%E7%89%88%E6%9C%AC%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</link>
+        <link>http://carolinesongbow.github.io/post/2021-06-11-jdbc%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5mariadb%E7%89%88%E6%9C%AC%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</link>
         <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2021-06-11-jdbc%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5mariadb%E7%89%88%E6%9C%AC%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</guid>
+        <guid>http://carolinesongbow.github.io/post/2021-06-11-jdbc%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5mariadb%E7%89%88%E6%9C%AC%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</guid>
         <description>&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
 &lt;p&gt;项目中提供数据源连接服务，使用了相当多 JDBC 驱动插件，其中包含 MySQL 5.1.44 版本驱动和 MariaDB 2.2.3 版本驱动。&lt;/p&gt;
 &lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;
@@ -56,11 +56,11 @@
         </item>
         <item>
         <title>发现华点</title>
-        <link>http://example.org/post/2021-08-23-%E5%8F%91%E7%8E%B0%E5%8D%8E%E7%82%B9/</link>
+        <link>http://carolinesongbow.github.io/post/2021-08-23-%E5%8F%91%E7%8E%B0%E5%8D%8E%E7%82%B9/</link>
         <pubDate>Fri, 11 Jun 2021 14:20:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2021-08-23-%E5%8F%91%E7%8E%B0%E5%8D%8E%E7%82%B9/</guid>
-        <description>&lt;img src="http://example.org/images/myphoto/IMG_9612.jpg" alt="Featured image of post 发现华点" /&gt;&lt;p&gt;刚才在测数据的时候发现一件事：「60分及格」这个约定似乎与正态分布的规律不谋而合了。&lt;/p&gt;
+        <guid>http://carolinesongbow.github.io/post/2021-08-23-%E5%8F%91%E7%8E%B0%E5%8D%8E%E7%82%B9/</guid>
+        <description>&lt;img src="http://carolinesongbow.github.io/images/myphoto/IMG_9612.jpg" alt="Featured image of post 发现华点" /&gt;&lt;p&gt;刚才在测数据的时候发现一件事：「60分及格」这个约定似乎与正态分布的规律不谋而合了。&lt;/p&gt;
 &lt;p&gt;把一组数做正态分布曲线，如果把正好落在平均数那个点的数的 score 计为 100，那么正好落在平均数+-平均偏离值的那个点的数的 score 则正好是 60 左右。&lt;/p&gt;
 &lt;p&gt;神奇！&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;final&lt;/span&gt; GaussianDistributionUtil test &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; GaussianDistributionUtil&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;100d&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; 30d&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
@@ -152,10 +152,10 @@
         </item>
         <item>
         <title>mybatis查询返回对象为null验证</title>
-        <link>http://example.org/post/2020-07-08-mybatis%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E4%B8%BAnull%E9%AA%8C%E8%AF%81/</link>
+        <link>http://carolinesongbow.github.io/post/2020-07-08-mybatis%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E4%B8%BAnull%E9%AA%8C%E8%AF%81/</link>
         <pubDate>Wed, 08 Jul 2020 09:06:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2020-07-08-mybatis%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E4%B8%BAnull%E9%AA%8C%E8%AF%81/</guid>
+        <guid>http://carolinesongbow.github.io/post/2020-07-08-mybatis%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E5%AF%B9%E8%B1%A1%E4%B8%BAnull%E9%AA%8C%E8%AF%81/</guid>
         <description>&lt;p&gt;昨天浏览项目代码的时候，发现代码中有如下判断：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;User&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; users &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; userDao&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;selectUsers&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;age&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;User user &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; users&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
@@ -240,10 +240,10 @@
         </item>
         <item>
         <title>如何在ssm项目中优雅地使用Converter</title>
-        <link>http://example.org/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/</link>
+        <link>http://carolinesongbow.github.io/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/</link>
         <pubDate>Wed, 08 Apr 2020 16:01:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/</guid>
+        <guid>http://carolinesongbow.github.io/post/2020-04-08-%E5%A6%82%E4%BD%95%E5%9C%A8ssm%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BC%98%E9%9B%85%E5%9C%B0%E4%BD%BF%E7%94%A8converter/</guid>
         <description>&lt;h2 id=&#34;读取springboot的配置文件时使用converter&#34;&gt;读取springboot的配置文件时使用Converter&lt;/h2&gt;
 &lt;p&gt;因为项目中引入了公司自己编写的一个支持 BaseMapper 的 Mybatis 包，但这个自编 Mybatis 包有个问题，没有默认方言配置，不配置方言会报 NPE。&lt;/p&gt;
 &lt;p&gt;而 Mybatis 的默认 yaml 文件配置中，没有关于方言的配置，之前项目中使用了丑陋麻烦的注入方案：&lt;/p&gt;
@@ -385,10 +385,10 @@
         </item>
         <item>
         <title>leetcode刷题笔记</title>
-        <link>http://example.org/post/2020-02-10-leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</link>
+        <link>http://carolinesongbow.github.io/post/2020-02-10-leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Mon, 10 Feb 2020 23:19:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2020-02-10-leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</guid>
+        <guid>http://carolinesongbow.github.io/post/2020-02-10-leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</guid>
         <description>&lt;h2 id=&#34;2312的幂&#34;&gt;[231]2的幂&lt;/h2&gt;
 &lt;p&gt;我一开始解题的时候，思路是：为2的幂的数字有一个共同点——2进制的时候最高位为1，后面都为0。所以该数-1，二进制数的所有数都为1。&lt;/p&gt;
 &lt;p&gt;初版代码：&lt;/p&gt;
@@ -460,10 +460,10 @@
         </item>
         <item>
         <title>kubernetes学习笔记</title>
-        <link>http://example.org/post/2019-04-09-kubernetes%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <link>http://carolinesongbow.github.io/post/2019-04-09-kubernetes%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Tue, 09 Apr 2019 10:54:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2019-04-09-kubernetes%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+        <guid>http://carolinesongbow.github.io/post/2019-04-09-kubernetes%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
         <description>&lt;h1 id=&#34;入门&#34;&gt;入门&lt;/h1&gt;
 &lt;p&gt;Service 是分布式集群架构的核心，特征：&lt;/p&gt;
 &lt;ul&gt;
@@ -489,10 +489,10 @@ E --&amp;gt;|共享| H
         </item>
         <item>
         <title>Spring Cloud Contract契约测试实践</title>
-        <link>http://example.org/post/2018-11-21-spring-cloud-contract%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/</link>
+        <link>http://carolinesongbow.github.io/post/2018-11-21-spring-cloud-contract%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/</link>
         <pubDate>Wed, 21 Nov 2018 16:33:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2018-11-21-spring-cloud-contract%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/</guid>
+        <guid>http://carolinesongbow.github.io/post/2018-11-21-spring-cloud-contract%E5%A5%91%E7%BA%A6%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/</guid>
         <description>&lt;h1 id=&#34;背景&#34;&gt;背景&lt;/h1&gt;
 &lt;p&gt;今年公司在申请 ISO-9000，因此多了很多质量上的管理要求。之前听到测试部提出需要做大覆盖量的集成测试，感到非常不妥。因为目前我们使用的技术是微服务技术，且有相当一部分数据依赖于外部系统（如银联接口等），如果做集成测试，由于服务很多，因此第一，很难保证数据的一致性；第二，很难保证其他服务的稳定程度。后果就是出现错误的概率高、维护成本高、排查问题的成本高。&lt;/p&gt;
 &lt;p&gt;因此我在网上搜索微服务适用的测试框架，发现现在有些新的测试框架是基于契约的测试，这样对微服务来说会更友好。&lt;/p&gt;
@@ -625,8 +625,8 @@ contracts &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
 &lt;p&gt;执行 gradle generateContractTests，生成测试位于 build/generated-test-sources/contracts 下。&lt;/p&gt;
 &lt;p&gt;生成的测试如下图：  &lt;figure 
 	&gt;
-	&lt;a href=&#34;http://example.org/images/contractverifiertest.png&#34; &gt;
-		&lt;img src=&#34;http://example.org/images/contractverifiertest.png&#34;
+	&lt;a href=&#34;http://carolinesongbow.github.io/images/contractverifiertest.png&#34; &gt;
+		&lt;img src=&#34;http://carolinesongbow.github.io/images/contractverifiertest.png&#34;
 			
 			
 			
@@ -648,8 +648,8 @@ contracts &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
 &lt;p&gt;查看本地仓库，已生成契约 stub。&lt;/p&gt;
 &lt;p&gt;&lt;figure 
 	&gt;
-	&lt;a href=&#34;http://example.org/images/%e6%9c%ac%e5%9c%b0%e4%bb%93%e5%ba%93.png&#34; &gt;
-		&lt;img src=&#34;http://example.org/images/%e6%9c%ac%e5%9c%b0%e4%bb%93%e5%ba%93.png&#34;
+	&lt;a href=&#34;http://carolinesongbow.github.io/images/%e6%9c%ac%e5%9c%b0%e4%bb%93%e5%ba%93.png&#34; &gt;
+		&lt;img src=&#34;http://carolinesongbow.github.io/images/%e6%9c%ac%e5%9c%b0%e4%bb%93%e5%ba%93.png&#34;
 			
 			
 			
@@ -737,8 +737,8 @@ NEXUS_PASSWORD=admin123
 &lt;p&gt;查看，均已发布成功！&lt;/p&gt;
 &lt;p&gt;&lt;figure 
 	&gt;
-	&lt;a href=&#34;http://example.org/images/stubspublish.png&#34; &gt;
-		&lt;img src=&#34;http://example.org/images/stubspublish.png&#34;
+	&lt;a href=&#34;http://carolinesongbow.github.io/images/stubspublish.png&#34; &gt;
+		&lt;img src=&#34;http://carolinesongbow.github.io/images/stubspublish.png&#34;
 			
 			
 			
@@ -775,10 +775,10 @@ NEXUS_PASSWORD=admin123
         </item>
         <item>
         <title>「Docker核心技术原理及其应用学习笔记」</title>
-        <link>http://example.org/post/2018-10-28-docker%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <link>http://carolinesongbow.github.io/post/2018-10-28-docker%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Sun, 28 Oct 2018 16:17:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2018-10-28-docker%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+        <guid>http://carolinesongbow.github.io/post/2018-10-28-docker%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
         <description>&lt;h1 id=&#34;docker概览&#34;&gt;Docker概览&lt;/h1&gt;
 &lt;p&gt;Docker 容器的概念约等于虚拟机。&lt;/p&gt;
 &lt;h2 id=&#34;docker-底层&#34;&gt;Docker 底层&lt;/h2&gt;
@@ -800,8 +800,8 @@ NEXUS_PASSWORD=admin123
 &lt;p&gt;镜像是一个 Docker 的可执行文件，通过镜像可以创建一个或多个容器。&lt;/p&gt;
 &lt;p&gt;&lt;figure 
 	&gt;
-	&lt;a href=&#34;http://example.org/images/docker-image.png&#34; &gt;
-		&lt;img src=&#34;http://example.org/images/docker-image.png&#34;
+	&lt;a href=&#34;http://carolinesongbow.github.io/images/docker-image.png&#34; &gt;
+		&lt;img src=&#34;http://carolinesongbow.github.io/images/docker-image.png&#34;
 			
 			
 			
@@ -918,8 +918,8 @@ E:\code\dockerfiles&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&g
 &lt;h2 id=&#34;容器的生命周期&#34;&gt;容器的生命周期&lt;/h2&gt;
 &lt;p&gt;&lt;figure 
 	&gt;
-	&lt;a href=&#34;http://example.org/images/docker%e5%ae%b9%e5%99%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f.png&#34; &gt;
-		&lt;img src=&#34;http://example.org/images/docker%e5%ae%b9%e5%99%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f.png&#34;
+	&lt;a href=&#34;http://carolinesongbow.github.io/images/docker%e5%ae%b9%e5%99%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f.png&#34; &gt;
+		&lt;img src=&#34;http://carolinesongbow.github.io/images/docker%e5%ae%b9%e5%99%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f.png&#34;
 			
 			
 			
@@ -1058,8 +1058,8 @@ E:\code\dockerfiles&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&g
 &lt;h1 id=&#34;容器与镜像&#34;&gt;容器与镜像&lt;/h1&gt;
 &lt;p&gt;&lt;figure 
 	&gt;
-	&lt;a href=&#34;http://example.org/images/1547970788929.png&#34; &gt;
-		&lt;img src=&#34;http://example.org/images/1547970788929.png&#34;
+	&lt;a href=&#34;http://carolinesongbow.github.io/images/1547970788929.png&#34; &gt;
+		&lt;img src=&#34;http://carolinesongbow.github.io/images/1547970788929.png&#34;
 			
 			
 			
@@ -1084,10 +1084,10 @@ E:\code\dockerfiles&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&g
         </item>
         <item>
         <title>Docker学习</title>
-        <link>http://example.org/post/2018-08-17-docker%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://carolinesongbow.github.io/post/2018-08-17-docker%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Fri, 17 Aug 2018 11:25:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2018-08-17-docker%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://carolinesongbow.github.io/post/2018-08-17-docker%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;h1 id=&#34;镜像&#34;&gt;镜像&lt;/h1&gt;
 &lt;h2 id=&#34;获取镜像&#34;&gt;获取镜像&lt;/h2&gt;
 &lt;p&gt;docker pull [选项] [Docker Registry 地]&lt;/p&gt;
@@ -1096,10 +1096,10 @@ E:\code\dockerfiles&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&g
         </item>
         <item>
         <title>python3.5学习</title>
-        <link>http://example.org/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</link>
+        <link>http://carolinesongbow.github.io/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</link>
         <pubDate>Tue, 17 Jul 2018 21:23:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</guid>
+        <guid>http://carolinesongbow.github.io/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</guid>
         <description>&lt;h1 id=&#34;基础&#34;&gt;基础&lt;/h1&gt;
 &lt;h2 id=&#34;数据类型&#34;&gt;数据类型&lt;/h2&gt;
 &lt;p&gt;Python 3 中有 6 种标准的数据类型：Number, String, List, Tuple, Sets, Dictionary。&lt;/p&gt;
@@ -3161,10 +3161,10 @@ file_object&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
         </item>
         <item>
         <title>Redis 内存模型深入</title>
-        <link>http://example.org/post/2018-04-28-redis-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B7%B1%E5%85%A5/</link>
+        <link>http://carolinesongbow.github.io/post/2018-04-28-redis-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B7%B1%E5%85%A5/</link>
         <pubDate>Sat, 28 Apr 2018 17:49:00 +0800</pubDate>
         
-        <guid>http://example.org/post/2018-04-28-redis-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B7%B1%E5%85%A5/</guid>
+        <guid>http://carolinesongbow.github.io/post/2018-04-28-redis-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E6%B7%B1%E5%85%A5/</guid>
         <description>&lt;p&gt;Redis 内存模型深入&lt;/p&gt;
 &lt;h2 id=&#34;redis-内存统计&#34;&gt;Redis 内存统计&lt;/h2&gt;
 &lt;ul&gt;
@@ -3225,8 +3225,8 @@ Redis 主进程本身运行，代码、常量池等需要占用的内存。&lt;b
 &lt;p&gt;当 Redis set hello world 的时候，它干了啥
 &lt;figure 
 	&gt;
-	&lt;a href=&#34;http://example.org/images/redis-dictEntry.png&#34; &gt;
-		&lt;img src=&#34;http://example.org/images/redis-dictEntry.png&#34;
+	&lt;a href=&#34;http://carolinesongbow.github.io/images/redis-dictEntry.png&#34; &gt;
+		&lt;img src=&#34;http://carolinesongbow.github.io/images/redis-dictEntry.png&#34;
 			
 			
 			
@@ -3474,8 +3474,8 @@ ziplist 可以转 linkedlist，而 linkedlist 不能转 ziplist。&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;figure 
 	&gt;
-	&lt;a href=&#34;http://example.org/images/redis-hashtable.jpg&#34; &gt;
-		&lt;img src=&#34;http://example.org/images/redis-hashtable.jpg&#34;
+	&lt;a href=&#34;http://carolinesongbow.github.io/images/redis-hashtable.jpg&#34; &gt;
+		&lt;img src=&#34;http://carolinesongbow.github.io/images/redis-hashtable.jpg&#34;
 			
 			
 			
@@ -3589,8 +3589,8 @@ ziplist 可以转 hashtable，而 hashtable 不能转 ziplist。&lt;/p&gt;
 &lt;p&gt;例，如果 key 的长度是 8 字节，则 SDS 为 17 字节（free+len+9），jemalloc 分配 32 字节；而若 key 的长度是 7 字节，则 SDS 为 16 字节，jemalloc 分配 16 字节。&lt;/p&gt;
 &lt;p&gt;&lt;figure 
 	&gt;
-	&lt;a href=&#34;http://example.org/images/jemalloc-save-space.png&#34; &gt;
-		&lt;img src=&#34;http://example.org/images/jemalloc-save-space.png&#34;
+	&lt;a href=&#34;http://carolinesongbow.github.io/images/jemalloc-save-space.png&#34; &gt;
+		&lt;img src=&#34;http://carolinesongbow.github.io/images/jemalloc-save-space.png&#34;
 			
 			
 			
@@ -3617,10 +3617,10 @@ ziplist 可以转 hashtable，而 hashtable 不能转 ziplist。&lt;/p&gt;
         </item>
         <item>
         <title>mongodb基础学习笔记（更新中）</title>
-        <link>http://example.org/post/2017-10-17-mongodb%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
+        <link>http://carolinesongbow.github.io/post/2017-10-17-mongodb%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
         <pubDate>Tue, 17 Oct 2017 21:26:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-10-17-mongodb%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-10-17-mongodb%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
         <description>&lt;h1 id=&#34;基本概念&#34;&gt;基本概念&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;mongodb 中文网站：www.mongoing.com&lt;/li&gt;
@@ -3748,10 +3748,10 @@ MongoDB 有一套默认的索引命名方式，为了直观可以自行命名索
         </item>
         <item>
         <title>喵</title>
-        <link>http://example.org/post/2017-09-21-%E5%96%B5/</link>
+        <link>http://carolinesongbow.github.io/post/2017-09-21-%E5%96%B5/</link>
         <pubDate>Thu, 21 Sep 2017 15:33:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-09-21-%E5%96%B5/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-09-21-%E5%96%B5/</guid>
         <description>&lt;p&gt;其实非常不喜欢被称作是“程序媛”，仿佛是被独立在“程序员”之外的一个物种，就像女博士和女司机一样。&lt;/p&gt;
 &lt;p&gt;女性程序员根本就没有传说中那么稀有。但人们说起程序员，仿佛就默认他是个男人，这令人十分不愉快。&lt;/p&gt;
 &lt;p&gt;下周就要去迪士尼了，脐带。&lt;/p&gt;
@@ -3759,10 +3759,10 @@ MongoDB 有一套默认的索引命名方式，为了直观可以自行命名索
         </item>
         <item>
         <title>python学习笔记（更新中）</title>
-        <link>http://example.org/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
+        <link>http://carolinesongbow.github.io/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
         <pubDate>Sat, 22 Jul 2017 00:09:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
         <description>&lt;h2 id=&#34;基础知识&#34;&gt;基础知识&lt;/h2&gt;
 &lt;h3 id=&#34;字符串&#34;&gt;字符串&lt;/h3&gt;
 &lt;ul&gt;
@@ -3958,10 +3958,10 @@ num_c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#
         </item>
         <item>
         <title>绿色版jdk安装执行命令</title>
-        <link>http://example.org/post/2017-07-14-%E7%BB%BF%E8%89%B2%E7%89%88jdk%E5%AE%89%E8%A3%85%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4/</link>
+        <link>http://carolinesongbow.github.io/post/2017-07-14-%E7%BB%BF%E8%89%B2%E7%89%88jdk%E5%AE%89%E8%A3%85%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4/</link>
         <pubDate>Fri, 14 Jul 2017 17:41:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-07-14-%E7%BB%BF%E8%89%B2%E7%89%88jdk%E5%AE%89%E8%A3%85%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-07-14-%E7%BB%BF%E8%89%B2%E7%89%88jdk%E5%AE%89%E8%A3%85%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4/</guid>
         <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@fbgouhuaapp01 java&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# alternatives --install /usr/bin/java java /usr/local/java/jdk1.8.0_121/bin/java 2&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;root@fbgouhuaapp01 java&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# alternatives --config java&lt;/span&gt;
 
@@ -3982,10 +3982,10 @@ Enter to keep the current selection&lt;span style=&#34;color:#f92672&#34;&gt;[&l
         </item>
         <item>
         <title>shell学习笔记（更新中）</title>
-        <link>http://example.org/post/2017-03-29-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
+        <link>http://carolinesongbow.github.io/post/2017-03-29-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
         <pubDate>Sun, 02 Apr 2017 17:57:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-03-29-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-03-29-shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
         <description>&lt;h2 id=&#34;什么时候不使用shell&#34;&gt;什么时候不使用shell&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;大量数据处理任务，尤其是当要求速度时（排序、哈希、递归）。&lt;/li&gt;
@@ -4169,10 +4169,10 @@ sum&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;$&lt;span style=&#34;
         </item>
         <item>
         <title>Springboot下拦截器实现</title>
-        <link>http://example.org/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</link>
+        <link>http://carolinesongbow.github.io/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</link>
         <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</guid>
         <description>&lt;ol&gt;
 &lt;li&gt;新建一个注释类&lt;/li&gt;
 &lt;/ol&gt;
@@ -4257,10 +4257,10 @@ sum&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;$&lt;span style=&#34;
         </item>
         <item>
         <title>终于理解流星花园中嫌弃速溶咖啡的富家女了</title>
-        <link>http://example.org/post/2017-03-20-%E7%BB%88%E4%BA%8E%E7%90%86%E8%A7%A3%E6%B5%81%E6%98%9F%E8%8A%B1%E5%9B%AD%E4%B8%AD%E5%AB%8C%E5%BC%83%E9%80%9F%E6%BA%B6%E5%92%96%E5%95%A1%E7%9A%84%E5%AF%8C%E5%AE%B6%E5%A5%B3%E4%BA%86/</link>
+        <link>http://carolinesongbow.github.io/post/2017-03-20-%E7%BB%88%E4%BA%8E%E7%90%86%E8%A7%A3%E6%B5%81%E6%98%9F%E8%8A%B1%E5%9B%AD%E4%B8%AD%E5%AB%8C%E5%BC%83%E9%80%9F%E6%BA%B6%E5%92%96%E5%95%A1%E7%9A%84%E5%AF%8C%E5%AE%B6%E5%A5%B3%E4%BA%86/</link>
         <pubDate>Mon, 20 Mar 2017 13:55:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-03-20-%E7%BB%88%E4%BA%8E%E7%90%86%E8%A7%A3%E6%B5%81%E6%98%9F%E8%8A%B1%E5%9B%AD%E4%B8%AD%E5%AB%8C%E5%BC%83%E9%80%9F%E6%BA%B6%E5%92%96%E5%95%A1%E7%9A%84%E5%AF%8C%E5%AE%B6%E5%A5%B3%E4%BA%86/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-03-20-%E7%BB%88%E4%BA%8E%E7%90%86%E8%A7%A3%E6%B5%81%E6%98%9F%E8%8A%B1%E5%9B%AD%E4%B8%AD%E5%AB%8C%E5%BC%83%E9%80%9F%E6%BA%B6%E5%92%96%E5%95%A1%E7%9A%84%E5%AF%8C%E5%AE%B6%E5%A5%B3%E4%BA%86/</guid>
         <description>&lt;p&gt;被公司的意式咖啡机惯得，回家喝速溶咖啡，难喝到想吐。&lt;br&gt;
 啊！可是我一个月前刚屯了整整三瓶速溶咖啡啊！&lt;br&gt;
 忧伤脸。&lt;br&gt;
@@ -4270,10 +4270,10 @@ sum&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;$&lt;span style=&#34;
         </item>
         <item>
         <title>Alibaba: Java 代码规范（部分）</title>
-        <link>http://example.org/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</link>
+        <link>http://carolinesongbow.github.io/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</link>
         <pubDate>Sat, 18 Mar 2017 11:10:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</guid>
         <description>&lt;h1 id=&#34;java-代码规范&#34;&gt;Java 代码规范&lt;/h1&gt;
 &lt;h2 id=&#34;编程规约&#34;&gt;编程规约&lt;/h2&gt;
 &lt;h3 id=&#34;命名规则&#34;&gt;命名规则&lt;/h3&gt;
@@ -4494,10 +4494,10 @@ logger&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#3
         </item>
         <item>
         <title>Eureka 的 RestTemplate 问题</title>
-        <link>http://example.org/post/2017-03-04-eureka%E7%9A%84resttemplate%E9%97%AE%E9%A2%98/</link>
+        <link>http://carolinesongbow.github.io/post/2017-03-04-eureka%E7%9A%84resttemplate%E9%97%AE%E9%A2%98/</link>
         <pubDate>Sat, 04 Mar 2017 14:53:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-03-04-eureka%E7%9A%84resttemplate%E9%97%AE%E9%A2%98/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-03-04-eureka%E7%9A%84resttemplate%E9%97%AE%E9%A2%98/</guid>
         <description>&lt;p&gt;环境中配置了 Eureka ，在发起 HttpClient 请求时，遇到「eureka No instances available for &amp;hellip;」的问题。这是由于发起请求的目标域名在 Eureka 服务器中没有实例。&lt;br&gt;
 查 &lt;a class=&#34;link&#34; href=&#34;http://stackoverflow.com/questions/31574131/ribbon-with-spring-cloud-and-eureka-java-lang-illegalstateexception-no-instanc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;资料&lt;/a&gt; ，有两种解决办法：&lt;/p&gt;
@@ -4517,10 +4517,10 @@ ResponseEntity&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Map
         </item>
         <item>
         <title>AJAX 给 JS 全局变量赋值的问题</title>
-        <link>http://example.org/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+        <link>http://carolinesongbow.github.io/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</link>
         <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
         <description>&lt;p&gt;在执行下面这段代码时遇到问题：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;applseq&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;;
 &lt;span style=&#34;color:#a6e22e&#34;&gt;$&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ajax&lt;/span&gt;({
@@ -4554,10 +4554,10 @@ ResponseEntity&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Map
         </item>
         <item>
         <title>AJAX POST请求提交表单信息</title>
-        <link>http://example.org/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</link>
+        <link>http://carolinesongbow.github.io/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</link>
         <pubDate>Sat, 04 Mar 2017 13:42:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</guid>
         <description>&lt;p&gt;当前使用的 jQuery 版本不支持 serializeObject，因此引入该函数：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;$&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;prototype&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;serializeObject&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(){
    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;obj&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; Object();
@@ -4590,10 +4590,10 @@ ResponseEntity&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;Map
         </item>
         <item>
         <title>win10 搭建 linux 虚拟机局域网，安装 MySQL</title>
-        <link>http://example.org/post/2017-03-04-win10%E6%90%AD%E5%BB%BAlinux%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%80%E5%9F%9F%E7%BD%91-%E5%AE%89%E8%A3%85mysql/</link>
+        <link>http://carolinesongbow.github.io/post/2017-03-04-win10%E6%90%AD%E5%BB%BAlinux%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%80%E5%9F%9F%E7%BD%91-%E5%AE%89%E8%A3%85mysql/</link>
         <pubDate>Sat, 04 Mar 2017 13:29:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-03-04-win10%E6%90%AD%E5%BB%BAlinux%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%80%E5%9F%9F%E7%BD%91-%E5%AE%89%E8%A3%85mysql/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-03-04-win10%E6%90%AD%E5%BB%BAlinux%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B1%80%E5%9F%9F%E7%BD%91-%E5%AE%89%E8%A3%85mysql/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;为了完成搭建 MySQL 主从数据库的任务，在自己电脑上从头搭建环境。遇到的问题和解决方法在这里做一一记录。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -4764,10 +4764,10 @@ DNS1&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;192.168.1.1
         </item>
         <item>
         <title>Hi!!</title>
-        <link>http://example.org/post/2017-03-02-hi/</link>
+        <link>http://carolinesongbow.github.io/post/2017-03-02-hi/</link>
         <pubDate>Thu, 02 Mar 2017 23:39:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-03-02-hi/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-03-02-hi/</guid>
         <description>&lt;p&gt;first blog&lt;/p&gt;
 &lt;p&gt;终于把blog搭起来了，累！&lt;br&gt;
 等等就把在简书的东西都挪过来！&lt;br&gt;
@@ -4776,11 +4776,11 @@ DNS1&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;192.168.1.1
         </item>
         <item>
         <title>MySQL 搭建主从数据库</title>
-        <link>http://example.org/post/2017-01-02-mysql%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+        <link>http://carolinesongbow.github.io/post/2017-01-02-mysql%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
         <pubDate>Mon, 02 Jan 2017 23:39:54 +0800</pubDate>
         
-        <guid>http://example.org/post/2017-01-02-mysql%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
-        <description>&lt;img src="http://example.org/images/3953273590_704e3899d5_m.jpg" alt="Featured image of post MySQL 搭建主从数据库" /&gt;&lt;ul&gt;
+        <guid>http://carolinesongbow.github.io/post/2017-01-02-mysql%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+        <description>&lt;img src="http://carolinesongbow.github.io/images/3953273590_704e3899d5_m.jpg" alt="Featured image of post MySQL 搭建主从数据库" /&gt;&lt;ul&gt;
 &lt;li&gt;使用 MySQL 版本：5.7&lt;/li&gt;
 &lt;li&gt;系统环境：CentOS 6.5&lt;/li&gt;
 &lt;/ul&gt;
@@ -5067,22 +5067,22 @@ mysql&amp;gt; show databases;
         </item>
         <item>
         <title>Placeholder Text</title>
-        <link>http://example.org/post/placeholder-text/</link>
+        <link>http://carolinesongbow.github.io/post/placeholder-text/</link>
         <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
         
-        <guid>http://example.org/post/placeholder-text/</guid>
-        <description>&lt;img src="http://example.org/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" /&gt;&lt;p&gt;&lt;figure 
+        <guid>http://carolinesongbow.github.io/post/placeholder-text/</guid>
+        <description>&lt;img src="http://carolinesongbow.github.io/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg" alt="Featured image of post Placeholder Text" /&gt;&lt;p&gt;&lt;figure 
 	
 		class=&#34;gallery-image&#34; 
 		style=&#34;
 			flex-grow: 150; 
 			flex-basis: 360px&#34;
 	&gt;
-	&lt;a href=&#34;http://example.org/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg&#34; data-size=&#34;1500x1000&#34;&gt;
-		&lt;img src=&#34;http://example.org/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg&#34;
+	&lt;a href=&#34;http://carolinesongbow.github.io/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg&#34; data-size=&#34;1500x1000&#34;&gt;
+		&lt;img src=&#34;http://carolinesongbow.github.io/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash.jpg&#34;
 			width=&#34;1500&#34;
 			height=&#34;1000&#34;
-			srcset=&#34;http://example.org/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash_hu958d513eeefe5556a31d065479ecc5ac_14205_480x0_resize_q75_box.jpg 480w, http://example.org/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash_hu958d513eeefe5556a31d065479ecc5ac_14205_1024x0_resize_q75_box.jpg 1024w&#34;
+			srcset=&#34;http://carolinesongbow.github.io/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash_hu958d513eeefe5556a31d065479ecc5ac_14205_480x0_resize_q75_box.jpg 480w, http://carolinesongbow.github.io/post/placeholder-text/matt-le-SJSpo9hQf7s-unsplash_hu958d513eeefe5556a31d065479ecc5ac_14205_1024x0_resize_q75_box.jpg 1024w&#34;
 			loading=&#34;lazy&#34;
 			alt=&#34;图片&#34;&gt;
 	&lt;/a&gt;
@@ -5117,10 +5117,10 @@ Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
         </item>
         <item>
         <title>Rich Content</title>
-        <link>http://example.org/post/rich-content/</link>
+        <link>http://carolinesongbow.github.io/post/rich-content/</link>
         <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
         
-        <guid>http://example.org/post/rich-content/</guid>
+        <guid>http://carolinesongbow.github.io/post/rich-content/</guid>
         <description>&lt;p&gt;Hugo ships with several &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Built-in Shortcodes&lt;/a&gt; for rich content, along with a &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/about/hugo-and-gdpr/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Privacy Config&lt;/a&gt; and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.&lt;/p&gt;
@@ -5159,10 +5159,10 @@ Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
         </item>
         <item>
         <title>Java 1.8 学习笔记——Lambda</title>
-        <link>http://example.org/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/</link>
+        <link>http://carolinesongbow.github.io/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://example.org/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/</guid>
+        <guid>http://carolinesongbow.github.io/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/</guid>
         <description>&lt;h2 id=&#34;java中重要的函数接口&#34;&gt;java中重要的函数接口&lt;/h2&gt;
 &lt;table&gt;
 &lt;thead&gt;

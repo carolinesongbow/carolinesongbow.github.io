@@ -5,13 +5,13 @@
 $.prototype.serializeObject=function(){ var obj=new Object(); $.each(this.serializeArray(),function(index,param){ if(!(param.name in obj)){ obj[param.name]=param.value; } }); return obj; }; 然后序列化该表单数据，并发送 AJAX 请求：
 var param = JSON.stringify($(&amp;#34;#applicationForm&amp;#34;).serializeObject()); $.ajax({ url: &amp;#34;/app/saveUsers&amp;#34;, data: param, type: &amp;#34;POST&amp;#34;, contentType: &amp;#34;application/json&amp;#34;, success: function(data){ if (data.head.retFlag==&amp;#34;00000&amp;#34;){ alert(&amp;#34;注册成功！&amp;#34;); window.location.href=&amp;#39;/app/ht/signContract.html&amp;#39;; return; } else { alert(data.head.retMsg); return; } }}); '><title>AJAX POST请求提交表单信息</title>
 
-<link rel='canonical' href='http://example.org/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/'>
+<link rel='canonical' href='http://carolinesongbow.github.io/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='AJAX POST请求提交表单信息'>
 <meta property='og:description' content='当前使用的 jQuery 版本不支持 serializeObject，因此引入该函数：
 $.prototype.serializeObject=function(){ var obj=new Object(); $.each(this.serializeArray(),function(index,param){ if(!(param.name in obj)){ obj[param.name]=param.value; } }); return obj; }; 然后序列化该表单数据，并发送 AJAX 请求：
 var param = JSON.stringify($(&amp;#34;#applicationForm&amp;#34;).serializeObject()); $.ajax({ url: &amp;#34;/app/saveUsers&amp;#34;, data: param, type: &amp;#34;POST&amp;#34;, contentType: &amp;#34;application/json&amp;#34;, success: function(data){ if (data.head.retFlag==&amp;#34;00000&amp;#34;){ alert(&amp;#34;注册成功！&amp;#34;); window.location.href=&amp;#39;/app/ht/signContract.html&amp;#39;; return; } else { alert(data.head.retMsg); return; } }}); '>
-<meta property='og:url' content='http://example.org/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/'>
+<meta property='og:url' content='http://carolinesongbow.github.io/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/'>
 <meta property='og:site_name' content='芝士饼干蛋挞'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='JS' /><meta property='article:tag' content='AJAX' /><meta property='article:tag' content='jQuery' /><meta property='article:published_time' content='2017-03-04T13:42:54&#43;08:00'/><meta property='article:modified_time' content='2017-03-04T13:42:54&#43;08:00'/>
 <meta name="twitter:title" content="AJAX POST请求提交表单信息">

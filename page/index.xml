@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pages on 芝士饼干蛋挞</title>
-    <link>http://example.org/page/</link>
+    <link>http://carolinesongbow.github.io/page/</link>
     <description>Recent content in Pages on 芝士饼干蛋挞</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="http://example.org/page/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="http://carolinesongbow.github.io/page/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Archives</title>
-      <link>http://example.org/page/archives/</link>
+      <link>http://carolinesongbow.github.io/page/archives/</link>
       <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/page/archives/</guid>
+      <guid>http://carolinesongbow.github.io/page/archives/</guid>
       <description></description>
     </item>
     
     <item>
       <title>About</title>
-      <link>http://example.org/page/about/</link>
+      <link>http://carolinesongbow.github.io/page/about/</link>
       <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/page/about/</guid>
+      <guid>http://carolinesongbow.github.io/page/about/</guid>
       <description>Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
 Hugo makes use of a variety of open source projects including:
  https://github.</description>
@@ -29,10 +29,10 @@ Hugo makes use of a variety of open source projects including:
     
     <item>
       <title>Search</title>
-      <link>http://example.org/page/search/</link>
+      <link>http://carolinesongbow.github.io/page/search/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/page/search/</guid>
+      <guid>http://carolinesongbow.github.io/page/search/</guid>
       <description></description>
     </item>
     

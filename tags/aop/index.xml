@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>AOP on 芝士饼干蛋挞</title>
-    <link>http://example.org/tags/aop/</link>
+    <link>http://carolinesongbow.github.io/tags/aop/</link>
     <description>Recent content in AOP on 芝士饼干蛋挞</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 24 Mar 2017 10:06:54 +0800</lastBuildDate><atom:link href="http://example.org/tags/aop/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 24 Mar 2017 10:06:54 +0800</lastBuildDate><atom:link href="http://carolinesongbow.github.io/tags/aop/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Springboot下拦截器实现</title>
-      <link>http://example.org/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</link>
+      <link>http://carolinesongbow.github.io/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
       
-      <guid>http://example.org/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>http://carolinesongbow.github.io/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</guid>
       <description>新建一个注释类  @Target(ElementType.METHOD) @Retention(RetentionPolicy.RUNTIME) @Documented public @interface RequestCheck { boolean value() default true; } 新建一个拦截器类  @Aspect @Component public class RequestInterceptor { public Log logger = LogFactory.getLog(this.getClass()); // 拦截开关  @Value(&amp;#34;${common.app.checkAuth}&amp;#34;) private Boolean checkAuth; private static final byte[] userStore = RedisUtil.serialize(&amp;#34;__token_app_userStore&amp;#34;); @Pointcut(&amp;#34;execution(* com.mytest..*.*(..)) &amp;amp;&amp;amp; @annotation(com.mytest.app.util.annotation.RequestCheck)&amp;#34;) private void requestNeedCheck() { } @Before(&amp;#34;requestNeedCheck()&amp;#34;) public void before(JoinPoint joinPoint) throws Throwable { if (!checkAuth) { return; } HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()) .getRequest(); String userId = request.</description>
     </item>
     

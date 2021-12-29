@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JS on 芝士饼干蛋挞</title>
-    <link>http://example.org/tags/js/</link>
+    <link>http://carolinesongbow.github.io/tags/js/</link>
     <description>Recent content in JS on 芝士饼干蛋挞</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Mar 2017 13:45:54 +0800</lastBuildDate><atom:link href="http://example.org/tags/js/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Mar 2017 13:45:54 +0800</lastBuildDate><atom:link href="http://carolinesongbow.github.io/tags/js/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AJAX 给 JS 全局变量赋值的问题</title>
-      <link>http://example.org/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <link>http://carolinesongbow.github.io/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</link>
       <pubDate>Sat, 04 Mar 2017 13:45:54 +0800</pubDate>
       
-      <guid>http://example.org/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <guid>http://carolinesongbow.github.io/post/2017-03-04-ajax%E7%BB%99js%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
       <description>在执行下面这段代码时遇到问题：
 var applseq = &amp;#34;&amp;#34;; $.ajax({ type: &amp;#34;GET&amp;#34;, url: &amp;#34;/app/appserver/ca/hdjrforward&amp;#34;, data: { &amp;#34;code&amp;#34;: code }, dataType: &amp;#34;json&amp;#34;, success: function (data) { applseq = data.body.applseq; alert(&amp;#34;1：&amp;#34;+applseq); } alert(&amp;#34;2：&amp;#34;+applseq); }); 运行结果是，先弹「2：」，接着弹「1：422133」。
 且结果是必然如是发生的。
@@ -28,10 +28,10 @@ async: false, </description>
     
     <item>
       <title>AJAX POST请求提交表单信息</title>
-      <link>http://example.org/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</link>
+      <link>http://carolinesongbow.github.io/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</link>
       <pubDate>Sat, 04 Mar 2017 13:42:54 +0800</pubDate>
       
-      <guid>http://example.org/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</guid>
+      <guid>http://carolinesongbow.github.io/post/2017-03-04-ajax-post%E8%AF%B7%E6%B1%82%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E4%BF%A1%E6%81%AF/</guid>
       <description>当前使用的 jQuery 版本不支持 serializeObject，因此引入该函数：
 $.prototype.serializeObject=function(){ var obj=new Object(); $.each(this.serializeArray(),function(index,param){ if(!(param.name in obj)){ obj[param.name]=param.value; } }); return obj; }; 然后序列化该表单数据，并发送 AJAX 请求：
 var param = JSON.stringify($(&amp;#34;#applicationForm&amp;#34;).serializeObject()); $.ajax({ url: &amp;#34;/app/saveUsers&amp;#34;, data: param, type: &amp;#34;POST&amp;#34;, contentType: &amp;#34;application/json&amp;#34;, success: function(data){ if (data.head.retFlag==&amp;#34;00000&amp;#34;){ alert(&amp;#34;注册成功！&amp;#34;); window.location.href=&amp;#39;/app/ht/signContract.html&amp;#39;; return; } else { alert(data.head.retMsg); return; } }}); </description>

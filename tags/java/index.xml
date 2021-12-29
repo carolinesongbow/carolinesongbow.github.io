@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on 芝士饼干蛋挞</title>
-    <link>http://example.org/tags/java/</link>
+    <link>http://carolinesongbow.github.io/tags/java/</link>
     <description>Recent content in Java on 芝士饼干蛋挞</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 24 Mar 2017 10:06:54 +0800</lastBuildDate><atom:link href="http://example.org/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 24 Mar 2017 10:06:54 +0800</lastBuildDate><atom:link href="http://carolinesongbow.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Springboot下拦截器实现</title>
-      <link>http://example.org/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</link>
+      <link>http://carolinesongbow.github.io/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Fri, 24 Mar 2017 10:06:54 +0800</pubDate>
       
-      <guid>http://example.org/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>http://carolinesongbow.github.io/post/2017-03-24-springboot%E4%B8%8B%E6%8B%A6%E6%88%AA%E5%99%A8%E5%AE%9E%E7%8E%B0/</guid>
       <description>新建一个注释类  @Target(ElementType.METHOD) @Retention(RetentionPolicy.RUNTIME) @Documented public @interface RequestCheck { boolean value() default true; } 新建一个拦截器类  @Aspect @Component public class RequestInterceptor { public Log logger = LogFactory.getLog(this.getClass()); // 拦截开关  @Value(&amp;#34;${common.app.checkAuth}&amp;#34;) private Boolean checkAuth; private static final byte[] userStore = RedisUtil.serialize(&amp;#34;__token_app_userStore&amp;#34;); @Pointcut(&amp;#34;execution(* com.mytest..*.*(..)) &amp;amp;&amp;amp; @annotation(com.mytest.app.util.annotation.RequestCheck)&amp;#34;) private void requestNeedCheck() { } @Before(&amp;#34;requestNeedCheck()&amp;#34;) public void before(JoinPoint joinPoint) throws Throwable { if (!checkAuth) { return; } HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()) .getRequest(); String userId = request.</description>
     </item>
     
     <item>
       <title>Alibaba: Java 代码规范（部分）</title>
-      <link>http://example.org/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</link>
+      <link>http://carolinesongbow.github.io/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</link>
       <pubDate>Sat, 18 Mar 2017 11:10:54 +0800</pubDate>
       
-      <guid>http://example.org/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</guid>
+      <guid>http://carolinesongbow.github.io/post/2017-03-18-alibaba-java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E9%83%A8%E5%88%86/</guid>
       <description>Java 代码规范 编程规约 命名规则   【强制】抽象类命名使用 Abstract 或 Base 开头；异常类命名使用 Exception 结尾；测试类 命名以它要测试的类的名称开始，以 Test 结尾。
   【强制】POJO 类中布尔类型的变量，都不要加 is，否则部分框架解析会引起序列化错误。
 反例：定义为基本数据类型 boolean isSuccess；的属性，它的方法也是 isSuccess()，RPC 框架在反向解析的时候，“以为”对应的属性名称是 success，导致属性获取不到，进而抛出异 常。
@@ -38,10 +38,10 @@ A) Service/DAO 层方法命名规约
     
     <item>
       <title>Eureka 的 RestTemplate 问题</title>
-      <link>http://example.org/post/2017-03-04-eureka%E7%9A%84resttemplate%E9%97%AE%E9%A2%98/</link>
+      <link>http://carolinesongbow.github.io/post/2017-03-04-eureka%E7%9A%84resttemplate%E9%97%AE%E9%A2%98/</link>
       <pubDate>Sat, 04 Mar 2017 14:53:54 +0800</pubDate>
       
-      <guid>http://example.org/post/2017-03-04-eureka%E7%9A%84resttemplate%E9%97%AE%E9%A2%98/</guid>
+      <guid>http://carolinesongbow.github.io/post/2017-03-04-eureka%E7%9A%84resttemplate%E9%97%AE%E9%A2%98/</guid>
       <description>环境中配置了 Eureka ，在发起 HttpClient 请求时，遇到「eureka No instances available for &amp;hellip;」的问题。这是由于发起请求的目标域名在 Eureka 服务器中没有实例。
 查 资料 ，有两种解决办法：
  不要使用 netflix 这套路由服务（这居然也是一种办法么= =）； 不要使用默认的 RestTemplate 来发起请求，应 new 一个新的 RestTemplate 来操作。  具体实现代码如下：
@@ -50,10 +50,10 @@ JSONObject json = new JSONObject(sendParam); HttpHeaders headers = new HttpHeade
     
     <item>
       <title>Java 1.8 学习笔记——Lambda</title>
-      <link>http://example.org/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/</link>
+      <link>http://carolinesongbow.github.io/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/</guid>
+      <guid>http://carolinesongbow.github.io/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/</guid>
       <description>java中重要的函数接口    接口 参数 返回类型 示例     Predicate&amp;lt; T &amp;gt; T boolean 这张唱片已经发行了吗   Consumer&amp;lt; T &amp;gt; T void 输出一个值   Function&amp;lt; T,R &amp;gt; T R 获得Artist对象的名字   Supplier&amp;lt; T &amp;gt; None T 工厂方法   UnaryOperator&amp;lt; T &amp;gt; T T 逻辑非   BinaryOperator&amp;lt; T &amp;gt; (T,T) T 求两个数的乘积    stream 中的 filter 方法和 count 方法 filter 方法并未做什么实际性的工作，只刻画出了stream，但没有产生新的集合，这类方法叫惰性求值；
 count 方法最终会从 stream 产生值，这类方法叫及早求值方法。</description>
     </item>

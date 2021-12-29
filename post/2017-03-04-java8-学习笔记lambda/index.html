@@ -4,12 +4,12 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='java中重要的函数接口    接口 参数 返回类型 示例     Predicate&amp;lt; T &amp;gt; T boolean 这张唱片已经发行了吗   Consumer&amp;lt; T &amp;gt; T void 输出一个值   Function&amp;lt; T,R &amp;gt; T R 获得Artist对象的名字   Supplier&amp;lt; T &amp;gt; None T 工厂方法   UnaryOperator&amp;lt; T &amp;gt; T T 逻辑非   BinaryOperator&amp;lt; T &amp;gt; (T,T) T 求两个数的乘积    stream 中的 filter 方法和 count 方法 filter 方法并未做什么实际性的工作，只刻画出了stream，但没有产生新的集合，这类方法叫惰性求值；
 count 方法最终会从 stream 产生值，这类方法叫及早求值方法。'><title>Java 1.8 学习笔记——Lambda</title>
 
-<link rel='canonical' href='http://example.org/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/'>
+<link rel='canonical' href='http://carolinesongbow.github.io/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Java 1.8 学习笔记——Lambda'>
 <meta property='og:description' content='java中重要的函数接口    接口 参数 返回类型 示例     Predicate&amp;lt; T &amp;gt; T boolean 这张唱片已经发行了吗   Consumer&amp;lt; T &amp;gt; T void 输出一个值   Function&amp;lt; T,R &amp;gt; T R 获得Artist对象的名字   Supplier&amp;lt; T &amp;gt; None T 工厂方法   UnaryOperator&amp;lt; T &amp;gt; T T 逻辑非   BinaryOperator&amp;lt; T &amp;gt; (T,T) T 求两个数的乘积    stream 中的 filter 方法和 count 方法 filter 方法并未做什么实际性的工作，只刻画出了stream，但没有产生新的集合，这类方法叫惰性求值；
 count 方法最终会从 stream 产生值，这类方法叫及早求值方法。'>
-<meta property='og:url' content='http://example.org/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/'>
+<meta property='og:url' content='http://carolinesongbow.github.io/post/2017-03-04-java8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0lambda/'>
 <meta property='og:site_name' content='芝士饼干蛋挞'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' />
 <meta name="twitter:title" content="Java 1.8 学习笔记——Lambda">

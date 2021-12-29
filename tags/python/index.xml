@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>python on 芝士饼干蛋挞</title>
-    <link>http://example.org/tags/python/</link>
+    <link>http://carolinesongbow.github.io/tags/python/</link>
     <description>Recent content in python on 芝士饼干蛋挞</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Jul 2018 21:23:54 +0800</lastBuildDate><atom:link href="http://example.org/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 17 Jul 2018 21:23:54 +0800</lastBuildDate><atom:link href="http://carolinesongbow.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>python3.5学习</title>
-      <link>http://example.org/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</link>
+      <link>http://carolinesongbow.github.io/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</link>
       <pubDate>Tue, 17 Jul 2018 21:23:54 +0800</pubDate>
       
-      <guid>http://example.org/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</guid>
+      <guid>http://carolinesongbow.github.io/post/2018-07-17-python3.5%E5%AD%A6%E4%B9%A0/</guid>
       <description>基础 数据类型 Python 3 中有 6 种标准的数据类型：Number, String, List, Tuple, Sets, Dictionary。
 其中 Number 类型有 3 种：整型 int，浮点型 float，复数 complex。
 整型 int 整型没有限制大小，可以当作 long 类型使用。
@@ -28,10 +28,10 @@
     
     <item>
       <title>python学习笔记（更新中）</title>
-      <link>http://example.org/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
+      <link>http://carolinesongbow.github.io/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</link>
       <pubDate>Sat, 22 Jul 2017 00:09:54 +0800</pubDate>
       
-      <guid>http://example.org/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
+      <guid>http://carolinesongbow.github.io/post/2017-07-22-python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E6%9B%B4%E6%96%B0%E4%B8%AD/</guid>
       <description>基础知识 字符串  单引号和双引号是一个意思，三个引号被用于长短的文字或者说明 字符串+数字 会报错 字符串*数字 表示显示几遍的意思  # 字符串 乘以 数字 word = &amp;#34;words&amp;#34; * 3 print(word) # wordswordswords words = &amp;#39;a loooooong word&amp;#39; num = 12 string = &amp;#39;bang!&amp;#39; total = string * (len(words) - num) print(total) # bang!bang!bang!bang!  字符串分片 字符串的分片实际上可以看作是把字符串的一部分截取出来，复制储存在另一个地方（相当于是个副本），不会对原字符串做改动。
 分片时的字符串index，正数是从0开始从前往后数，负数是从-1开始从后往前数
 截取的时候与java的substring一样——包左不包右
